@@ -3,7 +3,7 @@
     background-color: #070707;
     top: 0;
     right: 0;
-    width: 300px;
+    width: 350px;
     max-height:  100vh;
     overflow-x: hidden;
   
@@ -11,8 +11,10 @@
 
 .notification-title{
     color: aliceblue;
-    padding: 10px;   
+    padding: 18px;   
     float: left;
+    font-size: large;
+    
 }
 
 
@@ -26,8 +28,9 @@
 }
 
 .notification-container{
-    padding: 10px ;
+    
     height: fit-content;
+    margin-top: 60px;
 }
 
 
@@ -40,22 +43,25 @@ figure.notification-card {
     color: aliceblue;
     @include flex(row,center,space-between,none);
     border-top: 2px solid white;
-    padding-top: 15px;
+    padding-top: 18px;
     padding-bottom: 15px;
-    clear: both;
+    padding-left: 10px;
+    padding-right: 10px;
+    
 }
 
 .notification-first-letter{
 border-radius: 50%;
 flex-shrink: 0;
-border: 2px solid yellow;
+border: 2px solid $brand-color;
 width: 30px;
 height: 30px;
 @include flex(row,center,center,none);
 }
 
 figcaption.notification-body{
-    margin-right: 20px;
+   padding: 0 10px;
+   text-align: center;
 }
 
 .delete-notification{
@@ -67,4 +73,5 @@ figcaption.notification-body{
     font-weight: 900;
     font-style: normal;
     cursor: pointer;
+    
 }
