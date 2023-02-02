@@ -44,8 +44,9 @@ flex-direction: column;
     appearance: none;
     outline: none;
     border: 1px solid white;
-    background-color: rgb(255, 255, 255);
-    width: 250px;
+    background-color: darken($brand-color,20);
+    color: aliceblue;
+    width: 200px;
     margin: auto;
     margin-top: 60px;
 }
