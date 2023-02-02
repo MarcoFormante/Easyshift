@@ -19,6 +19,7 @@
         
     }
 
+
     .header-nav-container--flex{
         display: flex;
         flex-direction: column;
@@ -40,6 +41,11 @@
 
     .menu-container{
         z-index: 20;
+    }
+
+
+    .notification-section{
+        width: 100%;
     }
 }
 

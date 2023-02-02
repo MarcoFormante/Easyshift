@@ -128,9 +128,10 @@ label[for=input-search-bar] {
   background-color: #070707;
   top: 0;
   right: 0;
-  width: 350px;
+  width: 460px;
   max-height: 100vh;
   overflow-x: hidden;
+  z-index: 20;
 }
 
 .notification-title {
@@ -147,6 +148,10 @@ label[for=input-search-bar] {
   float: right;
   margin-top: 13px;
   cursor: pointer;
+  font-size: 1.5em;
+  font-weight: 900;
+  font-style: normal;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
 }
 
 .notification-container {
@@ -462,5 +467,8 @@ form#form-newRequest {
   }
   .menu-container {
     z-index: 20;
+  }
+  .notification-section {
+    width: 100%;
   }
 }/*# sourceMappingURL=main.css.map */
