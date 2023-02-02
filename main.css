@@ -123,15 +123,39 @@ label[for=input-search-bar] {
   cursor: pointer;
 }
 
+.notification-icon-section {
+  position: fixed;
+  bottom: 50px;
+  left: 85%;
+  width: 40px;
+  height: 40px;
+}
+
+.notification-icon {
+  width: 100%;
+  height: 100%;
+}
+.notification-icon svg {
+  width: 100%;
+  height: 100%;
+  margin-left: 3px;
+}
+.notification-icon svg path {
+  width: 100%;
+}
+.notification-icon svg path.hasNotification {
+  fill: rgb(255, 0, 0);
+}
+
 .notification-section {
   position: fixed;
   background-color: #1d1c1c;
   top: 0;
-  right: 0;
   width: 460px;
   max-height: 100vh;
   overflow-x: hidden;
   z-index: 20;
+  left: 100%;
 }
 
 .notification-title {
