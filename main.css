@@ -465,9 +465,105 @@ form#form-newRequest {
   align-self: left;
 }
 
+.body-page-login {
+  width: 100vw;
+  height: 100vh;
+}
+
+.login-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 100%;
+  gap: 0px;
+}
+
+.text-login-title-section {
+  width: 100%;
+  padding-top: 20px;
+}
+.text-login-title-section figure {
+  font-size: calc(20px + 1vw);
+}
+
+.login-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.login-section figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  color: aliceblue;
+}
+
+.brand-title {
+  color: #315ff9;
+}
+
+figcaption {
+  border-bottom: 2px solid rgb(7, 61, 240);
+  padding-bottom: 10px;
+}
+
+.login-form-title {
+  font-size: calc(15px + 1vw);
+  color: aliceblue;
+}
+
+#form-login {
+  border: 1px solid white;
+  padding: 20px;
+  margin-top: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  gap: 30px;
+}
+#form-login input {
+  min-width: 250px;
+  height: 35px;
+  border-radius: 8px;
+}
+#form-login input.input-submit-login {
+  min-width: 220px;
+  background-color: rgb(7, 61, 240);
+  color: aliceblue;
+  font-weight: 900;
+}
+#form-login input:not(.input-submit-login) {
+  text-indent: 10px;
+}
+#form-login p.text-redirect-to-login {
+  font-size: 1.5em;
+  color: aliceblue;
+}
+#form-login p.text-redirect-to-login a {
+  color: #6386fa;
+  text-decoration: underline;
+}
+
 @media screen and (min-width: 769px) {
   .menu-container {
     display: none;
+  }
+  .login-container {
+    height: 70%;
+    gap: 20px;
+  }
+  .form-login-section {
+    margin-top: 100px;
   }
 }
 @media screen and (max-width: 768px) {
@@ -512,5 +608,8 @@ form#form-newRequest {
     flex-shrink: 0;
     min-width: 250px;
     margin-bottom: 20px;
+  }
+  .text-login-title-section {
+    padding-top: 0;
   }
 }/*# sourceMappingURL=main.css.map */

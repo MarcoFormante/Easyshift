@@ -2,11 +2,22 @@
     .menu-container{
         display: none;
     }
+
+    .login-container{
+       height: 70%;
+         gap: 20px;
+      }
+
+      .form-login-section{
+        margin-top: 100px;
+      }
 }
 
 
 
 @media screen and(max-width:768px){
+
+    
 
     .header-nav{
         width: 100vw;
@@ -59,5 +70,15 @@
         min-width: 250px;
         margin-bottom: 20px;
     }
+
+
+    .text-login-title-section{
+        padding-top: 0;
+    }
+   
+    
+    
 }
+
+
 
