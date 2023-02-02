@@ -423,4 +423,8 @@ form#form-newRequest {
   max-width: 600px;
   color: aliceblue;
   align-self: left;
+}
+
+::-webkit-input-placeholder {
+  display: none;
 }/*# sourceMappingURL=main.css.map */
