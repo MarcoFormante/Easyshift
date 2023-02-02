@@ -17,3 +17,9 @@
 .header-nav-container--flex{
     @include flex(row,center,center,20px);
 }
+
+
+.header-nav-item--active{
+    border-bottom: 2px solid $brand-color;
+    padding: 2px;
+}

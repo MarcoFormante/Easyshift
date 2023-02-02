@@ -1,14 +1,25 @@
+
+
+
 .main-requests{
     width: 80vw;
     margin: auto;
     padding: 10px;
+   min-height: 90vh;
 }
 
 .request-list{
     display: flex;
     flex-direction: row;
     gap: 20px;
-    align-items: center;
+    align-items: baseline;
     flex-wrap: wrap;
     justify-content: center;
+    height: 85vh;
+    overflow-x: hidden;
+
+            &::-webkit-scrollbar{
+                display: none;
+            }
+   
 }

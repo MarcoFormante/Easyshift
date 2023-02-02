@@ -1,11 +1,12 @@
-li.request-item{
+.request-item{
     max-width: 250px;
     background-color: rgba(4, 4, 4, 0.234);
     backdrop-filter: blur(50px);
     border-radius: 16px;
-    margin-top: 50px;
+    margin-top: 40px;
     flex-shrink: 0;
     min-width: 250px;
+    margin-bottom: 20px;
 }
 
 article.request-card-container{
