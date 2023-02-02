@@ -1,0 +1,14 @@
+.main-requests{
+    width: 80vw;
+    margin: auto;
+    padding: 10px;
+}
+
+.request-list{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}

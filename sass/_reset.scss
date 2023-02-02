@@ -1,0 +1,28 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html{
+    background-color: $first_surface;
+    background-image: url(/images/icons/pexels-bruno-thethe-1910236\ \(1\).jpg);
+    background-position:center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+body{
+    background-color: #181818b7;
+    height: 100vh;
+    backdrop-filter: blur(10px);
+}
+
+ul{
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+    color: aliceblue;
+}

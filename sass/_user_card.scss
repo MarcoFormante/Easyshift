@@ -1,0 +1,116 @@
+li.request-item{
+    max-width: 250px;
+    background-color: rgba(4, 4, 4, 0.234);
+    backdrop-filter: blur(50px);
+    border-radius: 16px;
+    margin-top: 50px;
+    flex-shrink: 0;
+    min-width: 250px;
+}
+
+article.request-card-container{
+    width: 80%;
+    border-radius: 16px;
+    margin: auto;
+    color: whitesmoke;
+}
+
+.card-header{
+align-items: center;
+margin-bottom: 20px;
+padding-top: 20px;
+}
+
+
+
+.card-first-letter{
+    border: 2px solid $brand_color;
+    width: 40px;
+    height: 40px;
+    @include flex(row,center,center,none);
+    font-size: 20px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background-color: $first_surface ;
+}
+
+
+
+.card-username{
+    font-size: 1.2em;
+    text-align: center;
+    width: 100%;
+}
+
+.delete-icon{
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    @include flex(row,center,center,none);
+    font-size: 3em;
+    cursor: pointer;
+    color:red;
+    background-clip: text;
+}
+
+
+
+.card-main-down{
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+
+
+
+.card-form-comment{
+    background-color: white;
+    padding: 5px 0px;   
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+}
+
+
+
+#card-input-comment{
+appearance: none;
+border-color: none;
+border: 0px;
+text-indent: 5px;
+
+    &:focus{
+        border: none;
+        border-color: none;
+        appearance: none;
+        outline: none;
+    }
+}
+
+.card-input-comments-btn-send{ 
+cursor: pointer;  
+}
+
+
+
+.card-comments-container{
+    margin-top: 15px;
+    text-align: right;
+    font-size: 1.4em;
+    display: flex;
+    justify-content: end;
+}
+
+
+
+.card-icon-comments{
+    cursor: pointer;
+    margin-top: 25px;
+    width: fit-content;
+   
+}
+
+
+
+
+

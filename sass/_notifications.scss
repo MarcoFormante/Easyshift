@@ -1,0 +1,70 @@
+.notification-section{
+    position: fixed;
+    background-color: #070707;
+    top: 0;
+    right: 0;
+    width: 300px;
+    max-height:  100vh;
+    overflow-x: hidden;
+  
+}
+
+.notification-title{
+    color: aliceblue;
+    padding: 10px;   
+    float: left;
+}
+
+
+.notification-close-btn{
+    color: aliceblue;
+    text-align: end;
+    padding-right: 20px;
+    float: right;
+    margin-top: 13px;
+    cursor: pointer;
+}
+
+.notification-container{
+    padding: 10px ;
+    height: fit-content;
+}
+
+
+.notification-inner{
+   
+    height: fit-content;
+}
+
+figure.notification-card {
+    color: aliceblue;
+    @include flex(row,center,space-between,none);
+    border-top: 2px solid white;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    clear: both;
+}
+
+.notification-first-letter{
+border-radius: 50%;
+flex-shrink: 0;
+border: 2px solid yellow;
+width: 30px;
+height: 30px;
+@include flex(row,center,center,none);
+}
+
+figcaption.notification-body{
+    margin-right: 20px;
+}
+
+.delete-notification{
+    width: 30px;
+    height: 30px;
+    @include flex(row,center,center,none);
+    background-color: rgb(172, 34, 34);
+    border-radius: 8px;
+    font-weight: 900;
+    font-style: normal;
+    cursor: pointer;
+}
