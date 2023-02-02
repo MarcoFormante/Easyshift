@@ -10,38 +10,31 @@
     @include flex(row,baseline,center,none);
     width: 100vw;
     height: 100vh;
+    padding-top: 20px;
 }
 
 .inner-form-section{
-    width: 50%;
-    height: 50%;
+    width: 100%;
+    height: 100%;
 }
 
 form#form-newRequest{
-background-color: azure;
-width: 80%;
-height: 80%;
-margin: auto;
-@include flex(column,center,left,10px);
-flex-wrap: wrap;
 
-    input:not(#form-submit){
-        margin: auto;
-        min-width: 45%;
-        height: 35px;
-        text-indent: 10px;
-        border-radius: 8px;
-        appearance: none;
-        outline: none;
-    }
+width: 100%;
+height: 60%;
+margin: auto;
+display: flex;
+flex-direction: column;
+
+
 }
 
 .inputs-container-form-newRequest{
     width: 100%;
-    height: 70%;
-    background-color: bisque;
-    @include flex(row,center,left,10px);
+    height: 80%;
     flex-wrap: wrap;
+    display: flex;
+    margin: auto;
 }
 
 
@@ -50,5 +43,56 @@ flex-wrap: wrap;
     border-radius: 8px;
     appearance: none;
     outline: none;
+    border: 1px solid white;
+    background-color: rgb(255, 255, 255);
+    width: 250px;
+    margin: auto;
+    margin-top: 60px;
 }
+
+
+
+.form-inputs-container{
+    margin: auto;
+    width: 40%;
+    flex-wrap: wrap;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: left;
+    min-width: 300px;
+    gap: 10px;
+    margin: auto;
+    text-align: left;
+    max-width: 800px;
+    
+   
+ 
+
+        input{
+            width: 100%;
+            min-width: 300px;
+            max-width: 600px;
+            height: 35px;
+            border-radius: 8px;
+            text-indent: 10px;
+            appearance: none;
+            border: none;
+            outline: none;
+            margin-bottom: 10px;
+        }
+
+
+        label{
+            width: 100%;
+            min-width: 300px;
+            max-width: 600px;
+            color: aliceblue;
+            align-self: left;
+        } 
+            
+           
+
+}
+
 
