@@ -38,8 +38,8 @@ function submit(e) {
 
     if (nameIsValid && passwordIsValid && !nameIsShort) {
 
-        createAccount();
-        console.log(inptName.value);
+        createAccount(this,inptName.value,inptPassword.value);
+     
 
         
     } else {
@@ -61,8 +61,24 @@ function submit(e) {
 
 
 
-function createAccount() {
-    console.log("accountCreato");
+function createAccount(form,name,password) {
+
+    const formData = new FormData(form);
+
+    formData.set(name, password)
+    
+    fetch(url, {
+        method: "post",
+        body: formData
+    })
+        .then(function (response) {
+            if (response.status === 200) {
+                document.location.href = "home.html";
+            }      
+        })
+        .catch(function (error) {
+            alert(error);
+    })
 }
 
 
