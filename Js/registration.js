@@ -71,7 +71,8 @@ function createAccount(form,name,password) {
 
     const formData = new FormData(form);
 
-    formData.set(name, password)
+    formData.set(name, password);
+    
     
     fetch(url, {
         method: "post",
