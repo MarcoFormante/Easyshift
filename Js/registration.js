@@ -40,32 +40,28 @@ function submit(e) {
 
         verifyAccounts(this,inptName.value,inptPassword.value);
 
-        
-     
-
-        
+    
     } else {
-
 
         if (!nameIsValid || nameIsShort) {
             document.querySelector("label[for=name]").classList.add("inputError");
         }
 
-
-
         if (!passwordIsValid) {
             document.querySelector("label[for=password]").classList.add("inputError");
         }
 
-
     }
 }
+
+
+
+
 
 function verifyAccounts(form,name,password) {
     
     createAccount(form, name, password);
 }
-
 
 
 function createAccount(form,name,password) {
