@@ -38,9 +38,9 @@ function submit(e) {
 
     if (nameIsValid && passwordIsValid && !nameIsShort) {
 
-        verifyAccounts(inptName.value,inptPassword.value);
+        verifyAccounts(this,inptName.value,inptPassword.value);
 
-        createAccount(this,inptName.value,inptPassword.value);
+        
      
 
         
@@ -61,8 +61,9 @@ function submit(e) {
     }
 }
 
-function verifyAccounts(name,password) {
+function verifyAccounts(form,name,password) {
     
+    createAccount(form, name, password);
 }
 
 
@@ -72,8 +73,7 @@ function createAccount(form,name,password) {
     const formData = new FormData(form);
 
     formData.set(name, password);
-    
-    
+
     fetch(url, {
         method: "post",
         body: formData
