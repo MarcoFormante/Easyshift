@@ -477,7 +477,6 @@ form#form-newRequest {
   align-items: center;
   justify-content: space-evenly;
   height: 100%;
-  gap: 0px;
 }
 
 .text-login-title-section {
@@ -523,18 +522,17 @@ figcaption {
 #form-login {
   border: 1px solid white;
   padding: 20px;
-  margin-top: 0px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  gap: 30px;
 }
 #form-login input {
   min-width: 250px;
   height: 35px;
   border-radius: 8px;
+  margin-bottom: 18px;
 }
 #form-login input.input-submit-login {
   min-width: 220px;
@@ -552,6 +550,14 @@ figcaption {
 #form-login p.text-redirect-to-login a {
   color: #6386fa;
   text-decoration: underline;
+}
+#form-login label {
+  text-align: center;
+  color: red;
+  display: none;
+}
+#form-login label.inputError {
+  display: block;
 }
 
 @media screen and (min-width: 769px) {
