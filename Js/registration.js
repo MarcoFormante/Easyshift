@@ -38,6 +38,8 @@ function submit(e) {
 
     if (nameIsValid && passwordIsValid && !nameIsShort) {
 
+        verifyAccounts(inptName.value,inptPassword.value);
+
         createAccount(this,inptName.value,inptPassword.value);
      
 
@@ -59,6 +61,10 @@ function submit(e) {
     }
 }
 
+function verifyAccounts(name,password) {
+    
+}
+
 
 
 function createAccount(form,name,password) {
@@ -78,7 +84,9 @@ function createAccount(form,name,password) {
         })
         .catch(function (error) {
             alert(error);
-    })
+        })
+    
+    
 }
 
 
