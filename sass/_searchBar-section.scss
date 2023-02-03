@@ -1,6 +1,8 @@
 .search-bar-section{
     @include flex(row,center,center,0);
-    margin-top: 20px;
+    padding: 10px;
+    background-color: rgba(27, 58, 231, 0.158);
+    backdrop-filter: blur(8px);
 }
 
 .search-bar-container{

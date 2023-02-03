@@ -1,25 +1,27 @@
 .request-item{
-    max-width: 250px;
+    max-width: 300px;
     background-color: rgba(4, 4, 4, 0.234);
     backdrop-filter: blur(50px);
     border-radius: 16px;
     margin-top: 40px;
     flex-shrink: 0;
-    min-width: 250px;
+    min-width: 280px;
     margin-bottom: 20px;
+    
 }
 
 article.request-card-container{
-    width: 80%;
+    width: 85%;
     border-radius: 16px;
     margin: auto;
     color: whitesmoke;
+   
 }
 
 .card-header{
 align-items: center;
 margin-bottom: 20px;
-padding-top: 20px;
+padding: 10px;
 }
 
 
@@ -69,6 +71,7 @@ padding-top: 20px;
     padding: 5px 0px;   
     display: flex;
     align-items: center;
+    justify-content: space-between;
     border-radius: 8px;
 }
 
@@ -80,6 +83,7 @@ border-color: none;
 border: 0px;
 text-indent: 5px;
 
+
     &:focus{
         border: none;
         border-color: none;
@@ -90,6 +94,8 @@ text-indent: 5px;
 
 .card-input-comments-btn-send{ 
 cursor: pointer;  
+padding-right: 10px;
+font-size: 1.3em;
 }
 
 
@@ -106,9 +112,92 @@ cursor: pointer;
 
 .card-icon-comments{
     cursor: pointer;
-    margin-top: 25px;
     width: fit-content;
+    margin-bottom: 10px;
    
+}
+
+
+
+//COMMENTS SECTION //////////////////////////////////////////////////////////////////
+
+.comment-text-section{
+    height: fit-content;
+    width: 100%;
+   
+}
+
+
+.comment-list{
+    width: 100%;
+   padding-top: 20px;
+}
+
+
+
+.comment-item{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    background-color: rgba(87, 87, 87, 0.123);
+    padding: 10px 7px;
+
+    &:nth-child(odd){
+        background-color: rgba(189, 186, 186, 0.123);
+    }
+}
+
+.comment-header-section{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 1.1em;
+    align-items: center;
+    padding: 10px 10px;
+}
+
+.comment-header-left{
+display: flex;
+gap: 15px;
+}
+
+
+
+.comment-first-letter{
+border-radius: 50%;
+    border: 2px solid rgb(214, 214, 214);
+    width: 30px;
+    height: 30px;
+    @include flex(row,center,center,none);
+    color: aliceblue;
+}
+
+
+.comment-username{
+@include flex(row,center,center,none);
+color: rgb(255, 255, 255);
+}
+
+
+
+.comment-blockBtn{
+    font-size: 1.4em;
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+
+
+.comment-body-section{
+margin: auto;
+color: rgba(219, 218, 218, 0.884);
+text-align: center;
+width: 100%;
+padding: 2px;
+@include flex(row,center,center,none);
+
 }
 
 

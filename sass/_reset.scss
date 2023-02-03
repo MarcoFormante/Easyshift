@@ -10,13 +10,9 @@ html{
     background-position:center center;
     background-repeat: no-repeat;
     background-size: cover;
+    background-attachment: fixed;
 }
 
-body{
-    background-color: #181818b7;
-    backdrop-filter: blur(10px);
-    overflow: hidden;
-}
 
 ul{
     list-style: none;
