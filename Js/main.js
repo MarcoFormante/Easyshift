@@ -33,13 +33,14 @@ function renderDataUser(data) {
 
     const requestsSection = document.querySelector(".request-list");
 
+    let dataLenght = 0;
     data.forEach(user => {
 
         const name = user.nome;
         const firstLetter = name.slice(0, 1);
         const username = firstLetter + name.slice(1);
 
-        renderHtml += `<li class="request-item" data-info="${user.id},${user.index}">
+        renderHtml += `<li class="request-item" data-id="${user.id}"data-index="${dataLenght}">
 
         <article class="request-card-container">
             <header class="card-header flex-row">
@@ -78,7 +79,7 @@ function renderDataUser(data) {
 
                     <div class="card-comments-container">
                         <div class="card-icon-comments-container">
-                            <div class="card-icon-comments">✉️
+                            <div class="card-icon-comments" data-cmts="${dataLenght}">✉️
                                 <sup class="card-number-comments">3</sup>
                             </div>
                         </div>
@@ -86,8 +87,148 @@ function renderDataUser(data) {
             </footer>
         </article>
 
+        <div class="comment-text-section">
+                                    <ul class="comment-list">
+                                        <li class="comment-item">
+                                            <section class="comment-header-section">
+                                                <div class="comment-header-left">
+                                                    <div class="comment-first-letter">M</div>
+                                                    <div class="comment-username">Marco</div>
+                                                </div>
+                                               
+                                                <div class="comment-blockBtn">🔒</div>
+                                            </section>
+
+                                            <section class="comment-body-section">
+                                                <p class="comment-text">salut moi j ai un 15 si tu vuex</p>
+                                            </section>
+                                        </li>
+
+                                        <li class="comment-item">
+                                            <section class="comment-header-section">
+                                                <div class="comment-header-left">
+                                                    <div class="comment-first-letter">M</div>
+                                                    <div class="comment-username">Marco</div>
+                                                </div>
+                                               
+                                                <div class="comment-blockBtn">🔒</div>
+                                            </section>
+
+                                            <section class="comment-body-section">
+                                                <p class="comment-text">salut moi j ai un 15 si tu vuex</p>
+                                            </section>
+                                        </li>
+
+                                        <li class="comment-item">
+                                            <section class="comment-header-section">
+                                                <div class="comment-header-left">
+                                                    <div class="comment-first-letter">M</div>
+                                                    <div class="comment-username">Marco</div>
+                                                </div>
+                                               
+                                                <div class="comment-blockBtn">🔒</div>
+                                            </section>
+
+                                            <section class="comment-body-section">
+                                                <p class="comment-text">salut moi j ai un 15 si tu vuex</p>
+                                            </section>
+                                        </li>
+
+                                        <li class="comment-item">
+                                            <section class="comment-header-section">
+                                                <div class="comment-header-left">
+                                                    <div class="comment-first-letter">M</div>
+                                                    <div class="comment-username">Marco</div>
+                                                </div>
+                                               
+                                                <div class="comment-blockBtn">🔒</div>
+                                            </section>
+
+                                            <section class="comment-body-section">
+                                                <p class="comment-text">salut moi j ai un 15 si tu vuex</p>
+                                            </section>
+                                        </li>
+
+                                        <li class="comment-item">
+                                            <section class="comment-header-section">
+                                                <div class="comment-header-left">
+                                                    <div class="comment-first-letter">M</div>
+                                                    <div class="comment-username">Marco</div>
+                                                </div>
+                                               
+                                                <div class="comment-blockBtn">🔒</div>
+                                            </section>
+
+                                            <section class="comment-body-section">
+                                                <p class="comment-text">salut moi j ai un 15 si tu vuex</p>
+                                            </section>
+                                        </li>
+
+                                        <li class="comment-item">
+                                            <section class="comment-header-section">
+                                                <div class="comment-header-left">
+                                                    <div class="comment-first-letter">M</div>
+                                                    <div class="comment-username">Marco</div>
+                                                </div>
+                                               
+                                                <div class="comment-blockBtn">🔒</div>
+                                            </section>
+
+                                            <section class="comment-body-section">
+                                                <p class="comment-text">salut moi j ai un 15 si tu vuex</p>
+                                            </section>
+                                        </li>
+
+                                        <li class="comment-item">
+                                            <section class="comment-header-section">
+                                                <div class="comment-header-left">
+                                                    <div class="comment-first-letter">M</div>
+                                                    <div class="comment-username">Marco</div>
+                                                </div>
+                                               
+                                                <div class="comment-blockBtn">🔒</div>
+                                            </section>
+
+                                            <section class="comment-body-section">
+                                                <p class="comment-text">salut moi j ai un 15 si tu vuex</p>
+                                            </section>
+                                        </li>
+
+                                        <li class="comment-item">
+                                            <section class="comment-header-section">
+                                                <div class="comment-header-left">
+                                                    <div class="comment-first-letter">M</div>
+                                                    <div class="comment-username">Marco</div>
+                                                </div>
+                                               
+                                                <div class="comment-blockBtn">🔒</div>
+                                            </section>
+
+                                            <section class="comment-body-section">
+                                                <p class="comment-text">salut moi j ai un 15 si tu vuex jkhkj hjhh hjhj </p>
+                                            </section>
+                                        </li>
+                                    </ul>
+                                </div>
+
     </li>`
+        
+        dataLenght++;
     });
 
     requestsSection.innerHTML = renderHtml;
+
+    const iconsComment = document.querySelectorAll(".card-icon-comments");
+    
+    iconsComment.forEach(icon => {
+        const commentsLenght = icon.getAttribute("data-cmts");
+        icon.addEventListener("click", () => {
+            if (commentsLenght > 0) {
+                const commentSection = icon.closest(".request-item").querySelector(".comment-text-section");
+                commentSection.classList.toggle("toggleComments");
+               
+            }
+        })
+    })
+    
 }
