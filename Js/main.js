@@ -2,7 +2,48 @@
 
 getUserData();
 
-//Get USer data Function (ASYNC)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*////////////////////////////////////////////////////////////////////////////////////////////
+                                FUNCTIONS
+/////////////////////////////////////////////////////////////////////////////////////////////*/
+
+
+//GET USERS DATA FORM DATABASE (ASYNC)
 async function getUserData() {
 
     try {
@@ -27,6 +68,8 @@ async function getUserData() {
  }  
     
 }
+
+
 
 function renderDataUser(data) {
     let renderHtml = "";
@@ -219,6 +262,17 @@ function renderDataUser(data) {
 
     requestsSection.innerHTML = renderHtml;
 
+    toggleCommentsSection();
+    lockCard();
+    
+}
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Toogle comment section when icon - comment is clicked
+
+function toggleCommentsSection() {
     const iconsComment = document.querySelectorAll(".card-icon-comments");
     
     iconsComment.forEach(icon => {
@@ -231,5 +285,39 @@ function renderDataUser(data) {
             }
         })
     })
+}
+
+
+/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+//TOGGLE LOCK BTN WHEN ICON IS CLICKED & ADD CLASS TO PARENT CARD  SHOWING  YELLOW BOX SHADOW 
+
+function lockCard() {
+    const iconLock = document.querySelectorAll(".comment-blockBtn");
     
+
+    iconLock.forEach(icon => {
+        icon.addEventListener("click", (e) => {
+            const parentCard = icon.closest(".request-item");
+
+            if (!e.target.classList.contains("toggleLockBtn")) {
+                parentCard.classList.add("toggleLockCard");
+
+                const cardLockIcons = icon.closest(".request-item").querySelectorAll(".comment-blockBtn");
+                    cardLockIcons.forEach(icons => {
+                        icons.classList.remove("toggleLockBtn");
+                       
+                    })
+                
+                    e.target.classList.add("toggleLockBtn");
+                
+            } else {
+                parentCard.classList.remove("toggleLockCard");
+                e.target.classList.remove("toggleLockBtn");
+            }
+
+            
+            
+        })
+        
+    })
 }

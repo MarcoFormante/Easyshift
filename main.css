@@ -281,6 +281,9 @@ main.toggle-menu {
   min-width: 280px;
   margin-bottom: 20px;
 }
+.request-item.toggleLockCard {
+  box-shadow: 0 0 10px rgb(255, 208, 0);
+}
 
 article.request-card-container {
   width: 85%;
@@ -446,6 +449,7 @@ article.request-card-container {
   justify-content: center;
   gap: none;
   color: aliceblue;
+  text-transform: uppercase;
 }
 
 .comment-username {
@@ -455,12 +459,17 @@ article.request-card-container {
   justify-content: center;
   gap: none;
   color: rgb(255, 255, 255);
+  text-transform: capitalize;
 }
 
 .comment-blockBtn {
   font-size: 1.4em;
   cursor: pointer;
   opacity: 0.5;
+}
+.comment-blockBtn.toggleLockBtn {
+  opacity: 1;
+  box-shadow: 0 0 10px rgb(255, 208, 0), inset 0 0 100px rgb(19, 19, 17);
 }
 
 .comment-body-section {

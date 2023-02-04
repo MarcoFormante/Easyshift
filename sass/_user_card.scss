@@ -7,6 +7,10 @@
     flex-shrink: 0;
     min-width: 280px;
     margin-bottom: 20px;
+
+        &.toggleLockCard{
+            box-shadow: 0 0 10px $lock_card-color;
+        }
     
 }
 
@@ -187,12 +191,14 @@ border-radius: 50%;
     height: 30px;
     @include flex(row,center,center,none);
     color: aliceblue;
+    text-transform: uppercase;
 }
 
 
 .comment-username{
 @include flex(row,center,center,none);
 color: rgb(255, 255, 255);
+text-transform: capitalize;
 }
 
 
@@ -201,6 +207,11 @@ color: rgb(255, 255, 255);
     font-size: 1.4em;
     cursor: pointer;
     opacity: 0.5;
+
+        &.toggleLockBtn{
+            opacity: 1;
+            box-shadow: 0 0 10px $lock_card-color, inset 0 0 100px rgb(19, 19, 17);
+        }
 }
 
 
