@@ -1,4 +1,7 @@
 
+const userName = "marco";
+
+
 
 getUserData();
 
@@ -83,7 +86,7 @@ function renderDataUser(data) {
         const firstLetter = name.slice(0, 1);
         const username = firstLetter + name.slice(1);
 
-        renderHtml += `<li class="request-item" data-id="${user.id}"data-index="${dataLenght}">
+        renderHtml += `<li class="request-item" data-id="${user.id}"data-index="${dataLenght}" data-user="${user.nome}">
 
         <article class="request-card-container">
             <header class="card-header flex-row">
@@ -263,6 +266,7 @@ function renderDataUser(data) {
     requestsSection.innerHTML = renderHtml;
 
     toggleCommentsSection();
+
     lockCard();
     
 }
@@ -275,13 +279,27 @@ function renderDataUser(data) {
 function toggleCommentsSection() {
     const iconsComment = document.querySelectorAll(".card-icon-comments");
     
+    
     iconsComment.forEach(icon => {
         const commentsLenght = icon.getAttribute("data-cmts");
+        const targetCard = icon.closest(".request-item");
+        const usernameCard = targetCard.getAttribute("data-user").toLowerCase();
+        
         icon.addEventListener("click", () => {
+            alert(usernameCard)
             if (commentsLenght > 0) {
-                const commentSection = icon.closest(".request-item").querySelector(".comment-text-section");
+                const commentSection = targetCard.querySelector(".comment-text-section");
                 commentSection.classList.toggle("toggleComments");
-               
+            }
+    
+            let isUser = usernameCard === userName.toLowerCase();
+
+            if (!isUser) {
+                const lockBtns = targetCard.querySelectorAll(".comment-blockBtn");
+
+                lockBtns.forEach(btn => {
+                    btn.style.display = "none";
+                })
             }
         })
     })
