@@ -308,12 +308,14 @@ article.request-card-container {
   border-radius: 50%;
   flex-shrink: 0;
   background-color: #181818;
+  text-transform: uppercase;
 }
 
 .card-username {
   font-size: 1.2em;
   text-align: center;
   width: 100%;
+  text-transform: capitalize;
 }
 
 .delete-icon {
@@ -367,6 +369,11 @@ article.request-card-container {
   cursor: pointer;
   padding-right: 10px;
   font-size: 1.3em;
+}
+
+.comment-lenght-info {
+  padding-top: 5px;
+  margin-left: 5px;
 }
 
 .card-comments-container {

@@ -73,9 +73,10 @@ function renderDataUser(data) {
             <footer class="card-footer">
 
                 <form action="#" class="card-form-comment">
-                    <input type="text" name="card-input-comment" id="card-input-comment" placeholder="your comment...">
+                    <input type="text" name="card-input-comment" id="card-input-comment" placeholder="your comment..." maxlength="50">
                     <label for="card-input-comment" class="card-input-comments-btn-send">📤</label>
                 </form>
+               <p class="comment-lenght-info">max 50 characters</p> 
 
                     <div class="card-comments-container">
                         <div class="card-icon-comments-container">

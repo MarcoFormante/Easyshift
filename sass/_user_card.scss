@@ -35,6 +35,7 @@ padding: 10px;
     border-radius: 50%;
     flex-shrink: 0;
     background-color: $first_surface ;
+    text-transform: uppercase;
 }
 
 
@@ -43,6 +44,7 @@ padding: 10px;
     font-size: 1.2em;
     text-align: center;
     width: 100%;
+    text-transform: capitalize;
 }
 
 .delete-icon{
@@ -96,6 +98,12 @@ text-indent: 5px;
 cursor: pointer;  
 padding-right: 10px;
 font-size: 1.3em;
+}
+
+
+.comment-lenght-info{
+    padding-top: 5px;
+    margin-left: 5px;
 }
 
 
