@@ -1,16 +1,15 @@
 
 const userName = "marco";
-
-
+const menuBtn = document.querySelector(".menu-container");
+let menuIsOpen = false;
 
 getUserData();
 
 
+document.querySelector(".header-nav-link4").addEventListener("click", myRequest);
 
 
-
-
-
+menuBtn.addEventListener("click", toggleMenu);
 
 
 
@@ -338,4 +337,69 @@ function lockCard() {
         })
         
     })
+}
+
+
+
+/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+//
+//
+//MY REQUEST FUNCTION
+
+function myRequest() {
+    const allUsersCards = document.querySelectorAll(".request-item");
+
+    const personalCards = allUsersCards.forEach(card => {
+        toggleMenu();
+      
+        loadingMyRequest();
+        const isPersonalCard = card.getAttribute("data-user").toLowerCase() === "marco";
+        if (card.getAttribute("data-user").toLowerCase()!=="marco") {
+            card.style.display = "none";
+        
+        }
+       
+    });
+    
+}
+
+
+
+
+function toggleMenu() {
+
+    const menuLines = document.querySelectorAll(".menu-line");
+    const headerNav = document.querySelector(".header-nav");
+
+    
+
+    menuLines.forEach(line=> {
+        line.classList.toggle("toggle-menu");
+    });
+
+    headerNav.classList.toggle("toggle-menu");
+
+    console.log( Number(window.outerWidth));
+    if ( Number(window.outerHeight) > 768) {
+        menuIsOpen = true   ;
+    } else {
+        menuIsOpen = false;  
+    }
+    if (menuIsOpen) {
+        document.querySelector("main").classList.toggle("toggle-menu");
+    }
+
+   
+
+}
+
+
+
+function loadingMyRequest() {
+    const cardsContainer = document.querySelector(".request-list");
+    cardsContainer.style.display = "none";
+
+    setTimeout(() => {
+        cardsContainer.style.display = "flex";
+    }, 200);
 }

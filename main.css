@@ -44,7 +44,6 @@ a {
   align-items: center;
   justify-content: space-between;
   padding: 10px 30px;
-  z-index: 20;
   height: 60px;
   background-color: rgba(0, 0, 0, 0.116);
   -webkit-backdrop-filter: blur(8px);
@@ -257,6 +256,7 @@ main.toggle-menu {
   width: 100vw;
   margin: auto;
   padding-top: 50px;
+  z-index: 0;
 }
 
 .request-list {
@@ -280,6 +280,7 @@ main.toggle-menu {
   flex-shrink: 0;
   min-width: 280px;
   margin-bottom: 20px;
+  z-index: 0;
 }
 .request-item.toggleLockCard {
   box-shadow: 0 0 10px rgb(255, 208, 0);
@@ -688,11 +689,10 @@ figcaption {
     left: 100%;
     display: flex;
     flex-direction: column;
-    z-index: 20;
   }
   .header-nav.toggle-menu {
-    left: 0%;
-    z-index: 20;
+    left: 0;
+    background-color: black;
   }
   .header-nav-container--flex {
     display: flex;
@@ -709,9 +709,6 @@ figcaption {
   .header-nav-container--flex .header-nav-item {
     padding: 10px;
     font-size: large;
-  }
-  .menu-container {
-    z-index: 20;
   }
   .notification-section {
     width: 100%;
