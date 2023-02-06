@@ -11,7 +11,12 @@ document.querySelector(".header-nav-link4").addEventListener("click", myRequest)
 
 menuBtn.addEventListener("click", toggleMenu);
 
-
+window.addEventListener("resize", () => {
+    if (Number(window.innerWidth) > 768 && document.querySelector(".header-nav").classList.contains("toggle-menu")) {
+        console.log("si");
+        toggleMenu();
+    }
+})
 
 
 
@@ -348,11 +353,14 @@ function lockCard() {
 
 function myRequest() {
     const allUsersCards = document.querySelectorAll(".request-item");
+    
+    loadingMyRequest();
 
-    const personalCards = allUsersCards.forEach(card => {
+    if (Number(window.innerWidth) < 769 ) {
         toggleMenu();
-      
-        loadingMyRequest();
+    }
+    const personalCards = allUsersCards.forEach(card => {
+
         const isPersonalCard = card.getAttribute("data-user").toLowerCase() === "marco";
         if (card.getAttribute("data-user").toLowerCase()!=="marco") {
             card.style.display = "none";
@@ -380,17 +388,10 @@ function toggleMenu() {
     headerNav.classList.toggle("toggle-menu");
 
     console.log( Number(window.outerWidth));
-    if ( Number(window.outerHeight) > 768) {
-        menuIsOpen = true   ;
-    } else {
-        menuIsOpen = false;  
-    }
-    if (menuIsOpen) {
-        document.querySelector("main").classList.toggle("toggle-menu");
-    }
-
    
-
+    
+    document.querySelector("main").classList.toggle("toggle-menu");
+    
 }
 
 
