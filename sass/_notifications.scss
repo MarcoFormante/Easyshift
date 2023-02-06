@@ -42,6 +42,10 @@
     overflow-x: hidden;
     z-index: 20;
     left: 100%;
+
+            &.toggle-notifications{
+                left: 0%;
+            }
 }
 
 

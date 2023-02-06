@@ -1,38 +1,8 @@
 
 const userName = "marco";
-const menuBtn = document.querySelector(".menu-container");
-let menuIsOpen = false;
+const notificationIcon = document.querySelector(".notification-icon-section");
 
 getUserData();
-
-
-document.querySelector(".header-nav-link4").addEventListener("click", myRequest);
-
-
-menuBtn.addEventListener("click", toggleMenu);
-
-window.addEventListener("resize", () => {
-    if (Number(window.innerWidth) > 768 && document.querySelector(".header-nav").classList.contains("toggle-menu")) {
-        console.log("si");
-        toggleMenu();
-    }
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -290,7 +260,7 @@ function toggleCommentsSection() {
         const usernameCard = targetCard.getAttribute("data-user").toLowerCase();
         
         icon.addEventListener("click", () => {
-            alert(usernameCard)
+           
             if (commentsLenght > 0) {
                 const commentSection = targetCard.querySelector(".comment-text-section");
                 commentSection.classList.toggle("toggleComments");
@@ -346,61 +316,3 @@ function lockCard() {
 
 
 
-/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
-//
-//
-//MY REQUEST FUNCTION
-
-function myRequest() {
-    const allUsersCards = document.querySelectorAll(".request-item");
-    
-    loadingMyRequest();
-
-    if (Number(window.innerWidth) < 769 ) {
-        toggleMenu();
-    }
-    const personalCards = allUsersCards.forEach(card => {
-
-        const isPersonalCard = card.getAttribute("data-user").toLowerCase() === "marco";
-        if (card.getAttribute("data-user").toLowerCase()!=="marco") {
-            card.style.display = "none";
-        
-        }
-       
-    });
-    
-}
-
-
-
-
-function toggleMenu() {
-
-    const menuLines = document.querySelectorAll(".menu-line");
-    const headerNav = document.querySelector(".header-nav");
-
-    
-
-    menuLines.forEach(line=> {
-        line.classList.toggle("toggle-menu");
-    });
-
-    headerNav.classList.toggle("toggle-menu");
-
-    console.log( Number(window.outerWidth));
-   
-    
-    document.querySelector("main").classList.toggle("toggle-menu");
-    
-}
-
-
-
-function loadingMyRequest() {
-    const cardsContainer = document.querySelector(".request-list");
-    cardsContainer.style.display = "none";
-
-    setTimeout(() => {
-        cardsContainer.style.display = "flex";
-    }, 200);
-}

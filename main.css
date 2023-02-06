@@ -68,14 +68,16 @@ a {
 }
 
 .menu-container {
-  height: 100%;
+  height: 35px;
   width: 35px;
   cursor: pointer;
+  z-index: 50;
 }
 
 .menu-inner {
-  width: 100%;
-  height: 100%;
+  z-index: 50;
+  width: 35px;
+  height: 35px;
   align-items: center;
   justify-content: center;
   gap: 10px;
@@ -165,6 +167,9 @@ label[for=input-search-bar] {
   overflow-x: hidden;
   z-index: 20;
   left: 100%;
+}
+.notification-section.toggle-notifications {
+  left: 0%;
 }
 
 .notification-title {
@@ -617,7 +622,7 @@ form#form-newRequest {
   color: #315ff9;
 }
 
-figcaption {
+figcaption.brand-caption {
   border-bottom: 2px solid rgb(7, 61, 240);
   padding-bottom: 10px;
 }
