@@ -4,13 +4,10 @@ let keyDownCode = "";
 getUserData();
 
 searchBar.addEventListener("input", searchCard);
+
 searchBar.addEventListener("keydown", (e) => {
-    if (e.key ==="Backspace") {
-       
-        keyDownCode = e.key;
-    } else {
-        keyDownCode = "";
-    }
+
+    keyDownCode = e.key;
     
 })
 
@@ -332,11 +329,26 @@ function lockCard() {
 
 
 function searchCard(e) {
-    if (keyDownCode !=="Backspace") {
-        if (e.target.value.length === 2 || e.target.value.length === 5) {
-            e.target.value += "/";
-        }
+    let onlyNumbers = keyDownCode.match("[0-9]")
+    
+    if (onlyNumbers) {
+        if (keyDownCode !== "Backspace") {
+
+            if (keyDownCode !== "/") {
+                if (e.target.value.length === 3) {
+                    e.target.value = e.target.value.slice(0, 2) + "/" + e.target.value.slice(2);
+                } else if (e.target.value.length === 6) {
+                    e.target.value = e.target.value.slice(0, 5) + "/" + e.target.value.slice(5);
+                }
+            }else {
+                e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+            }
+        } 
+    } else {
+        e.target.value = e.target.value.slice(0, e.target.value.length-1);
     }
+   
+    
     
    
 }

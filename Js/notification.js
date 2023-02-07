@@ -22,7 +22,5 @@ closebtnNotifications.addEventListener("click", () => {
 });
 
 
-function toggleNotificationMenu() {
 
-}
 
