@@ -1,7 +1,19 @@
-
+const searchBar = document.querySelector("#input-search-bar");
 const userName = "marco";
-
+let keyDownCode = "";
 getUserData();
+
+searchBar.addEventListener("input", searchCard);
+searchBar.addEventListener("keydown", (e) => {
+    if (e.key ==="Backspace") {
+       
+        keyDownCode = e.key;
+    } else {
+        keyDownCode = "";
+    }
+    
+})
+
 
 
 
@@ -320,9 +332,13 @@ function lockCard() {
 
 
 function searchCard(e) {
-    if (e.target.value.lenght === 2 || e.target.value.lenght === 5) {
-        alert("ok");
+    if (keyDownCode !=="Backspace") {
+        if (e.target.value.length === 2 || e.target.value.length === 5) {
+            e.target.value += "/";
+        }
     }
+    
+   
 }
 
 
