@@ -1,6 +1,5 @@
 
 const userName = "marco";
-const notificationIcon = document.querySelector(".notification-icon-section");
 
 getUserData();
 
