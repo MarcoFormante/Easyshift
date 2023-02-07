@@ -315,3 +315,18 @@ function lockCard() {
 
 
 
+/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+//FUNCTION INPUT SEARCH BAR
+
+
+function searchCard(e) {
+    if (e.target.value.lenght === 2 || e.target.value.lenght === 5) {
+        alert("ok");
+    }
+}
+
+
+
+
+
+

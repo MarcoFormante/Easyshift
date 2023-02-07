@@ -7,7 +7,7 @@ menuBtn.addEventListener("click", toggleMenu);
 
 window.addEventListener("resize", () => {
     if (Number(window.innerWidth) > 768 && document.querySelector(".header-nav").classList.contains("toggle-menu")) {
-        console.log("si");
+      
         toggleMenu();
     }
 })
@@ -37,7 +37,11 @@ function toggleMenu() {
    
     
     document.querySelector("main").classList.toggle("toggle-menu");
-    
+    if (headerNav.classList.contains("toggle-menu")) {
+        document.querySelector(".notification-icon-section").style.display = "none";
+    } else {
+        document.querySelector(".notification-icon-section").style.display = "block";
+    }
 }
 
 
