@@ -329,15 +329,6 @@ function lockCard() {
 }
 
 
-
-/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
-//FUNCTION INPUT SEARCH BAR VALUE MATCH REGEX
-
-
-
-
-
-
 /*//////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 // FUNCTION BTN SEARCH USER BY DATE
 
@@ -374,5 +365,4 @@ function showDeleteIcon(username, cardIndex) {
             if (cardUserName !== userName.toLowerCase()) {
             parentCard.querySelector(".delete-icon").style.display = "none";
             }
-        })
-    }
+        })}
