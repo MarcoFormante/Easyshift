@@ -487,7 +487,7 @@ article.request-card-container {
   height: -moz-fit-content;
   height: fit-content;
   width: 100%;
-  display: none;
+  display: block;
 }
 .comment-text-section.toggleComments {
   display: block;

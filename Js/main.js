@@ -137,22 +137,8 @@ function renderDataUser(data) {
         <div class="comment-text-section">
                                     <ul class="comment-list">
                                        
-                                        <li class="comment-item">
-                                            <section class="comment-header-section">
-                                                <div class="comment-header-left">
-                                                    <div class="comment-first-letter">M</div>
-                                                    <div class="comment-username">Marco</div>
-                                                </div>
-                                               
-                                                <div class="comment-blockBtn">🔒</div>
-                                            </section>
+                                        
 
-                                            <section class="comment-body-section">
-                                                <p class="comment-text">salut moi j ai un 15 si tu vuex</p>
-                                            </section>
-                                        </li>
-
-                                    
                                     </ul>
                                 </div>
 
@@ -279,3 +265,81 @@ function showDeleteIcon(username, cardIndex) {
             parentCard.querySelector(".delete-icon").style.display = "none";
             }
         })}
+
+
+async function getComments() {
+    
+    try {
+        const s = "https://trueappwork.000webhostapp.com/"
+        const url = "getcommentsEasyshift.php";
+        const request = await fetch(s+url);
+    
+        if (!request.ok) {
+            throw Error(request.statusText)
+            } 
+            
+        const dataUsers = await (await request.text()).split("|").slice(0, -1);
+    
+            //render data
+        renderComments(dataUsers);
+    
+    
+        } catch (error) {
+            
+            alert(error);
+            
+     }  
+}
+
+
+function renderComments(comments) {
+    console.log(comments);
+
+   
+    comments.forEach(comment => {
+        const commentsArray = comment.split("&&");
+        const cards = document.querySelectorAll(".request-item");
+       
+        const commentData = {
+            id: commentsArray[0],
+            name: commentsArray[1],
+            body: commentsArray[2],
+            idCard: commentsArray[3],
+            firstLetter: commentsArray[1].slice(0,1),
+            isBlocked: 1
+        }
+        
+        cards.forEach(card => {
+            console.log(card.getAttribute("data-id"));
+            if (card.getAttribute("data-id") === commentData.idCard) {
+                const commentsContainer = card.querySelector(".comment-text-section > .comment-list");
+                commentsContainer.innerHTML +=`
+
+                                        <li class="comment-item" data-comId="${commentData.id}" data-idCard="${commentData.idCard} data-block="1">
+                                            <section class="comment-header-section">
+                                                <div class="comment-header-left">
+                                                    <div class="comment-first-letter">${commentData.firstLetter}</div>
+                                                    <div class="comment-username">${commentData.name}</div>
+                                                </div>
+                
+              
+
+                     <div class="comment-blockBtn">🔒</div>
+                
+
+                </section>
+
+                <section class="comment-body-section">
+                    <p class="comment-text">${commentData.body}</p>
+                </section>
+            </li>`
+                                                         
+                
+            }
+        })
+        
+    })
+   
+}
+
+//toggleLockBtn
