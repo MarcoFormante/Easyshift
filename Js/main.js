@@ -7,18 +7,7 @@ let keyDownCode = "";
 getUserData();
 
 
-
-searchBar.addEventListener("input", searchBarValue);
-
-searchBar.addEventListener("keydown", (e) => {
-
-    keyDownCode = e.key;
-    
-})
-
-
-searchBtn.addEventListener("click", searchUser);
-
+searchBtn.addEventListener("click", searchBtnPressed);
 
 
 
@@ -257,6 +246,7 @@ function renderDataUser(data) {
     </li>`
         
         dataLenght++;
+      
     });
 
     requestsSection.innerHTML = renderHtml;
@@ -264,6 +254,8 @@ function renderDataUser(data) {
     toggleCommentsSection();
 
     lockCard();
+    showDeleteIcon();
+    
     
 }
 
@@ -342,34 +334,7 @@ function lockCard() {
 //FUNCTION INPUT SEARCH BAR VALUE MATCH REGEX
 
 
-function searchBarValue(e) {
 
-    if (e.target.value.length === 10) {
-        searchBtn.style.display = "inline";
-    } else {
-        searchBtn.style.display = "none";
-        document.querySelector("#search-btn").textContent = "🔍";
-    }
-   
-    let onlyNumbers = keyDownCode.match("[0-9]");
-    
-    if (onlyNumbers) {
-        
-            if (e.target.value.length === 3) {
-                    
-                e.target.value = e.target.value.slice(0, 2) + "/" + e.target.value.slice(2);
-                
-                } else if (e.target.value.length === 6) {
-                    e.target.value = e.target.value.slice(0, 5) + "/" + e.target.value.slice(5);
-                }
-    
-    } else {
-        e.target.value = e.target.value.slice(0, e.target.value.length-1);
-    }
-
-    
-   
-}
 
 
 
@@ -377,25 +342,37 @@ function searchBarValue(e) {
 // FUNCTION BTN SEARCH USER BY DATE
 
 
-function searchUser(e) {
-    const requestsSection = document.querySelectorAll(".request-item");
-    const searchbar = document.querySelector("#input-search-bar");
+function searchBtnPressed(e) {
+   
 
-    if ( e.target.innerText === "❌") {
-        searchbar.value = "";
+    if (e.target.innerText === "❌") {
+        searchBar.value = "";
         e.target.innerText = "🔍";
-        requestsSection.forEach(card => card.style.display = "block");
+
+        document.querySelectorAll(".request-item").forEach(card => {
+            card.style.display = "block";
+            
+        })
     }
    
    
     if (document.querySelector("#input-search-bar").value !== "") {
         e.target.innerText = "❌";
-
-        const requestsFiltered = [...requestsSection].filter(function (card){
-            return card.querySelector(".card-date").innerText !== document.querySelector("#input-search-bar").value;
-        })
-
-        requestsFiltered.map(card => card.style.display = "none");
     } 
   
 }
+
+
+
+function showDeleteIcon(username, cardIndex) {
+    
+    const iconsDeleteCard = document.querySelectorAll(".delete-icon");
+   
+    iconsDeleteCard.forEach(icon => {
+        const parentCard = icon.closest(".request-item");
+        const cardUserName = parentCard.getAttribute("data-user").toLowerCase();
+            if (cardUserName !== userName.toLowerCase()) {
+            parentCard.querySelector(".delete-icon").style.display = "none";
+            }
+        })
+    }

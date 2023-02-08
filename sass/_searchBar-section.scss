@@ -1,12 +1,27 @@
 .search-bar-section{
-    @include flex(row,center,center,0);
+    @include flex(column,center,center,0);
     padding: 10px;
     background-color: rgba(27, 58, 231, 0.158);
     backdrop-filter: blur(8px);
+    position: sticky;
+    width: 100vw;
+    height: 100%;
+    top: 50px;
+    z-index: 50;
+    gap: 7px;
+    
 }
 
 .search-bar-container{
     background-color: rgb(255, 255, 255);
+    
+}
+
+
+.search-bar-title{
+    text-align: center;
+    color: rgb(236, 17, 170);
+    font-size: 0.9em;
     
 }
 
@@ -25,7 +40,7 @@
 }
 
 
-label[for="input-search-bar"]{
+#search-btn{
     margin-right: 10px;
     width: fit-content;
     height: 100%;
