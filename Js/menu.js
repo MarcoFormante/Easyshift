@@ -14,10 +14,47 @@ window.addEventListener("resize", () => {
 
 
 
+function myRequest(e) {
+    
+    const allUsersCards = document.querySelectorAll(".request-item");
+    const navItems = document.querySelectorAll(".header-nav-item");
+
+    navItems.forEach(item => {
+        item.classList.remove("header-nav-item--active")
+    });
+    
+    loadingMyRequest();
+
+    if (Number(window.innerWidth) < 769 ) {
+        toggleMenu();
+    }
+
+    
+
+    e.target.parentNode.classList.add("header-nav-item--active");
+    let personalCardLength = 0;
+
+    const personalCards = allUsersCards.forEach(card => {
+        
+
+        const isPersonalCard = card.getAttribute("data-user").toLowerCase() === "Marco".toLowerCase();
+        if (card.getAttribute("data-user").toLowerCase()!=="marco") {
+            card.style.display = "none";
+            
+        } else {
+            personalCardLength++;
+            
+        }
+    });
+    checkPersonalCardLength(personalCardLength);
+}
 
 
-
-
+function  checkPersonalCardLength(personalCardsLenght) {
+    if (personalCardsLenght < 1) {
+        document.querySelector("#info-text-section-noCards").style.display="block"
+    }
+}
 
 
 function toggleMenu() {
@@ -46,46 +83,7 @@ function toggleMenu() {
 
 
 
-function myRequest(e) {
-    
-    const allUsersCards = document.querySelectorAll(".request-item");
-    const navItems = document.querySelectorAll(".header-nav-item");
 
-    navItems.forEach(item => {
-        item.classList.remove("header-nav-item--active")
-    });
-    
-    loadingMyRequest();
-
-    if (Number(window.innerWidth) < 769 ) {
-        toggleMenu();
-    }
-
-    
-
-    e.target.parentNode.classList.add("header-nav-item--active");
-    let personalCardLength = 0;
-
-    const personalCards = allUsersCards.forEach(card => {
-
-        const isPersonalCard = card.getAttribute("data-user").toLowerCase() === "marco";
-        if (card.getAttribute("data-user").toLowerCase()!=="marco") {
-            card.style.display = "none";
-            
-        } else {
-            personalCardLength++;
-            
-        }
-    });
-    checkPersonalCardLength(personalCardLength);
-}
-
-
-function  checkPersonalCardLength(personalCardsLenght) {
-    if (personalCardsLenght < 1) {
-        document.querySelector("#info-text-section-noCards").style.display="block"
-    }
-}
 
 
 

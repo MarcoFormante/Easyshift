@@ -36,12 +36,11 @@ async function getUserData() {
 
     try {
     const s = "https://trueappwork.000webhostapp.com/"
-    const url = "getdatiEasyShift.php";
+    const url = "getdatiEasyShiftPersonalCard.php";
     const request = await fetch(s+url);
 
     if (!request.ok) {
-        throw Error(request.statusText);
-        alert("erreur de connection , essayer plus tard");
+        throw Error(request.statusText)
         }
 
 
@@ -54,8 +53,8 @@ async function getUserData() {
 
 
     } catch (error) {
-
-        alert("erreur de connection , essayer plus tard" + " error : "+ error);
+        
+        alert("erreur de connection , essayer plus tard :(");
 
  }
 
@@ -156,62 +155,12 @@ function renderDataUser(data) {
 
     showDeleteIcon();
     getComments();
-
-    handleSendComments();
-
+    
     if (dataLenght < 1 ) {
         document.querySelector("#info-text-section-noCards").style.display = "block";
-        document.querySelector(".search-bar-section").style.display = "none";
     };
 
-
-
-
 }
-
-
-
-
-function handleSendComments() {
-const commentBtn = document.querySelectorAll(".card-input-comments-btn-send");
-
-    commentBtn.forEach(btn => {
-        btn.addEventListener("click", sendComment);
-    })
-}
-
-function sendComment(e) {
-    const commentInput = e.target.previousElementSibling.value;
-    const idCard = e.target.closest(".request-item").getAttribute("data-id");
-    const s = "https://trueappwork.000webhostapp.com/";
-
-    const commentsContainer = e.target.closest(".request-item").querySelector(".comment-text-section > .comment-list");
-    
-    if (commentInput !=="") {
-
-        $.ajax({
-            methods: "POST",
-            url: s + `easyShiftSendComment.php?name=${userName}&comment=${commentInput}&idCard=${idCard}`,
-
-            success: function (response) {
-                console.log(response);
-                
-                const comments = ["0" + "&&" + userName + "&&" + commentInput + "&&" + idCard + "&&" + ""];
-                    renderComments(comments);
-                    
-            },
-
-            error: function (error) {
-                alert("probleme de connection , essayer plus tard :( " + error)
-            }
-
-
-        })
-
-    }
-       
-        
-    }
 
 
 
@@ -288,14 +237,7 @@ function lockCard() {
             } else {
                 parentCard.classList.remove("toggleLockCard");
                 e.target.classList.remove("toggleLockBtn");
-                commentSection.classList.remove("comment-blocked");
-
-                idComment = 0;
-                idCard = icon.closest(".request-item").getAttribute("data-id");
-                
-                setLike(idComment, idCard);
-                console.log("questooooo");
-                console.log(idComment , "ee  : " + idCard) ;
+                commentSection.classList.remove("comment-blocked")
             }
 
         })
@@ -524,7 +466,7 @@ function checkBlockedComments() {
     const commentsList = document.querySelectorAll(".comment-item");
     commentsList.forEach(comment => {
   
-        if (comment.getAttribute("data-comId") === comment.closest(".request-item").getAttribute("data-blocked") && comment.getAttribute("data-comId") !== "0") {
+        if (comment.getAttribute("data-comId") === comment.closest(".request-item").getAttribute("data-blocked")) {
             comment.classList.add("comment-blocked");
             if ( comment.querySelector(".comment-blockBtn")) {
                 comment.querySelector(".comment-blockBtn").classList.add("toggleLockBtn");
