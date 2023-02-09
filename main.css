@@ -336,6 +336,29 @@ figcaption.notification-body {
   cursor: pointer;
 }
 
+#info-text-section-noCards {
+  text-align: center;
+  margin-top: 100px;
+  display: none;
+}
+
+.info-text-noCards {
+  margin-bottom: 50px;
+  color: aliceblue;
+}
+
+.info-Btn-noCards-NewRequestlink {
+  background-color: rgb(7, 61, 240);
+  padding: 10px;
+  border-radius: 8px;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+.info-Btn-noCards-NewRequestlink a {
+  font-weight: bold;
+}
+
 main.toggle-menu {
   display: none;
 }

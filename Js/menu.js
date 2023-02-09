@@ -47,6 +47,7 @@ function toggleMenu() {
 
 
 function myRequest(e) {
+    
     const allUsersCards = document.querySelectorAll(".request-item");
     const navItems = document.querySelectorAll(".header-nav-item");
 
@@ -63,17 +64,27 @@ function myRequest(e) {
     
 
     e.target.parentNode.classList.add("header-nav-item--active");
-    console.log();
+    let personalCardLength = 0;
+
     const personalCards = allUsersCards.forEach(card => {
 
         const isPersonalCard = card.getAttribute("data-user").toLowerCase() === "marco";
         if (card.getAttribute("data-user").toLowerCase()!=="marco") {
             card.style.display = "none";
-        
+            
+        } else {
+            personalCardLength++;
+            
         }
-       
     });
-    
+    checkPersonalCardLength(personalCardLength);
+}
+
+
+function  checkPersonalCardLength(personalCardsLenght) {
+    if (personalCardsLenght < 1) {
+        document.querySelector("#info-text-section-noCards").style.display="block"
+    }
 }
 
 

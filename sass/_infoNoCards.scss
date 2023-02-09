@@ -1,0 +1,22 @@
+#info-text-section-noCards{
+    text-align: center;
+    margin-top: 100px;
+    display: none;
+
+}
+
+.info-text-noCards{
+    margin-bottom: 50px;
+    color: aliceblue;
+}
+
+.info-Btn-noCards-NewRequestlink{
+    background-color:$brand_color;
+    padding: 10px;
+    border-radius: 8px;
+    appearance: none;
+
+        a{
+            font-weight: bold;
+        }
+}

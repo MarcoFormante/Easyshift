@@ -43,8 +43,6 @@ async function getUserData() {
         throw Error(request.statusText)
         }
 
-
-
         const dataUsers = await (await request.text()).split("|").slice(0,-1);
         console.log(dataUsers);
 
@@ -259,6 +257,7 @@ async function setLike(idComment, idCard) {
                 console.log(response);
                 alert(`ton choix est envoyè au Server`)
             },
+
             error: function(xhr, status, error){
                 alert("un erreur est survenu, rentez plus tard" + " error: " + error(error));
             }
