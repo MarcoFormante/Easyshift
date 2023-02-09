@@ -127,7 +127,7 @@ function renderDataUser(data) {
                     <div class="card-comments-container">
                         <div class="card-icon-comments-container">
                             <div class="card-icon-comments">✉️
-                                <sup class="card-number-comments">3</sup>
+                                <sup class="card-number-comments">0</sup>
                             </div>
                         </div>
                     </div>
@@ -135,7 +135,7 @@ function renderDataUser(data) {
         </article>
 
         <div class="comment-text-section">
-                                    <ul class="comment-list">
+                                    <ul class="comment-list" id="comment">
                                        
                                         
 
@@ -152,7 +152,7 @@ function renderDataUser(data) {
 
     toggleCommentsSection();
 
-    lockCard();
+    
     showDeleteIcon();
     getComments();
     
@@ -168,7 +168,7 @@ function toggleCommentsSection() {
     
     
     iconsComment.forEach(icon => {
-        const commentsLenght = icon.getAttribute("data-cmts");
+        const commentsLenght = 2;
         const targetCard = icon.closest(".request-item");
         const usernameCard = targetCard.getAttribute("data-user").toLowerCase();
         
@@ -208,19 +208,17 @@ function lockCard() {
                 parentCard.classList.add("toggleLockCard");
 
                 const cardLockIcons = icon.closest(".request-item").querySelectorAll(".comment-blockBtn");
-                    cardLockIcons.forEach(icons => {
-                        icons.classList.remove("toggleLockBtn");
+                cardLockIcons.forEach(icons => {
+                    icons.classList.remove("toggleLockBtn");
                        
-                    })
+                })
                 
-                    e.target.classList.add("toggleLockBtn");
+                e.target.classList.add("toggleLockBtn");
                 
             } else {
                 parentCard.classList.remove("toggleLockCard");
                 e.target.classList.remove("toggleLockBtn");
             }
-
-            
             
         })
         
@@ -302,7 +300,7 @@ function renderComments(comments) {
        
         const commentData = {
             id: commentsArray[0],
-            name: commentsArray[1],
+            name: "cd",
             body: commentsArray[2],
             idCard: commentsArray[3],
             firstLetter: commentsArray[1].slice(0,1),
@@ -310,36 +308,72 @@ function renderComments(comments) {
         }
         
         cards.forEach(card => {
-            console.log(card.getAttribute("data-id"));
-            if (card.getAttribute("data-id") === commentData.idCard) {
-                const commentsContainer = card.querySelector(".comment-text-section > .comment-list");
-                commentsContainer.innerHTML +=`
 
-                                        <li class="comment-item" data-comId="${commentData.id}" data-idCard="${commentData.idCard} data-block="1">
-                                            <section class="comment-header-section">
-                                                <div class="comment-header-left">
-                                                    <div class="comment-first-letter">${commentData.firstLetter}</div>
-                                                    <div class="comment-username">${commentData.name}</div>
-                                                </div>
-                
-              
-
-                     <div class="comment-blockBtn">🔒</div>
-                
-
-                </section>
-
-                <section class="comment-body-section">
-                    <p class="comment-text">${commentData.body}</p>
-                </section>
-            </li>`
-                                                         
-                
-            }
-        })
         
+            if (card.getAttribute("data-id") === commentData.idCard) {
+
+                const commentsContainer = card.querySelector(".comment-text-section > .comment-list"); 
+                if (commentData.name.toLowerCase() !== userName.toLowerCase()) {
+                   
+                    commentsContainer.innerHTML += `
+                    <li class="comment-item" data-comId="${commentData.id}" data-idCard="${commentData.idCard} data-block="1">
+                        <section class="comment-header-section">
+                            <div class="comment-header-left">
+                                <div class="comment-first-letter">${commentData.firstLetter}</div>
+                                <div class="comment-username">${commentData.name}</div>
+                            </div> 
+                            <div class="comment-blockBtn">🔒</div> 
+                            </section>
+   
+                            <section class="comment-body-section">
+                                <p class="comment-text">${commentData.body}</p>
+                            </section>
+                        </li>`;        
+                } else {
+                    commentsContainer.innerHTML += `
+                    <li class="comment-item" data-comId="${commentData.id}" data-idCard="${commentData.idCard} data-block="1">
+                        <section class="comment-header-section">
+                            <div class="comment-header-left">
+                                <div class="comment-first-letter">${commentData.firstLetter}</div>
+                                <div class="comment-username">${commentData.name}</div>
+                            </div> 
+                           
+                            </section>
+   
+                            <section class="comment-body-section">
+                                <p class="comment-text">${commentData.body}</p>
+                            </section>
+                        </li>`; 
+                    
+                   
+                }
+                if (userName.toLowerCase() !== card.getAttribute("data-user").toLowerCase() ) {
+                    card.querySelector("#comment .comment-item .comment-blockBtn").style.display = "none";
+                }
+
+                updateCommentsLength(card);
+
+             }
+
+        })
+        lockCard();
+        
+       
     })
    
 }
 
-//toggleLockBtn
+
+function updateCommentsLength(card) {
+    let commentsLength = card.querySelector(".card-comments-container .card-number-comments");
+    const f = card.querySelectorAll(".comment-text-section li");
+    console.log(f.length);
+
+    commentsLength.innerText = f.length;
+}
+
+
+
+
+
+//toggleLockBtn  card-number-comments

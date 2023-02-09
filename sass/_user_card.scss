@@ -137,7 +137,7 @@ font-size: 1.3em;
 .comment-text-section{
     height: fit-content;
     width: 100%;
-    display: block;
+    display: none;
 
     &.toggleComments{
         display: block;
@@ -206,6 +206,7 @@ text-transform: capitalize;
     font-size: 1.4em;
     cursor: pointer;
     opacity: 0.5;
+    
 
         &.toggleLockBtn{
             opacity: 1;
