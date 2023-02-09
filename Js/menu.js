@@ -19,6 +19,8 @@ function myRequest(e) {
     const allUsersCards = document.querySelectorAll(".request-item");
     const navItems = document.querySelectorAll(".header-nav-item");
 
+
+
     navItems.forEach(item => {
         item.classList.remove("header-nav-item--active")
     });

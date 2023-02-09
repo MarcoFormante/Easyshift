@@ -388,13 +388,17 @@ function deleteCard(e) {
         url: s + `easyShiftDelete.php?id=${cardId}`,
         success:function (response) {
             console.log(response);
+            deletecomments();
         },
         error: function (error) {
             alert("Erreur de Connection au Database , checker votre")
         }
     })
+}
 
 
+function deletecomments() {
+    
 }
 
 
@@ -572,19 +576,100 @@ function renderNotifications(data) {
             firstLetter: dataNotif[1][0],
             name: dataNotif[1],
             body: dataNotif[1] + " " + dataNotif[2],
-            idCard: dataNotif[3]
+            idCard: dataNotif[4]
         }
 
         
          notificationsContainer.innerHTML += `
-                             <figure class="notification-card" data-id="${notificationObject.id}" >    
+                             <figure class="notification-card" data-id="${notificationObject.id}" data-idCard="${notificationObject.idCard}">    
                                      <p class="notification-first-letter">${notificationObject.firstLetter}</p>
                                      <figcaption class="notification-body">${notificationObject.body}</figcaption>
-                                     <div class="delete-notification" data-idCard=${notificationObject.idCard}>X</div>
+                                     <div class="delete-notification">X</div>
                              </figure>
                                      `
 
     })
 
+    deleteNotification();
+
+    WatchNotification();
+}
+
+
+function  deleteNotification() {
+    const comments = document.querySelectorAll(".notification-card");
+
+    comments.forEach(comment => {
+        const iconDeleteNotification = comment.querySelector(".delete-notification");
+        iconDeleteNotification.addEventListener("click", (e) => {
+            const idNotification = e.target.closest(".notification-card").getAttribute("data-id");
+
+            const questionNotification = window.confirm("vous voulez vraiment effacer cette notification?");
+
+            if (questionNotification) {
+                try {
+                    
+                    $.ajax({
+                        methods: "POST",
+                        url: `https://trueappwork.000webhostapp.com/easyShiftDeleteNotifications.php?id=${idNotification}`,
+                        
+                        success: function (response) {
+                            console.log(response);
+                            e.target.closest(".notification-card").remove()
+                        },
+    
+                        error: function (error) {
+                            alert("probleme de connection , essayer plus tard :( " + error);
+                        }
+                    })
+                } catch (error) {
+                    alert("probleme de connection , essayer plus tard :( " + error);
+                }
+            }
+            
+
+           
+        })
+    });
+}
+
+
+function  WatchNotification() {
+    const notifications = document.querySelectorAll(".notification-card");
+
+    notifications.forEach(notification => {
+        notification.addEventListener("click", (e) => {
+            const cardTargetId = e.target.closest(".notification-card").getAttribute("data-idCard");
+            
+            const cards = document.querySelectorAll(".request-item");
+
+            document.querySelector(".notification-section").classList.toggle("toggle-notifications");
+            document.querySelector(".search-bar-section").style.display = "none";
+
+            cards.forEach(card => {
+                if (card.getAttribute("data-id") === cardTargetId) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+                
+            });
+            document.querySelector(".button-close-watchNotification-container").style.display="flex";
+        })
+    });
     
 }
+
+
+const closeBtnWatchNotification = document.querySelector(".button-close-watchNotification");
+
+closeBtnWatchNotification.addEventListener("click", () => {
+    const cards = document.querySelectorAll(".request-item");
+
+    cards.forEach(card => {
+        card.style.display = "block";
+        
+    });
+
+    document.querySelector(".button-close-watchNotification-container").style.display="none";
+})
