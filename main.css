@@ -314,11 +314,15 @@ figure.notification-card {
   align-items: center;
   justify-content: center;
   gap: none;
+  text-transform: capitalize;
 }
 
 figcaption.notification-body {
   padding: 0 10px;
   text-align: center;
+}
+figcaption.notification-body::first-letter {
+  text-transform: capitalize;
 }
 
 .delete-notification {

@@ -5,7 +5,7 @@ let keyDownCode = "";
 
 
 getUserData();
-
+getNotifications();
 
 searchBtn.addEventListener("click", searchBtnPressed);
 
@@ -292,7 +292,7 @@ function lockCard() {
 
                 idComment = 0;
                 idCard = icon.closest(".request-item").getAttribute("data-id");
-                
+
                 setLike(idComment, idCard);
                 console.log("questooooo");
                 console.log(idComment , "ee  : " + idCard) ;
@@ -533,4 +533,58 @@ function checkBlockedComments() {
             console.log(comment.closest(".comment-text-section").closest(".request-item").classList.add("toggleLockCard")); 
         }
     })
+}
+
+
+async function getNotifications() {
+    
+
+    try {
+        const request = await fetch("https://trueappwork.000webhostapp.com/getNotificationsEasyshift.php")
+
+           if (!request.ok) {
+           alert("probleme de connection :( essayez plus tard " + request.statusText)
+        }
+        
+        const data = await (await request.text()).split("|");
+        
+
+        renderNotifications(data);
+        
+    } catch (error) {
+        alert("probleme de connection :( essayez plus tard " + error)
+    }
+    
+}
+
+function renderNotifications(data) {
+    const notificationsContainer = document.querySelector("#notification-inner");
+
+    const notifications = data.slice(0, -1);
+    console.log(notifications);
+    let dataNotif = [];
+    notifications.forEach(notification => {
+        dataNotif = notification.split("&&");
+        console.log(dataNotif);
+        
+        const notificationObject = {
+            id: dataNotif[0],
+            firstLetter: dataNotif[1][0],
+            name: dataNotif[1],
+            body: dataNotif[1] + " " + dataNotif[2],
+            idCard: dataNotif[3]
+        }
+
+        
+         notificationsContainer.innerHTML += `
+                             <figure class="notification-card" data-id="${notificationObject.id}" >    
+                                     <p class="notification-first-letter">${notificationObject.firstLetter}</p>
+                                     <figcaption class="notification-body">${notificationObject.body}</figcaption>
+                                     <div class="delete-notification" data-idCard=${notificationObject.idCard}>X</div>
+                             </figure>
+                                     `
+
+    })
+
+    
 }

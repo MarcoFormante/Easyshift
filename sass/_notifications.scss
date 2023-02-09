@@ -4,7 +4,6 @@
     right: 20px;
     width: 40px;
     height: 40px;
-    
     cursor: pointer;
 }
 
@@ -102,11 +101,16 @@ border: 2px solid $brand-color;
 width: 30px;
 height: 30px;
 @include flex(row,center,center,none);
+text-transform: capitalize;
 }
 
 figcaption.notification-body{
    padding: 0 10px;
    text-align: center;
+    
+    &::first-letter{
+        text-transform: capitalize;
+    }
 }
 
 .delete-notification{
