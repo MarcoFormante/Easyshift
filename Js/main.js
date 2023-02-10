@@ -156,15 +156,13 @@ function renderDataUser(data) {
 
     showDeleteIcon();
     getComments();
-
+  
     handleSendComments();
 
     if (dataLenght < 1 ) {
         document.querySelector("#info-text-section-noCards").style.display = "block";
         document.querySelector(".search-bar-section").style.display = "none";
     };
-
-
 
 
 }
@@ -178,6 +176,7 @@ const commentBtn = document.querySelectorAll(".card-input-comments-btn-send");
     commentBtn.forEach(btn => {
         btn.addEventListener("click", sendComment);
     })
+    
 }
 
 function sendComment(e) {
@@ -188,14 +187,14 @@ function sendComment(e) {
     const commentsContainer = e.target.closest(".request-item").querySelector(".comment-text-section > .comment-list");
     
     if (commentInput !=="") {
-       
+        
         $.ajax({
             methods: "POST",
             url: s + `easyShiftSendComment.php?name=${userName}&comment=${commentInput}&idCard=${idCard}`,
 
             success: function (response) {
                 console.log(response);
-                sendnotificationtoAll(userName,idCard,"a repondu a un post",commentsContainer.querySelectorAll(".comment-username"));
+                sendnotificationtoAll(userName,idCard,commentsContainer.querySelectorAll(".comment-username"),"a repondu a un post");
                 
                 const comments = ["0" + "&&" + userName + "&&" + commentInput + "&&" + idCard + "&&" + ""];
                     renderComments(comments);
@@ -210,9 +209,20 @@ function sendComment(e) {
         })
 
     }
-       
         
+}
+    
+
+function sendnotificationtoAll(username,idCard,Allusercomments,bodynotif) {
+    
+    Allusercomments.forEach(usercomment => {
+        const usernamecomment = usercomment.innerText;
+    if (usernamecomment.toLowerCase() !== userName.toLowerCase()) {
+        sendNotificationTo(username, idCard, usernamecomment, bodynotif);
     }
+       
+    });
+}
 
 
 
