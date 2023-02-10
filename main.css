@@ -367,6 +367,12 @@ figcaption.notification-body::first-letter {
   height: 80%;
 }
 
+.dateNotification {
+  color: rgb(19, 19, 19);
+  margin-left: 10px;
+  font-size: 12px;
+}
+
 #info-text-section-noCards {
   text-align: center;
   margin-top: 100px;

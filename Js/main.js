@@ -170,7 +170,7 @@ function renderDataUser(data) {
 }
 
 
-
+     
 
 function handleSendComments() {
 const commentBtn = document.querySelectorAll(".card-input-comments-btn-send");
@@ -188,7 +188,7 @@ function sendComment(e) {
     const commentsContainer = e.target.closest(".request-item").querySelector(".comment-text-section > .comment-list");
     
     if (commentInput !=="") {
-
+       
         $.ajax({
             methods: "POST",
             url: s + `easyShiftSendComment.php?name=${userName}&comment=${commentInput}&idCard=${idCard}`,
@@ -388,7 +388,8 @@ function deleteCard(e) {
         url: s + `easyShiftDelete.php?id=${cardId}`,
         success:function (response) {
             console.log(response);
-            deletecomments();
+            deletecommentsOnDB(cardId);
+            e.target.closest(".request-item").remove();
         },
         error: function (error) {
             alert("Erreur de Connection au Database , checker votre")
@@ -397,8 +398,20 @@ function deleteCard(e) {
 }
 
 
-function deletecomments() {
+function deletecommentsOnDB(cardid) {
     
+    $.ajax({
+        methods: "POST",
+        url: `https://trueappwork.000webhostapp.com/easyShiftDeleteComments.php?idCard=${cardid}`,
+        
+        success:function(response) {
+            console.log(response);
+        },
+
+        error: function (error) {
+            alert("probleme de connection , essayer plus tard :( "+ error )
+        }
+    })
 }
 
 
@@ -434,15 +447,20 @@ function renderComments(comments) {
     comments.forEach(comment => {
         const commentsArray = comment.split("&&");
         const cards = document.querySelectorAll(".request-item");
-
+console.log(commentsArray);
         const commentData = {
             id: commentsArray[0],
             name: commentsArray[1],
             body: commentsArray[2],
             idCard: commentsArray[3],
             firstLetter: commentsArray[1].slice(0,1),
-            isBlocked: commentsArray[4]
+            isBlocked: "",
+            time: commentsArray[4]
         }
+        const time = commentData.time.slice(0,commentData.time.indexOf(" ")).split("-").reverse().join("/");
+
+        
+        
 
         cards.forEach(card => {
 
@@ -453,7 +471,7 @@ function renderComments(comments) {
                 if (commentData.name.toLowerCase() !== userName.toLowerCase()) {
 
                     commentsContainer.innerHTML += `
-                    <li class="comment-item" data-comId="${commentData.id}" data-idCard="${commentData.idCard}" data-block="${commentData.isBlocked}">
+                    <li class="comment-item" data-comId="${commentData.id}" data-idCard="${commentData.idCard}" data-block="${0}">
                         <section class="comment-header-section">
                             <div class="comment-header-left">
                                 <div class="comment-first-letter">${commentData.firstLetter}</div>
@@ -465,6 +483,7 @@ function renderComments(comments) {
                             <section class="comment-body-section">
                                 <p class="comment-text">${commentData.body}</p>
                             </section>
+                            <p class="dateNotification">${time}<p>
                         </li>`;
                         
                         
@@ -482,6 +501,7 @@ function renderComments(comments) {
                             <section class="comment-body-section">
                                 <p class="comment-text">${commentData.body}</p>
                             </section>
+                            <p class="dateNotification">${time}<p>
                         </li>`;
                         
 
@@ -563,7 +583,7 @@ async function getNotifications() {
 
 function renderNotifications(data) {
     const notificationsContainer = document.querySelector("#notification-inner");
-
+   
     const notifications = data.slice(0, -1);
     console.log(notifications);
     let dataNotif = [];
@@ -576,28 +596,35 @@ function renderNotifications(data) {
             firstLetter: dataNotif[1][0],
             name: dataNotif[1],
             body: dataNotif[1] + " " + dataNotif[2],
-            idCard: dataNotif[4]
+            idCard: dataNotif[4],
+            time: dataNotif[5]
         }
 
-        
+        const time = notificationObject.time.slice(0,notificationObject.time.indexOf(" ")).split("-").reverse().join("/");
+
+       
          notificationsContainer.innerHTML += `
                              <figure class="notification-card" data-id="${notificationObject.id}" data-idCard="${notificationObject.idCard}">    
                                      <p class="notification-first-letter">${notificationObject.firstLetter}</p>
                                      <figcaption class="notification-body">${notificationObject.body}</figcaption>
                                      <div class="delete-notification">X</div>
+                                     
                              </figure>
+                             <p class="dateNotification">${time}<p>
                                      `
 
     })
 
-    deleteNotification();
+    deleteNotification("");
 
     WatchNotification();
 }
 
 
-function  deleteNotification() {
-    const comments = document.querySelectorAll(".notification-card");
+function deleteNotification(notifTarget) {
+    
+    if (notifTarget == "") {
+        const comments = document.querySelectorAll(".notification-card");
 
     comments.forEach(comment => {
         const iconDeleteNotification = comment.querySelector(".delete-notification");
@@ -631,6 +658,28 @@ function  deleteNotification() {
            
         })
     });
+        
+    } else {
+        try {
+                    
+            $.ajax({
+                methods: "POST",
+                url: `https://trueappwork.000webhostapp.com/easyShiftDeleteNotifications.php?id=${notifTarget}`,
+                
+                success: function (response) {
+                    console.log(response);
+                   
+                },
+
+                error: function (error) {
+                    alert("probleme de connection , essayer plus tard :( " + error);
+                }
+            })
+        } catch (error) {
+            alert("probleme de connection , essayer plus tard :( " + error);
+        }
+    }
+    
 }
 
 
@@ -646,15 +695,25 @@ function  WatchNotification() {
             document.querySelector(".notification-section").classList.toggle("toggle-notifications");
             document.querySelector(".search-bar-section").style.display = "none";
 
+            let cardcounter = 0;
             cards.forEach(card => {
                 if (card.getAttribute("data-id") === cardTargetId) {
                     card.style.display = "block";
+                    cardcounter++;
                 } else {
                     card.style.display = "none";
+                    
                 }
                 
             });
-            document.querySelector(".button-close-watchNotification-container").style.display="flex";
+            document.querySelector(".button-close-watchNotification-container").style.display = "flex";
+            if (cardcounter < 1) {
+                alert("l'utilisateur a effacer cette requete");
+                deleteNotification(e.target.closest(".notification-card").getAttribute("data-id"));
+                notification.nextElementSibling.remove();
+                notification.remove();
+                
+            }
         })
     });
     
