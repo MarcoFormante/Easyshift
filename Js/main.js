@@ -195,6 +195,7 @@ function sendComment(e) {
 
             success: function (response) {
                 console.log(response);
+                sendnotificationtoAll(userName,idCard,"a repondu a un post",commentsContainer.querySelectorAll(".comment-username"));
                 
                 const comments = ["0" + "&&" + userName + "&&" + commentInput + "&&" + idCard + "&&" + ""];
                     renderComments(comments);
@@ -259,7 +260,7 @@ function lockCard() {
 
     iconLock.forEach(icon => {
         icon.addEventListener("click", (e) => {
-           
+            
             const parentCard = icon.closest(".request-item");
             const commentSection = icon.closest(".comment-item")
             
@@ -283,7 +284,8 @@ function lockCard() {
                
                 idCard = icon.closest(".request-item").getAttribute("data-id");
                 
-                setLike(idComment,idCard);
+                setLike(idComment, idCard,userName,icon.previousElementSibling.querySelector(".comment-username").innerText,`veut ton shift`);
+               
 
             } else {
                 parentCard.classList.remove("toggleLockCard");
@@ -293,9 +295,8 @@ function lockCard() {
                 idComment = 0;
                 idCard = icon.closest(".request-item").getAttribute("data-id");
 
-                setLike(idComment, idCard);
-                console.log("questooooo");
-                console.log(idComment , "ee  : " + idCard) ;
+                setLike(idComment, idCard , userName ,icon.previousElementSibling.querySelector(".comment-username").innerText,`a delockè ton commentaire :(`);
+                console.log(icon.previousElementSibling.querySelector(".comment-username").innerText);
             }
 
         })
@@ -306,11 +307,14 @@ function lockCard() {
 
 
 
-async function setLike(idComment, idCard) {
+
+
+
+async function setLike(idComment, idCard,userName,nameOfthecomment,bodynotif) {
     const s = "https://trueappwork.000webhostapp.com/";
     const url = "easyShiftLike.php";
-
-
+    const idc = idCard;
+    const bodyNotification = bodynotif;
     try {
 
         $.ajax({
@@ -320,6 +324,7 @@ async function setLike(idComment, idCard) {
             success: function(response){
                 console.log(response);
                 alert(`ton choix est envoyè au Server`)
+                sendNotificationTo(userName,idc,nameOfthecomment,bodyNotification);
             },
             error: function(xhr, status, error){
                 alert("un erreur est survenu, rentez plus tard" + " error: " + error(error));
@@ -333,6 +338,34 @@ async function setLike(idComment, idCard) {
     }
     
 }
+
+//da finire
+async function sendNotificationTo(username, idCard,nameOfthecomment,bodyNotification) {
+    const s = "https://trueappwork.000webhostapp.com/";
+    
+    try {
+
+        $.ajax({
+            method: "POST",
+            url: s+`easyShiftSendNotification.php?notificationBy=${username}&name=${nameOfthecomment}&idCard=${idCard}&body=${bodyNotification}`,
+           
+            success: function(response){
+                console.log(response);
+                console.log("inviato notification");                
+            },
+            error: function(xhr, status, error){
+                alert("un erreur est survenu, rentez plus tard" + " error: " + error(error));
+            }
+        });
+
+    
+    
+    } catch (error) {
+    alert(error)
+    }
+    
+}
+
 
 
 /*//////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
@@ -379,22 +412,28 @@ function showDeleteIcon(username, cardIndex) {
 
 function deleteCard(e) {
     const cardId = e.target.closest(".request-item").getAttribute("data-id")
-    console.log(cardId);
+    
     const s = "https://trueappwork.000webhostapp.com/";
     const url = "easyShiftLike.php";
+    const optionsWindowDeleteCard = window.confirm("vous voulez vraiment supprimer cette requete?");
 
-    $.ajax({
-        method: "POST",
-        url: s + `easyShiftDelete.php?id=${cardId}`,
-        success:function (response) {
-            console.log(response);
-            deletecommentsOnDB(cardId);
-            e.target.closest(".request-item").remove();
-        },
-        error: function (error) {
-            alert("Erreur de Connection au Database , checker votre")
-        }
-    })
+    if (optionsWindowDeleteCard) {
+
+        $.ajax({
+            method: "POST",
+            url: s + `easyShiftDelete.php?id=${cardId}`,
+            success:function (response) {
+                console.log(response);
+                deletecommentsOnDB(cardId);
+                e.target.closest(".request-item").remove();
+            },
+            error: function (error) {
+                alert("Erreur de Connection au Database , checker votre")
+            }
+        })
+    }
+
+   
 }
 
 
@@ -729,6 +768,6 @@ closeBtnWatchNotification.addEventListener("click", () => {
         card.style.display = "block";
         
     });
-
+    document.querySelector(".search-bar-section").style.display = "flex";
     document.querySelector(".button-close-watchNotification-container").style.display="none";
 })
