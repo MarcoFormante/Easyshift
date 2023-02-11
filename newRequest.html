@@ -8,70 +8,74 @@
     <title>New Request - Easyshift</title>
 </head>
 <body>
+    <div class="body-page">
 
-    <header class="header-home-page flex-row">
-        <h1 class="brand">Easyshift</h1>
-
+        <header class="header-home-page flex-row">
+            <h1 class="brand">Easyshift</h1>
+    
+            
+            <nav class="header-nav">
+                <ul class="header-nav-container--flex">
+                    <li class="header-nav-item header-nav-item1"><a href="home.html" class="header-nav-link header-nav-link1">Home</a></li>
+                    <li class="header-nav-item header-nav-item2"><a href="#" class="header-nav-link header-nav-link2">How it works</a></li>
+                    <li class="header-nav-item header-nav-item3"><a href="#" class="header-nav-link header-nav-link3">Contact</a></li>               
+                    <li class="header-nav-item header-nav-item3"><a href="myRequest.html" class="header-nav-link header-nav-link4">My requests</a></li>               
+                    <li class="header-nav-item header-nav-item3 header-nav-item--active"><a href="newRequest.html" class="header-nav-link header-nav-link5">New requests</a></li>               
+                </ul>
+            </nav>
+    
+            <div class="menu-container">
+                <div class="menu-inner flex-column">
+                    <span class="menu-line line1"></span>
+                    <span class="menu-line line2"></span>
+                </div>
+            </div>
+        </header>
+    
+       
+    
+        <main>
+            <div class="body-page-newRequest">
+    
+                <div class="newRequest-title-container">
+                    <h1 class="newRequest-title">- New Request -</h1>
+                </div>
         
-        <nav class="header-nav">
-            <ul class="header-nav-container--flex">
-                <li class="header-nav-item header-nav-item1"><a href="home.html" class="header-nav-link header-nav-link1">Home</a></li>
-                <li class="header-nav-item header-nav-item2"><a href="#" class="header-nav-link header-nav-link2">How it works</a></li>
-                <li class="header-nav-item header-nav-item3"><a href="#" class="header-nav-link header-nav-link3">Contact</a></li>               
-                <li class="header-nav-item header-nav-item3"><a href="myRequest.html" class="header-nav-link header-nav-link4">My requests</a></li>               
-                <li class="header-nav-item header-nav-item3 header-nav-item--active"><a href="newRequest.html" class="header-nav-link header-nav-link5">New requests</a></li>               
-            </ul>
-        </nav>
-
-        <div class="menu-container">
-            <div class="menu-inner flex-column">
-                <span class="menu-line line1"></span>
-                <span class="menu-line line2"></span>
-            </div>
-        </div>
-    </header>
-
-   
-
-    <main>
-        <div class="body-page-newRequest">
-
-            <div class="newRequest-title-container">
-                <h1 class="newRequest-title">- New Request -</h1>
-            </div>
-    
-            <section class="form-section form-section-newRequest">
-                <div class="inner-form-section">
-                    <form action="#" id="form-newRequest">
-                        <div class="inputs-container-form-newRequest">
-    
-                            <div class="username-container-form form-inputs-container" >
-                                <label for="username-inpt">Name</label>
-                                <input type="text" readonly placeholder="Marco" name="username-inpt" id="username-inpt">
+                <section class="form-section form-section-newRequest">
+                    <div class="inner-form-section">
+                        <form action="#" id="form-newRequest">
+                            <div class="inputs-container-form-newRequest">
+        
+                                <div class="username-container-form form-inputs-container" >
+                                    <label for="username-inpt">Name</label>
+                                    <input type="text" readonly placeholder="" name="username-inpt" id="username-inpt">
+                                </div>
+                               
+                                <div class="date-container-form form-inputs-container" >
+                                    <label for="date-inpt">Date</label>
+                                    <input type="text"  name="date-inpt" id="date-inpt" placeholder="ex. 15/10/2023" onfocus="(this.type=`date`)"  onblur="(this.type='text')" required>
+                                </div>
+        
+                                <div class="shift-container-form form-inputs-container" >
+                                    <label for="shift-inpt">Shift</label>
+                                    <input type="text"name="shift-inpt" id="shift-inpt" onfocus="(this.type=`time`)"  onblur="(this.type='text')"  placeholder="ex. 10:30" required>
+                                </div>
+        
+                                <div class="request-container-form form-inputs-container" >
+                                    <label for="request-inpt">Request</label>
+                                    <input type="text"  placeholder=" Ex. plus tard" name="request-inpt" id="request-inpt" required maxlength="50">
+                                </div>
                             </div>
                            
-                            <div class="date-container-form form-inputs-container" >
-                                <label for="date-inpt">Date</label>
-                                <input type="text"  name="date-inpt" id="date-inpt" placeholder="ex. 15/10/2023" onfocus="(this.type=`date`)"  onblur="(this.type='text')" required>
-                            </div>
+                            <input type="submit" value="SEND REQUEST" id="form-submit">
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
     
-                            <div class="shift-container-form form-inputs-container" >
-                                <label for="shift-inpt">Shift</label>
-                                <input type="text"name="shift-inpt" id="shift-inpt" onfocus="(this.type=`time`)"  onblur="(this.type='text')"  placeholder="ex. 10:30" required>
-                            </div>
-    
-                            <div class="request-container-form form-inputs-container" >
-                                <label for="request-inpt">Request</label>
-                                <input type="text"  placeholder=" Ex. plus tard" name="request-inpt" id="request-inpt" required maxlength="50">
-                            </div>
-                        </div>
-                       
-                        <input type="submit" value="SEND REQUEST" id="form-submit">
-                    </form>
-                </div>
-            </section>
-        </div>
-    </main>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="/Js/menu.js"></script>

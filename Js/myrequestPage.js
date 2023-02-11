@@ -1,12 +1,12 @@
 
-const userName = "marco";
+const userName = localStorage.getItem("userName");
 let keyDownCode = "";
 
 
 getUserData();
 getNotifications();
 
-
+getActiveNotification(userName);
 
 
 
@@ -83,6 +83,7 @@ function renderDataUser(data) {
         }
 
         if (userInfoCard.username.toLowerCase() === userName.toLowerCase()) {
+            
             const firstLetter = userInfoCard.username.slice(0, 1);
             renderHtml += `<li class="request-item" data-id="${userInfoCard.id}"data-index="${dataLenght}" data-user="${userInfoCard.username}" data-blocked="${userInfoCard.isblockedBy}">
 
@@ -141,28 +142,87 @@ function renderDataUser(data) {
                                     </div>
     
         </li>`
+       
     
+        } else {
+            const firstLetter = userInfoCard.username.slice(0, 1);
+            renderHtml += `<li style="display:none" class="request-item" data-id="${userInfoCard.id}"data-index="${dataLenght}" data-user="${userInfoCard.username}" data-blocked="${userInfoCard.isblockedBy}">
+
+            <article class="request-card-container">
+                <header class="card-header flex-row">
+                    <p class="card-first-letter">${firstLetter}</p>
+                    <p class="card-username">${userInfoCard.username}</p>
+                    <div class="delete-icon">🗑</div>
+                </header>
+    
+                <main class="card-main">
+    
+                    <div class="card-main-upper flex-row align-center space-between">
+                        <div>
+                            <p>Date:</p>
+                            <p class="card-date">${userInfoCard.date}</p>
+                        </div>
+                        <div>
+                            <p>Shift</p>
+                            <time class="card-shift">${userInfoCard.shift}</time>
+                        </div>
+    
+                    </div>
+    
+                    <div class="card-main-down">
+                        <p class="card-request-title">Request:</p>
+                        <p class="card-main-request">${userInfoCard.shift}</p>
+                    </div>
+    
+                </main>
+    
+                <footer class="card-footer">
+    
+                    <form action="#" class="card-form-comment">
+                        <input type="text" name="card-input-comment" id="card-input-comment" placeholder="your comment..." maxlength="50">
+                        <div class="card-input-comments-btn-send">📤</div>
+                    </form>
+                   <p class="comment-lenght-info">max 50 characters</p>
+    
+                        <div class="card-comments-container">
+                            <div class="card-icon-comments-container">
+                                <div class="card-icon-comments">✉️
+                                    <sup class="card-number-comments">0</sup>
+                                </div>
+                            </div>
+                        </div>
+                </footer>
+            </article>
+    
+            <div class="comment-text-section">
+                                        <ul class="comment-list" id="comment">
+    
+    
+    
+                                        </ul>
+                                    </div>
+    
+        </li>`
         }
 
-
-
-      
-
-      
+     
         dataLenght++;
-
+       
     });
-
+   
+    
     requestsSection.innerHTML = renderHtml;
     showDeleteIcon();
     getComments();
     handleSendComments();
-
+   
+    
     if (dataLenght < 1 ) {
         document.querySelector("#info-text-section-noCards").style.display = "block";
         document.querySelector(".search-bar-section").style.display = "none";
-    };
-
+    } else {
+        document.querySelector("#info-text-section-noCards").style.display = "none";
+    }
 }
 
 
@@ -589,18 +649,25 @@ function updateCommentsLength(card) {
 
 
 
-
-
 function checkBlockedComments() {
     const commentsList = document.querySelectorAll(".comment-item");
+    
     commentsList.forEach(comment => {
   
         if (comment.getAttribute("data-comId") === comment.closest(".request-item").getAttribute("data-blocked") && comment.getAttribute("data-comId") !== "0") {
             comment.classList.add("comment-blocked");
+
+           
+            const parentCard = comment.closest(".request-item");
+            
+            
             if ( comment.querySelector(".comment-blockBtn")) {
+              
                 comment.querySelector(".comment-blockBtn").classList.add("toggleLockBtn");
+                parentCard.classList.add("toggleLockCard");
             }
            
+             
         }
     })
 }
@@ -610,28 +677,28 @@ async function getNotifications() {
     
 
     try {
-        const request = await fetch("https://trueappwork.000webhostapp.com/getNotificationsEasyshift.php")
+        const request = await fetch(`https://trueappwork.000webhostapp.com/getNotificationsEasyshift.php?name=${userName}`)
+            
 
            if (!request.ok) {
            alert("probleme de connection :( essayez plus tard " + request.statusText)
         }
         
-        const data = await (await request.text()).split("|");
+          const data = await (await request.text()).split("|");
         
 
-        renderNotifications(data);
+         renderNotifications(data);
         
     } catch (error) {
-        alert("probleme de connection :( essayez plus tard " + error)
-    }
-    
+         alert("probleme de connection :( essayez plus tard " + error)
+     }
 }
 
 function renderNotifications(data) {
     const notificationsContainer = document.querySelector("#notification-inner");
    
     const notifications = data.slice(0, -1);
-    console.log(notifications);
+   
     let dataNotif = [];
     notifications.forEach(notification => {
         dataNotif = notification.split("&&");
@@ -734,12 +801,13 @@ function  WatchNotification() {
 
     notifications.forEach(notification => {
         notification.addEventListener("click", (e) => {
-            const cardTargetId = e.target.closest(".notification-card").getAttribute("data-idCard");
+            if (!e.target.classList.contains("delete-notification")) {
+                const cardTargetId = e.target.closest(".notification-card").getAttribute("data-idCard");
             
             const cards = document.querySelectorAll(".request-item");
 
             document.querySelector(".notification-section").classList.toggle("toggle-notifications");
-           
+          
 
             let cardcounter = 0;
             cards.forEach(card => {
@@ -752,7 +820,8 @@ function  WatchNotification() {
                 }
                 
             });
-            document.querySelector(".button-close-watchNotification-container").style.display = "flex";
+                document.querySelector(".button-close-watchNotification-container").style.display = "flex";
+                document.querySelector(".notification-icon-section").style.display = "flex";
             if (cardcounter < 1) {
                 alert("l'utilisateur a effacer cette requete");
                 deleteNotification(e.target.closest(".notification-card").getAttribute("data-id"));
@@ -760,16 +829,75 @@ function  WatchNotification() {
                 notification.remove();
                 
             }
+            }
+            
         })
     });
     
 }
 
 
+
 const closeBtnWatchNotification = document.querySelector(".button-close-watchNotification");
 
 closeBtnWatchNotification.addEventListener("click", () => {
     location.reload();
-    console.log("cliccato");
+   
 
 })
+
+myRequest()
+
+function myRequest() {
+    
+    const allUsersCards = document.querySelectorAll(".request-item");
+   
+
+    
+    loadingMyRequest();
+
+    
+    let personalCardLength = 0;
+
+    const personalCards = allUsersCards.forEach(card => {
+        
+
+        const isPersonalCard = card.getAttribute("data-user").toLowerCase() === userNameStorage.toLowerCase();
+        if (card.getAttribute("data-user").toLowerCase()!==userNameStorage) {
+            card.style.display = "none";
+            
+        } else {
+            personalCardLength++;
+            
+        }
+    });
+    checkPersonalCardLength(personalCardLength);
+}
+
+
+function  checkPersonalCardLength(personalCardsLenght) {
+    if (personalCardsLenght < 1) {
+        document.querySelector("#info-text-section-noCards").style.display="block"
+    }
+}
+
+
+
+
+
+async function getActiveNotification(username) {
+    
+    try {
+        const request = await fetch(`https://trueappwork.000webhostapp.com/getActiveNotificationEasyshift.php?name=${username.toLowerCase()}`);
+        const response = await request.text();
+    
+        if (response == 1) {
+            const iconNotification = document.querySelector(".notification-icon");
+            iconNotification.classList.add("hasNotification");
+    
+            console.log("è 1");
+        }
+    } catch (error) {
+        
+    }
+    }

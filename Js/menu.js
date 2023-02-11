@@ -1,5 +1,5 @@
 const menuBtn = document.querySelector(".menu-container");
-const userNametorage = localStorage.getItem("userName").toLowerCase();
+const userNameStorage = localStorage.getItem("userName").toLowerCase();
 document.querySelector(".header-nav-link4").addEventListener("click", myRequest);
 
 
@@ -41,8 +41,8 @@ function myRequest(e) {
     const personalCards = allUsersCards.forEach(card => {
         
 
-        const isPersonalCard = card.getAttribute("data-user").toLowerCase() === userNametorage.toLowerCase();
-        if (card.getAttribute("data-user").toLowerCase()!==userNametorage) {
+        const isPersonalCard = card.getAttribute("data-user").toLowerCase() === userNameStorage.toLowerCase();
+        if (card.getAttribute("data-user").toLowerCase()!==userNameStorage) {
             card.style.display = "none";
             
         } else {
@@ -78,10 +78,13 @@ function toggleMenu() {
    
     
     document.querySelector("main").classList.toggle("toggle-menu");
-    if (headerNav.classList.contains("toggle-menu")) {
+    if (headerNav.classList.contains("toggle-menu") && (document.querySelector(".notification-icon-section"))) {
         document.querySelector(".notification-icon-section").style.display = "none";
     } else {
-        document.querySelector(".notification-icon-section").style.display = "block";
+        if (document.querySelector(".notification-icon-section")) {
+            document.querySelector(".notification-icon-section").style.display = "block";
+        }
+       
     }
 }
 

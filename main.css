@@ -13,6 +13,10 @@ html {
   background-attachment: fixed;
 }
 
+body {
+  max-height: 100vh;
+}
+
 .body-page {
   width: 100vw;
   overflow-x: hidden;
@@ -220,29 +224,43 @@ a {
 
 .notification-icon-section {
   position: fixed;
-  top: 90vh;
-  right: 20px;
+  top: 70px;
+  right: 28px;
   width: 40px;
   height: 40px;
   cursor: pointer;
+  z-index: 100;
 }
 
 .notification-icon {
   width: 100%;
   height: 100%;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.notification-icon.hasNotification {
+  box-shadow: 0 0 20px rgb(255, 72, 0);
+  animation: visibility 1s infinite alternate ease;
 }
 .notification-icon svg {
   width: 100%;
   height: 100%;
-  margin-left: 3px;
+  margin-left: 6px;
 }
 .notification-icon svg path {
   width: 100%;
 }
-.notification-icon svg path.hasNotification {
-  fill: rgb(255, 0, 0);
-}
 
+@keyframes visibility {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 .notification-section {
   position: fixed;
   background-color: #1d1c1c;
@@ -346,9 +364,9 @@ figcaption.notification-body::first-letter {
   width: 100vw;
   height: 40px;
   display: flex;
-  justify-content: flex-end;
-  padding-right: 50px;
-  margin-top: 20px;
+  justify-content: flex-start;
+  padding-left: 50px;
+  margin-top: 12px;
   display: none;
 }
 
@@ -409,10 +427,12 @@ main.toggle-menu {
 
 .request-list {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   align-items: center;
   justify-content: center;
   gap: 40px;
+  height: -moz-fit-content;
+  height: fit-content;
 }
 .request-list::-webkit-scrollbar {
   display: none;
@@ -563,11 +583,13 @@ article.request-card-container {
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
-  background-color: rgba(87, 87, 87, 0.123);
+  background-color: rgba(134, 134, 134, 0.185);
   padding: 10px 7px;
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
 }
 .comment-item:nth-child(odd) {
-  background-color: rgba(189, 186, 186, 0.123);
+  background-color: rgba(189, 186, 186, 0.192);
 }
 .comment-item.comment-blocked {
   box-shadow: inset 0 0 100px rgb(255, 208, 0);
@@ -644,7 +666,8 @@ article.request-card-container {
 
 .form-section {
   width: 100vw;
-  height: 100vh;
+  height: -moz-fit-content;
+  height: fit-content;
   padding-top: 20px;
 }
 
@@ -807,7 +830,7 @@ figcaption.brand-caption {
   color: aliceblue;
 }
 #form-login p.text-redirect-to-login a {
-  color: #6386fa;
+  color: #faf763;
   text-decoration: underline;
 }
 #form-login label {

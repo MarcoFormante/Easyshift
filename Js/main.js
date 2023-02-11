@@ -13,7 +13,7 @@ searchBtn.addEventListener("click", searchBtnPressed);
 
 
 
-
+getActiveNotification(userName);
 
 
 
@@ -167,7 +167,6 @@ function renderDataUser(data) {
 
 }
 
-
      
 
 function handleSendComments() {
@@ -198,7 +197,7 @@ async function sendComment(e) {
                 e.target.previousElementSibling.value = "";
               
                 renderCommentsAfter(comments);
-                // sendnotificationtoAll(userName.toLowerCase(),idCard,commentsContainer.querySelectorAll(".comment-username"),"a repondu a un post"); 
+                sendnotificationtoAll(userName.toLowerCase(),idCard,commentsContainer.querySelectorAll(".comment-username"),"a repondu a un post"); 
             },
 
             error: function (error) {
@@ -717,12 +716,20 @@ function updateCommentsLength(card) {
 
 function checkBlockedComments() {
     const commentsList = document.querySelectorAll(".comment-item");
+    
     commentsList.forEach(comment => {
   
         if (comment.getAttribute("data-comId") === comment.closest(".request-item").getAttribute("data-blocked") && comment.getAttribute("data-comId") !== "0") {
             comment.classList.add("comment-blocked");
+
+           
+            const parentCard = comment.closest(".request-item");
+            
+            
             if ( comment.querySelector(".comment-blockBtn")) {
+              
                 comment.querySelector(".comment-blockBtn").classList.add("toggleLockBtn");
+                parentCard.classList.add("toggleLockCard");
             }
            
              
@@ -734,26 +741,9 @@ function checkBlockedComments() {
 
 async function getNotifications() {
     
-    // try {
-    //     $.ajax({
-    //         method: "POST",
-    //         url: `https://trueappwork.000webhostapp.com/getNotificationsEasyshift.php?name=${userName}`,
-
-    //         success: function (response) {
-    //             console.log(response);
-    //             console.log("eeeeequiiii");
-    //         },
-
-    //         error: function (error) {
-    //             console.log(error);
-    //         }
-    //     })
-    // } catch (error) {
-        
-    // }
 
     try {
-        const request = await fetch(`https://trueappwork.000webhostapp.com/getNotificationsEasyshift.php?name=${userName}`)
+        const request = await fetch(`https://trueappwork.000webhostapp.com/getNotificationsEasyshift.php?name=${userName.toLowerCase()}`)
             
 
            if (!request.ok) {
@@ -806,7 +796,7 @@ function renderNotifications(data) {
 
     })
 
-    deleteNotification("");
+    deleteNotification(null);
 
     WatchNotification();
 }
@@ -814,7 +804,7 @@ function renderNotifications(data) {
 
 function deleteNotification(notifTarget) {
     
-    if (notifTarget == "") {
+    if (notifTarget === null) {
         const comments = document.querySelectorAll(".notification-card");
 
     comments.forEach(comment => {
@@ -825,6 +815,7 @@ function deleteNotification(notifTarget) {
             const questionNotification = window.confirm("vous voulez vraiment effacer cette notification?");
 
             if (questionNotification) {
+
                 try {
                     
                     $.ajax({
@@ -833,7 +824,8 @@ function deleteNotification(notifTarget) {
                         
                         success: function (response) {
                             console.log(response);
-                            e.target.closest(".notification-card").remove()
+                            e.target.closest(".notification-card").nextElementSibling.remove();
+                            e.target.closest(".notification-card").remove();
                         },
     
                         error: function (error) {
@@ -879,7 +871,8 @@ function  WatchNotification() {
 
     notifications.forEach(notification => {
         notification.addEventListener("click", (e) => {
-            const cardTargetId = e.target.closest(".notification-card").getAttribute("data-idCard");
+            if (!e.target.classList.contains("delete-notification")) {
+                const cardTargetId = e.target.closest(".notification-card").getAttribute("data-idCard");
             
             const cards = document.querySelectorAll(".request-item");
 
@@ -897,7 +890,8 @@ function  WatchNotification() {
                 }
                 
             });
-            document.querySelector(".button-close-watchNotification-container").style.display = "flex";
+                document.querySelector(".button-close-watchNotification-container").style.display = "flex";
+                document.querySelector(".notification-icon-section").style.display = "flex";
             if (cardcounter < 1) {
                 alert("l'utilisateur a effacer cette requete");
                 deleteNotification(e.target.closest(".notification-card").getAttribute("data-id"));
@@ -905,6 +899,8 @@ function  WatchNotification() {
                 notification.remove();
                 
             }
+            }
+            
         })
     });
     
@@ -923,3 +919,21 @@ closeBtnWatchNotification.addEventListener("click", () => {
     document.querySelector(".search-bar-section").style.display = "flex";
     document.querySelector(".button-close-watchNotification-container").style.display="none";
 })
+
+
+async function getActiveNotification(username) {
+    
+try {
+    const request = await fetch(`https://trueappwork.000webhostapp.com/getActiveNotificationEasyshift.php?name=${username.toLowerCase()}`);
+    const response = await request.text();
+
+    if (response == 1) {
+        const iconNotification = document.querySelector(".notification-icon");
+        iconNotification.classList.add("hasNotification");
+
+        console.log("è 1");
+    }
+} catch (error) {
+    
+}
+}
