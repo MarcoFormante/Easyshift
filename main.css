@@ -684,6 +684,7 @@ form#form-newRequest {
   margin: auto;
   margin-top: 60px;
   font-weight: 900;
+  cursor: pointer;
 }
 
 .form-inputs-container {
@@ -741,7 +742,7 @@ form#form-newRequest {
   padding-top: 20px;
 }
 .text-login-title-section figure {
-  font-size: calc(20px + 1vw);
+  font-size: calc(17px + 0.7vw);
 }
 
 .login-section {
@@ -779,6 +780,7 @@ figcaption.brand-caption {
 #form-login {
   border: 1px solid white;
   padding: 20px;
+  background-color: cornflowerblue;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -815,4 +817,13 @@ figcaption.brand-caption {
 }
 #form-login label.inputError {
   display: block;
+}
+
+.help-login {
+  background-color: rgba(100, 148, 237, 0.219);
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  padding: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }/*# sourceMappingURL=main.css.map */

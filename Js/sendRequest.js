@@ -20,6 +20,9 @@ function sendRequest(e) {
         
         success: function (response) {
             alert("Votre requete a ete envoyé au Server :) ");
+            document.querySelector("#date-inpt").value = "";
+            document.querySelector("#shift-inpt").value = "";
+            document.querySelector("#request-inpt").value="";
             if (response === "error") {
                 alert("erreur de connection , essayer plus tard :(")
             }

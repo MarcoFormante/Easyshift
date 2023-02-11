@@ -1,13 +1,11 @@
-const searchBar = document.querySelector("#input-search-bar");
-const searchBtn = document.querySelector("#search-btn");
+
 const userName = "marco";
 let keyDownCode = "";
 
 
 getUserData();
+getNotifications();
 
-
-searchBtn.addEventListener("click", searchBtnPressed);
 
 
 
@@ -35,12 +33,13 @@ searchBtn.addEventListener("click", searchBtnPressed);
 async function getUserData() {
 
     try {
-    const s = "https://trueappwork.000webhostapp.com/"
-    const url = "getdatiEasyShiftPersonalCard.php";
+        const s = "https://trueappwork.000webhostapp.com/"
+        const url = "getdatiEasyShift.php";
     const request = await fetch(s+url);
 
     if (!request.ok) {
-        throw Error(request.statusText)
+        throw Error(request.statusText);
+        alert("erreur de connection , essayer plus tard");
         }
 
 
@@ -53,8 +52,8 @@ async function getUserData() {
 
 
     } catch (error) {
-        
-        alert("erreur de connection , essayer plus tard :(");
+
+        alert("erreur de connection , essayer plus tard" + " error : "+ error);
 
  }
 
@@ -83,83 +82,143 @@ function renderDataUser(data) {
             isblockedBy:userDataCard[5]
         }
 
+        if (userInfoCard.username.toLowerCase() === userName.toLowerCase()) {
+            const firstLetter = userInfoCard.username.slice(0, 1);
+            renderHtml += `<li class="request-item" data-id="${userInfoCard.id}"data-index="${dataLenght}" data-user="${userInfoCard.username}" data-blocked="${userInfoCard.isblockedBy}">
 
-        const firstLetter = userInfoCard.username.slice(0, 1);
-
-        renderHtml += `<li class="request-item" data-id="${userInfoCard.id}"data-index="${dataLenght}" data-user="${userInfoCard.username}" data-blocked="${userInfoCard.isblockedBy}">
-
-        <article class="request-card-container">
-            <header class="card-header flex-row">
-                <p class="card-first-letter">${firstLetter}</p>
-                <p class="card-username">${userInfoCard.username}</p>
-                <div class="delete-icon">🗑</div>
-            </header>
-
-            <main class="card-main">
-
-                <div class="card-main-upper flex-row align-center space-between">
-                    <div>
-                        <p>Date:</p>
-                        <p class="card-date">${userInfoCard.date}</p>
+            <article class="request-card-container">
+                <header class="card-header flex-row">
+                    <p class="card-first-letter">${firstLetter}</p>
+                    <p class="card-username">${userInfoCard.username}</p>
+                    <div class="delete-icon">🗑</div>
+                </header>
+    
+                <main class="card-main">
+    
+                    <div class="card-main-upper flex-row align-center space-between">
+                        <div>
+                            <p>Date:</p>
+                            <p class="card-date">${userInfoCard.date}</p>
+                        </div>
+                        <div>
+                            <p>Shift</p>
+                            <time class="card-shift">${userInfoCard.shift}</time>
+                        </div>
+    
                     </div>
-                    <div>
-                        <p>Shift</p>
-                        <time class="card-shift">${userInfoCard.shift}</time>
+    
+                    <div class="card-main-down">
+                        <p class="card-request-title">Request:</p>
+                        <p class="card-main-request">${userInfoCard.shift}</p>
                     </div>
-
-                </div>
-
-                <div class="card-main-down">
-                    <p class="card-request-title">Request:</p>
-                    <p class="card-main-request">${userInfoCard.shift}</p>
-                </div>
-
-            </main>
-
-            <footer class="card-footer">
-
-                <form action="#" class="card-form-comment">
-                    <input type="text" name="card-input-comment" id="card-input-comment" placeholder="your comment..." maxlength="50">
-                    <div class="card-input-comments-btn-send">📤</div>
-                </form>
-               <p class="comment-lenght-info">max 50 characters</p>
-
-                    <div class="card-comments-container">
-                        <div class="card-icon-comments-container">
-                            <div class="card-icon-comments">✉️
-                                <sup class="card-number-comments">0</sup>
+    
+                </main>
+    
+                <footer class="card-footer">
+    
+                    <form action="#" class="card-form-comment">
+                        <input type="text" name="card-input-comment" id="card-input-comment" placeholder="your comment..." maxlength="50">
+                        <div class="card-input-comments-btn-send">📤</div>
+                    </form>
+                   <p class="comment-lenght-info">max 50 characters</p>
+    
+                        <div class="card-comments-container">
+                            <div class="card-icon-comments-container">
+                                <div class="card-icon-comments">✉️
+                                    <sup class="card-number-comments">0</sup>
+                                </div>
                             </div>
                         </div>
-                    </div>
-            </footer>
-        </article>
+                </footer>
+            </article>
+    
+            <div class="comment-text-section">
+                                        <ul class="comment-list" id="comment">
+    
+    
+    
+                                        </ul>
+                                    </div>
+    
+        </li>`
+    
+        }
 
-        <div class="comment-text-section">
-                                    <ul class="comment-list" id="comment">
 
 
+      
 
-                                    </ul>
-                                </div>
-
-    </li>`
-
+      
         dataLenght++;
 
     });
 
     requestsSection.innerHTML = renderHtml;
-
-    toggleCommentsSection();
-
-
     showDeleteIcon();
     getComments();
-    
+    handleSendComments();
+
     if (dataLenght < 1 ) {
         document.querySelector("#info-text-section-noCards").style.display = "block";
+        document.querySelector(".search-bar-section").style.display = "none";
     };
 
+}
+
+
+     
+
+function handleSendComments() {
+const commentBtn = document.querySelectorAll(".card-input-comments-btn-send");
+
+    commentBtn.forEach(btn => {
+        btn.addEventListener("click", sendComment);
+    })
+    
+}
+
+async function sendComment(e) {
+    const commentInput = e.target.previousElementSibling.value;
+    const idCard = e.target.closest(".request-item").getAttribute("data-id");
+    const s = "https://trueappwork.000webhostapp.com/";
+
+    const commentsContainer = e.target.closest(".request-item").querySelector(".comment-text-section > .comment-list");
+    
+    if (commentInput !=="") {
+        
+        await $.ajax({
+            methods: "POST",
+            url: s + `easyShiftSendComment.php?name=${userName}&comment=${commentInput}&idCard=${idCard}`,
+
+            success: function (response) {
+                console.log(response);
+                const comments = ["0" + "&&" + userName + "&&" + commentInput + "&&" + idCard + "&&" + ""];
+                e.target.previousElementSibling.value = "";
+                renderComments(comments);
+                sendnotificationtoAll(userName,idCard,commentsContainer.querySelectorAll(".comment-username"),"a repondu a un post"); 
+            },
+
+            error: function (error) {
+                alert("probleme de connection , essayer plus tard :( " + error)
+            }
+
+
+        })
+
+    }
+        
+}
+    
+
+function sendnotificationtoAll(username,idCard,Allusercomments,bodynotif) {
+    
+    Allusercomments.forEach(usercomment => {
+        const usernamecomment = usercomment.innerText;
+    if (usernamecomment.toLowerCase() !== userName.toLowerCase()) {
+        sendNotificationTo(username, idCard, usernamecomment, bodynotif);
+    }
+       
+    });
 }
 
 
@@ -208,7 +267,7 @@ function lockCard() {
 
     iconLock.forEach(icon => {
         icon.addEventListener("click", (e) => {
-           
+            
             const parentCard = icon.closest(".request-item");
             const commentSection = icon.closest(".comment-item")
             
@@ -232,12 +291,19 @@ function lockCard() {
                
                 idCard = icon.closest(".request-item").getAttribute("data-id");
                 
-                setLike(idComment,idCard);
+                setLike(idComment, idCard,userName,icon.previousElementSibling.querySelector(".comment-username").innerText,`veut ton shift`);
+               
 
             } else {
                 parentCard.classList.remove("toggleLockCard");
                 e.target.classList.remove("toggleLockBtn");
-                commentSection.classList.remove("comment-blocked")
+                commentSection.classList.remove("comment-blocked");
+
+                idComment = 0;
+                idCard = icon.closest(".request-item").getAttribute("data-id");
+
+                setLike(idComment, idCard , userName ,icon.previousElementSibling.querySelector(".comment-username").innerText,`a delockè ton commentaire :(`);
+                console.log(icon.previousElementSibling.querySelector(".comment-username").innerText);
             }
 
         })
@@ -248,11 +314,14 @@ function lockCard() {
 
 
 
-async function setLike(idComment, idCard) {
+
+
+
+async function setLike(idComment, idCard,userName,nameOfthecomment,bodynotif) {
     const s = "https://trueappwork.000webhostapp.com/";
     const url = "easyShiftLike.php";
-
-
+    const idc = idCard;
+    const bodyNotification = bodynotif;
     try {
 
         $.ajax({
@@ -262,6 +331,7 @@ async function setLike(idComment, idCard) {
             success: function(response){
                 console.log(response);
                 alert(`ton choix est envoyè au Server`)
+                sendNotificationTo(userName,idc,nameOfthecomment,bodyNotification);
             },
             error: function(xhr, status, error){
                 alert("un erreur est survenu, rentez plus tard" + " error: " + error(error));
@@ -275,6 +345,34 @@ async function setLike(idComment, idCard) {
     }
     
 }
+
+//da finire
+async function sendNotificationTo(username, idCard,nameOfthecomment,bodyNotification) {
+    const s = "https://trueappwork.000webhostapp.com/";
+    
+    try {
+
+       await $.ajax({
+            method: "POST",
+            url: s+`easyShiftSendNotification.php?notificationBy=${username}&name=${nameOfthecomment}&idCard=${idCard}&body=${bodyNotification}`,
+           
+            success: function(response){
+                console.log(response);
+                console.log("inviato notification");                
+            },
+            error: function(xhr, status, error){
+                alert("un erreur est survenu, rentez plus tard" + " error: " + error(error));
+            }
+        });
+
+    
+    
+    } catch (error) {
+    alert(error)
+    }
+    
+}
+
 
 
 /*//////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
@@ -321,22 +419,45 @@ function showDeleteIcon(username, cardIndex) {
 
 function deleteCard(e) {
     const cardId = e.target.closest(".request-item").getAttribute("data-id")
-    console.log(cardId);
+    
     const s = "https://trueappwork.000webhostapp.com/";
     const url = "easyShiftLike.php";
+    const optionsWindowDeleteCard = window.confirm("vous voulez vraiment supprimer cette requete?");
 
+    if (optionsWindowDeleteCard) {
+
+        $.ajax({
+            method: "POST",
+            url: s + `easyShiftDelete.php?id=${cardId}`,
+            success:function (response) {
+                console.log(response);
+                deletecommentsOnDB(cardId);
+                e.target.closest(".request-item").remove();
+            },
+            error: function (error) {
+                alert("Erreur de Connection au Database , checker votre")
+            }
+        })
+    }
+
+   
+}
+
+
+function deletecommentsOnDB(cardid) {
+    
     $.ajax({
-        method: "POST",
-        url: s + `easyShiftDelete.php?id=${cardId}`,
-        success:function (response) {
+        methods: "POST",
+        url: `https://trueappwork.000webhostapp.com/easyShiftDeleteComments.php?idCard=${cardid}`,
+        
+        success:function(response) {
             console.log(response);
         },
+
         error: function (error) {
-            alert("Erreur de Connection au Database , checker votre")
+            alert("probleme de connection , essayer plus tard :( "+ error )
         }
     })
-
-
 }
 
 
@@ -372,15 +493,20 @@ function renderComments(comments) {
     comments.forEach(comment => {
         const commentsArray = comment.split("&&");
         const cards = document.querySelectorAll(".request-item");
-
+console.log(commentsArray);
         const commentData = {
             id: commentsArray[0],
             name: commentsArray[1],
             body: commentsArray[2],
             idCard: commentsArray[3],
             firstLetter: commentsArray[1].slice(0,1),
-            isBlocked: commentsArray[4]
+            isBlocked: "",
+            time: commentsArray[4]
         }
+        const time = commentData.time.slice(0,commentData.time.indexOf(" ")).split("-").reverse().join("/");
+
+        
+        
 
         cards.forEach(card => {
 
@@ -391,7 +517,7 @@ function renderComments(comments) {
                 if (commentData.name.toLowerCase() !== userName.toLowerCase()) {
 
                     commentsContainer.innerHTML += `
-                    <li class="comment-item" data-comId="${commentData.id}" data-idCard="${commentData.idCard}" data-block="${commentData.isBlocked}">
+                    <li class="comment-item" data-comId="${commentData.id}" data-idCard="${commentData.idCard}" data-block="${0}">
                         <section class="comment-header-section">
                             <div class="comment-header-left">
                                 <div class="comment-first-letter">${commentData.firstLetter}</div>
@@ -403,6 +529,7 @@ function renderComments(comments) {
                             <section class="comment-body-section">
                                 <p class="comment-text">${commentData.body}</p>
                             </section>
+                            <p class="dateNotification">${time}<p>
                         </li>`;
                         
                         
@@ -420,6 +547,7 @@ function renderComments(comments) {
                             <section class="comment-body-section">
                                 <p class="comment-text">${commentData.body}</p>
                             </section>
+                            <p class="dateNotification">${time}<p>
                         </li>`;
                         
 
@@ -447,6 +575,7 @@ function renderComments(comments) {
     })
     lockCard();
     checkBlockedComments();
+    toggleCommentsSection();
 }
 
 
@@ -466,13 +595,181 @@ function checkBlockedComments() {
     const commentsList = document.querySelectorAll(".comment-item");
     commentsList.forEach(comment => {
   
-        if (comment.getAttribute("data-comId") === comment.closest(".request-item").getAttribute("data-blocked")) {
+        if (comment.getAttribute("data-comId") === comment.closest(".request-item").getAttribute("data-blocked") && comment.getAttribute("data-comId") !== "0") {
             comment.classList.add("comment-blocked");
             if ( comment.querySelector(".comment-blockBtn")) {
                 comment.querySelector(".comment-blockBtn").classList.add("toggleLockBtn");
             }
            
-            console.log(comment.closest(".comment-text-section").closest(".request-item").classList.add("toggleLockCard")); 
         }
     })
 }
+
+
+async function getNotifications() {
+    
+
+    try {
+        const request = await fetch("https://trueappwork.000webhostapp.com/getNotificationsEasyshift.php")
+
+           if (!request.ok) {
+           alert("probleme de connection :( essayez plus tard " + request.statusText)
+        }
+        
+        const data = await (await request.text()).split("|");
+        
+
+        renderNotifications(data);
+        
+    } catch (error) {
+        alert("probleme de connection :( essayez plus tard " + error)
+    }
+    
+}
+
+function renderNotifications(data) {
+    const notificationsContainer = document.querySelector("#notification-inner");
+   
+    const notifications = data.slice(0, -1);
+    console.log(notifications);
+    let dataNotif = [];
+    notifications.forEach(notification => {
+        dataNotif = notification.split("&&");
+        console.log(dataNotif);
+        
+        const notificationObject = {
+            id: dataNotif[0],
+            firstLetter: dataNotif[1][0],
+            name: dataNotif[1],
+            body: dataNotif[1] + " " + dataNotif[2],
+            idCard: dataNotif[4],
+            time: dataNotif[5]
+        }
+
+        const time = notificationObject.time.slice(0,notificationObject.time.indexOf(" ")).split("-").reverse().join("/");
+
+       
+         notificationsContainer.innerHTML += `
+                             <figure class="notification-card" data-id="${notificationObject.id}" data-idCard="${notificationObject.idCard}">    
+                                     <p class="notification-first-letter">${notificationObject.firstLetter}</p>
+                                     <figcaption class="notification-body">${notificationObject.body}</figcaption>
+                                     <div class="delete-notification">X</div>
+                                     
+                             </figure>
+                             <p class="dateNotification">${time}<p>
+                                     `
+
+    })
+
+    deleteNotification("");
+
+    WatchNotification();
+}
+
+
+function deleteNotification(notifTarget) {
+    
+    if (notifTarget == "") {
+        const comments = document.querySelectorAll(".notification-card");
+
+    comments.forEach(comment => {
+        const iconDeleteNotification = comment.querySelector(".delete-notification");
+        iconDeleteNotification.addEventListener("click", (e) => {
+            const idNotification = e.target.closest(".notification-card").getAttribute("data-id");
+
+            const questionNotification = window.confirm("vous voulez vraiment effacer cette notification?");
+
+            if (questionNotification) {
+                try {
+                    
+                    $.ajax({
+                        methods: "POST",
+                        url: `https://trueappwork.000webhostapp.com/easyShiftDeleteNotifications.php?id=${idNotification}`,
+                        
+                        success: function (response) {
+                            console.log(response);
+                            e.target.closest(".notification-card").remove()
+                        },
+    
+                        error: function (error) {
+                            alert("probleme de connection , essayer plus tard :( " + error);
+                        }
+                    })
+                } catch (error) {
+                    alert("probleme de connection , essayer plus tard :( " + error);
+                }
+            }
+            
+
+           
+        })
+    });
+        
+    } else {
+        try {
+                    
+            $.ajax({
+                methods: "POST",
+                url: `https://trueappwork.000webhostapp.com/easyShiftDeleteNotifications.php?id=${notifTarget}`,
+                
+                success: function (response) {
+                    console.log(response);
+                   
+                },
+
+                error: function (error) {
+                    alert("probleme de connection , essayer plus tard :( " + error);
+                }
+            })
+        } catch (error) {
+            alert("probleme de connection , essayer plus tard :( " + error);
+        }
+    }
+    
+}
+
+
+function  WatchNotification() {
+    const notifications = document.querySelectorAll(".notification-card");
+
+    notifications.forEach(notification => {
+        notification.addEventListener("click", (e) => {
+            const cardTargetId = e.target.closest(".notification-card").getAttribute("data-idCard");
+            
+            const cards = document.querySelectorAll(".request-item");
+
+            document.querySelector(".notification-section").classList.toggle("toggle-notifications");
+           
+
+            let cardcounter = 0;
+            cards.forEach(card => {
+                if (card.getAttribute("data-id") === cardTargetId) {
+                    card.style.display = "block";
+                    cardcounter++;
+                } else {
+                    card.style.display = "none";
+                    
+                }
+                
+            });
+            document.querySelector(".button-close-watchNotification-container").style.display = "flex";
+            if (cardcounter < 1) {
+                alert("l'utilisateur a effacer cette requete");
+                deleteNotification(e.target.closest(".notification-card").getAttribute("data-id"));
+                notification.nextElementSibling.remove();
+                notification.remove();
+                
+            }
+        })
+    });
+    
+}
+
+
+const closeBtnWatchNotification = document.querySelector(".button-close-watchNotification");
+
+closeBtnWatchNotification.addEventListener("click", () => {
+    location.reload();
+    console.log("cliccato");
+
+})

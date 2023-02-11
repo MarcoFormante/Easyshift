@@ -3,6 +3,9 @@ const submitBtn = document.querySelector(".input-submit-login");
 const inptName = document.querySelector("#name");
 const inptPassword = document.querySelector("#password");
 
+if (localStorage.length > 0) {
+    location.href = "loginPage.html";
+}
 
 form.addEventListener("submit", submit);
 
@@ -66,24 +69,45 @@ function verifyAccounts(form,name,password) {
 
 function createAccount(form,name,password) {
 
-    const formData = new FormData(form);
+    try {
+        $.ajax({
+            methods: "POST",
+            url: `https://trueappwork.000webhostapp.com/checkUsersEasyshiftLogin2.php?name=${name}&password=${password}`,
+            
+            success:function (response) {
+                console.log(response);
 
-    formData.set(name, password);
+                if (response==="exists") {
+                    alert("ce Nom est deja utilisé, choisir un nom different :)")
+                    document.querySelector("#name").value = "";
+                    document.querySelector("#password").value = "";
+                
+                } else if (response==="error") {
+                    alert("probleme de connection au server , essayer plus tard :( " + error);
+                   
+                    document.querySelector("#name").value = "";
+                    document.querySelector("#password").value = "";
+                } else {
+                    localStorage.setItem("userName", name);
+                    location.href = "home.html";
+                }
+            },
 
-    fetch(url, {
-        method: "post",
-        body: formData
-    })
-        .then(function (response) {
-            if (response.status === 200) {
-                document.location.href = "home.html";
-            }      
+            error:function (error) {
+                alert("probleme de connection au server , essayer plus tard :( " + error);
+                document.querySelector("#name").value = "";
+                    document.querySelector("#password").value = "";
+            }
         })
-        .catch(function (error) {
-            alert(error);
-        })
+    } catch (error) {
+        alert("probleme de connection au server , essayer plus tard :( " + error)
+        document.querySelector("#name").value = "";
+        document.querySelector("#password").value = "";
+    }
     
     
+    
+      
 }
 
 

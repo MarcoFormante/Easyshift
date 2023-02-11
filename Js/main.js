@@ -1,7 +1,9 @@
 const searchBar = document.querySelector("#input-search-bar");
 const searchBtn = document.querySelector("#search-btn");
-const userName = "marco";
+const userName = localStorage.getItem("userName").toLowerCase();
+console.log(userName);
 let keyDownCode = "";
+
 
 
 getUserData();
@@ -47,8 +49,8 @@ async function getUserData() {
 
 
         const dataUsers = await (await request.text()).split("|").slice(0,-1);
-        console.log(dataUsers);
-
+       
+        
         //render data
         renderDataUser(dataUsers);
 
@@ -72,7 +74,7 @@ function renderDataUser(data) {
     data.forEach(user => {
 
         const userDataCard = data[dataLenght].split("&&");
-        console.log(userDataCard);
+       
 
         const userInfoCard = {
             id:userDataCard[0],
@@ -150,12 +152,10 @@ function renderDataUser(data) {
     });
 
     requestsSection.innerHTML = renderHtml;
-
-    toggleCommentsSection();
-
+    getComments();
 
     showDeleteIcon();
-    getComments();
+    
   
     handleSendComments();
 
@@ -179,7 +179,7 @@ const commentBtn = document.querySelectorAll(".card-input-comments-btn-send");
     
 }
 
-function sendComment(e) {
+async function sendComment(e) {
     const commentInput = e.target.previousElementSibling.value;
     const idCard = e.target.closest(".request-item").getAttribute("data-id");
     const s = "https://trueappwork.000webhostapp.com/";
@@ -188,17 +188,17 @@ function sendComment(e) {
     
     if (commentInput !=="") {
         
-        $.ajax({
+        await $.ajax({
             methods: "POST",
             url: s + `easyShiftSendComment.php?name=${userName}&comment=${commentInput}&idCard=${idCard}`,
 
             success: function (response) {
-                console.log(response);
-                sendnotificationtoAll(userName,idCard,commentsContainer.querySelectorAll(".comment-username"),"a repondu a un post");
                 
                 const comments = ["0" + "&&" + userName + "&&" + commentInput + "&&" + idCard + "&&" + ""];
-                    renderComments(comments);
-                    
+                e.target.previousElementSibling.value = "";
+              
+                renderCommentsAfter(comments);
+                // sendnotificationtoAll(userName.toLowerCase(),idCard,commentsContainer.querySelectorAll(".comment-username"),"a repondu a un post"); 
             },
 
             error: function (error) {
@@ -219,9 +219,33 @@ function sendnotificationtoAll(username,idCard,Allusercomments,bodynotif) {
         const usernamecomment = usercomment.innerText;
     if (usernamecomment.toLowerCase() !== userName.toLowerCase()) {
         sendNotificationTo(username, idCard, usernamecomment, bodynotif);
+        activeNotificationForusers(usernamecomment);
     }
        
     });
+}
+
+function activeNotificationForusers(usercommentname) {
+    try {
+
+        $.ajax({
+            methods: "POST",
+            url: `https://trueappwork.000webhostapp.com/easyShiftActiveNotification.php?name=${usercommentname.toLowerCase()}`,
+
+            success: function (response) {
+                console.log(response);
+               
+            },
+
+            error: function (error) {
+               console.log(error);
+            }
+
+            
+        })        
+    } catch (error) {
+        
+    }
 }
 
 
@@ -234,18 +258,18 @@ function toggleCommentsSection() {
 
 
     iconsComment.forEach(icon => {
-        const commentsLenght = 2;
+        
+       
         const targetCard = icon.closest(".request-item");
         const usernameCard = targetCard.getAttribute("data-user").toLowerCase();
 
         icon.addEventListener("click", () => {
 
-            if (commentsLenght > 0) {
                 const commentSection = targetCard.querySelector(".comment-text-section");
                 commentSection.classList.toggle("toggleComments");
-            }
+           
 
-            let isUser = usernameCard === userName.toLowerCase();
+            let isUser = usernameCard.toLowerCase() === userName.toLowerCase();
 
             if (!isUser) {
                 const lockBtns = targetCard.querySelectorAll(".comment-blockBtn");
@@ -294,7 +318,8 @@ function lockCard() {
                
                 idCard = icon.closest(".request-item").getAttribute("data-id");
                 
-                setLike(idComment, idCard,userName,icon.previousElementSibling.querySelector(".comment-username").innerText,`veut ton shift`);
+                setLike(idComment, idCard, userName.toLowerCase(), icon.previousElementSibling.querySelector(".comment-username").innerText, `veut ton shift`);
+               
                
 
             } else {
@@ -305,7 +330,7 @@ function lockCard() {
                 idComment = 0;
                 idCard = icon.closest(".request-item").getAttribute("data-id");
 
-                setLike(idComment, idCard , userName ,icon.previousElementSibling.querySelector(".comment-username").innerText,`a delockè ton commentaire :(`);
+                setLike(idComment, idCard , userName.toLowerCase() ,icon.previousElementSibling.querySelector(".comment-username").innerText,`a delockè ton commentaire :(`);
                 console.log(icon.previousElementSibling.querySelector(".comment-username").innerText);
             }
 
@@ -334,7 +359,7 @@ async function setLike(idComment, idCard,userName,nameOfthecomment,bodynotif) {
             success: function(response){
                 console.log(response);
                 alert(`ton choix est envoyè au Server`)
-                sendNotificationTo(userName,idc,nameOfthecomment,bodyNotification);
+                sendNotificationTo(userName.toLowerCase(),idc,nameOfthecomment,bodyNotification);
             },
             error: function(xhr, status, error){
                 alert("un erreur est survenu, rentez plus tard" + " error: " + error(error));
@@ -355,7 +380,7 @@ async function sendNotificationTo(username, idCard,nameOfthecomment,bodyNotifica
     
     try {
 
-        $.ajax({
+       await $.ajax({
             method: "POST",
             url: s+`easyShiftSendNotification.php?notificationBy=${username}&name=${nameOfthecomment}&idCard=${idCard}&body=${bodyNotification}`,
            
@@ -489,14 +514,14 @@ async function getComments() {
 }
 
 
-function renderComments(comments) {
-    console.log(comments);
+function renderCommentsAfter(comments) {
+   
 
 
     comments.forEach(comment => {
         const commentsArray = comment.split("&&");
         const cards = document.querySelectorAll(".request-item");
-console.log(commentsArray);
+
         const commentData = {
             id: commentsArray[0],
             name: commentsArray[1],
@@ -578,13 +603,110 @@ console.log(commentsArray);
     })
     lockCard();
     checkBlockedComments();
+    
+    
+}
+
+
+
+function renderComments(comments) {
+   
+
+
+    comments.forEach(comment => {
+        const commentsArray = comment.split("&&");
+        const cards = document.querySelectorAll(".request-item");
+
+        const commentData = {
+            id: commentsArray[0],
+            name: commentsArray[1],
+            body: commentsArray[2],
+            idCard: commentsArray[3],
+            firstLetter: commentsArray[1].slice(0,1),
+            isBlocked: "",
+            time: commentsArray[4]
+        }
+        const time = commentData.time.slice(0,commentData.time.indexOf(" ")).split("-").reverse().join("/");
+
+        
+        
+
+        cards.forEach(card => {
+
+
+            if (card.getAttribute("data-id") === commentData.idCard) {
+
+                const commentsContainer = card.querySelector(".comment-text-section > .comment-list");
+                if (commentData.name.toLowerCase() !== userName.toLowerCase()) {
+
+                    commentsContainer.innerHTML += `
+                    <li class="comment-item" data-comId="${commentData.id}" data-idCard="${commentData.idCard}" data-block="${0}">
+                        <section class="comment-header-section">
+                            <div class="comment-header-left">
+                                <div class="comment-first-letter">${commentData.firstLetter}</div>
+                                <div class="comment-username">${commentData.name}</div>
+                            </div>
+                            <div class="comment-blockBtn">🔒</div>
+                            </section>
+
+                            <section class="comment-body-section">
+                                <p class="comment-text">${commentData.body}</p>
+                            </section>
+                            <p class="dateNotification">${time}<p>
+                        </li>`;
+                        
+                        
+                } else {
+                    commentsContainer.innerHTML += `
+                    <li class="comment-item" data-comId="${commentData.id}" data-idCard="${commentData.idCard}" data-block="${commentData.isBlocked}">
+                        <section class="comment-header-section">
+                            <div class="comment-header-left">
+                                <div class="comment-first-letter">${commentData.firstLetter}</div>
+                                <div class="comment-username">${commentData.name}</div>
+                            </div>
+
+                            </section>
+
+                            <section class="comment-body-section">
+                                <p class="comment-text">${commentData.body}</p>
+                            </section>
+                            <p class="dateNotification">${time}<p>
+                        </li>`;
+                        
+
+
+                }
+                if (userName.toLowerCase() !== card.getAttribute("data-user").toLowerCase()) {
+                    if (card.querySelector("#comment .comment-item .comment-header-section .comment-blockBtn")) {
+
+                        card.querySelector("#comment .comment-item .comment-blockBtn").style.display = "none";
+                    } else {
+                        console.log("non ce");
+                    }
+                    
+                   
+                }
+
+                updateCommentsLength(card);
+                
+             }
+             
+        })
+        
+
+        
+    })
+    lockCard();
+    checkBlockedComments();
+    toggleCommentsSection();
+    
 }
 
 
 function updateCommentsLength(card) {
     let commentsLength = card.querySelector(".card-comments-container .card-number-comments");
     const commentsList = card.querySelectorAll(".comment-text-section li");
-    console.log(commentsList.length);
+    
 
     commentsLength.innerText = commentsList.length;
 }
@@ -603,30 +725,50 @@ function checkBlockedComments() {
                 comment.querySelector(".comment-blockBtn").classList.add("toggleLockBtn");
             }
            
-            console.log(comment.closest(".comment-text-section").closest(".request-item").classList.add("toggleLockCard")); 
+             
         }
     })
 }
 
 
+
 async function getNotifications() {
     
+    // try {
+    //     $.ajax({
+    //         method: "POST",
+    //         url: `https://trueappwork.000webhostapp.com/getNotificationsEasyshift.php?name=${userName}`,
+
+    //         success: function (response) {
+    //             console.log(response);
+    //             console.log("eeeeequiiii");
+    //         },
+
+    //         error: function (error) {
+    //             console.log(error);
+    //         }
+    //     })
+    // } catch (error) {
+        
+    // }
 
     try {
-        const request = await fetch("https://trueappwork.000webhostapp.com/getNotificationsEasyshift.php")
+        const request = await fetch(`https://trueappwork.000webhostapp.com/getNotificationsEasyshift.php?name=${userName}`)
+            
 
            if (!request.ok) {
            alert("probleme de connection :( essayez plus tard " + request.statusText)
         }
         
-        const data = await (await request.text()).split("|");
+          const data = await (await request.text()).split("|");
         
 
-        renderNotifications(data);
+         renderNotifications(data);
         
     } catch (error) {
-        alert("probleme de connection :( essayez plus tard " + error)
-    }
+         alert("probleme de connection :( essayez plus tard " + error)
+     }
+
     
 }
 

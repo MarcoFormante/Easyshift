@@ -8,7 +8,13 @@
     <title>EasyShift - Login Page</title>
 </head>
 <body style="height: 100vh;">
+    
     <div class="body-page-login">
+        <section class="help-login">
+            <a class="help-text" href="help.html">HELP</a>
+        </section>
+        
+
         <div class="login-container">
 
             <section class="text-login-title-section login-section">
@@ -21,14 +27,15 @@
             <section class="form-login-section login-section">
                 <form action="#" id="form-login">
                     <p class="login-form-title">Login</p>
-                    <input type="text" name="name" id="name" required placeholder="Name">
-                    <input type="password" name="password" id="password" required placeholder="Password">
+                    <input type="text" name="name" id="name" required placeholder="Name" maxlength="20">
+                    <input type="password" name="password" id="password" required placeholder="Password" maxlength="20">
                     <input type="submit" value="ENTER" class="input-submit-login">
                     
                 </form>
             </section>
         </div>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="/Js/loginPage.js"></script>
 </body>
 </html>

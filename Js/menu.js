@@ -1,5 +1,5 @@
 const menuBtn = document.querySelector(".menu-container");
-
+const userNametorage = localStorage.getItem("userName").toLowerCase();
 document.querySelector(".header-nav-link4").addEventListener("click", myRequest);
 
 
@@ -11,6 +11,8 @@ window.addEventListener("resize", () => {
         toggleMenu();
     }
 })
+
+
 
 
 
@@ -39,8 +41,8 @@ function myRequest(e) {
     const personalCards = allUsersCards.forEach(card => {
         
 
-        const isPersonalCard = card.getAttribute("data-user").toLowerCase() === "Marco".toLowerCase();
-        if (card.getAttribute("data-user").toLowerCase()!=="marco") {
+        const isPersonalCard = card.getAttribute("data-user").toLowerCase() === userNametorage.toLowerCase();
+        if (card.getAttribute("data-user").toLowerCase()!==userNametorage) {
             card.style.display = "none";
             
         } else {

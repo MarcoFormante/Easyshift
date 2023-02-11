@@ -21,7 +21,7 @@
 
     figure{
          
-          font-size: calc(20px + 1vw);
+          font-size: calc(17px + 0.7vw);
     }
 }
 
@@ -66,7 +66,7 @@ figcaption.brand-caption{
 
     border:  1px solid white;
     padding: 20px;
-   
+    background-color: cornflowerblue;
     @include flex(column,center,center,10px);
     
 
@@ -113,4 +113,13 @@ figcaption.brand-caption{
                 display: block;
             }
     }
+}
+
+.help-login{
+    background-color: rgba(100, 148, 237, 0.219);
+    position: absolute;
+     right: 20px;
+     top: 20px;
+     padding: 5px; 
+     border: 1px solid rgba(255, 255, 255, 0.5);
 }
