@@ -8,21 +8,16 @@ main{
 
 .main-requests{
     width: 100vw;
-    margin: auto;
-    padding-top: 50px;
+    
+    
     z-index: 0;
 }
 
 .request-list{
-    display: flex;
-    flex-direction: column-reverse;
-    align-items: center;
-    justify-content: center;
-    gap: 40px;
+    display: block;
+    width: 100%;
+    margin: auto;
     
-
-    
-   
 
             &::-webkit-scrollbar{
                 display: none;

@@ -13,6 +13,9 @@ function toggleNotifications() {
 
     if ( document.querySelector(".notification-section.toggle-notifications")) {
         document.querySelector(".notification-icon-section").style.display = "none";
+        if (Number(window.innerWidth) < 769 ) {
+            document.querySelector(".body-page").style.height = "100vh";
+        }
     } 
 
     const iconNotification = document.querySelector(".notification-icon");

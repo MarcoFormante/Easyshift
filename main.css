@@ -15,7 +15,6 @@ html {
 
 .body-page {
   width: 100vw;
-  height: 100vh;
   overflow-x: hidden;
 }
 
@@ -293,8 +292,8 @@ a {
 
 .notification-icon-section {
   position: fixed;
-  top: 70px;
-  right: 28px;
+  bottom: 60px;
+  right: 10px;
   width: 40px;
   height: 40px;
   cursor: pointer;
@@ -346,7 +345,8 @@ a {
 @media screen and (max-width: 768px) {
   .notification-section.toggle-notifications {
     left: 0%;
-    height: 100vh;
+    height: -moz-fit-content;
+    height: fit-content;
     position: absolute;
     width: 100%;
   }
@@ -382,7 +382,8 @@ a {
 
 .notification-inner {
   overflow-x: hidden;
-  height: 100vh;
+  height: -moz-fit-content;
+  height: fit-content;
 }
 
 figure.notification-card {
@@ -397,6 +398,7 @@ figure.notification-card {
   padding-bottom: 15px;
   padding-left: 10px;
   padding-right: 10px;
+  background-color: rgb(66, 66, 66);
 }
 
 .notification-first-letter {
@@ -468,6 +470,7 @@ figcaption.notification-body::first-letter {
   color: rgb(19, 19, 19);
   margin-left: 10px;
   font-size: 12px;
+  background-color: rgb(66, 66, 66);
 }
 
 #info-text-section-noCards {
@@ -499,17 +502,13 @@ main.toggle-menu {
 
 .main-requests {
   width: 100vw;
-  margin: auto;
-  padding-top: 50px;
   z-index: 0;
 }
 
 .request-list {
-  display: flex;
-  flex-direction: column-reverse;
-  align-items: center;
-  justify-content: center;
-  gap: 40px;
+  display: block;
+  width: 100%;
+  margin: auto;
 }
 .request-list::-webkit-scrollbar {
   display: none;
@@ -523,12 +522,18 @@ main.toggle-menu {
   border-radius: 16px;
   margin-top: 40px;
   flex-shrink: 0;
-  min-width: 280px;
+  min-width: 200px;
   margin-bottom: 20px;
   z-index: 0;
+  margin: 20px auto;
 }
 .request-item.toggleLockCard {
   box-shadow: 0 0 10px rgb(255, 208, 0);
+}
+@media screen and (max-width: 479px) {
+  .request-item {
+    max-width: 75%;
+  }
 }
 
 article.request-card-container {

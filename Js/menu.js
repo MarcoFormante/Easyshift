@@ -76,14 +76,17 @@ function toggleMenu() {
     headerNav.classList.toggle("toggle-menu");
 
     console.log( Number(window.outerWidth));
-   
     
+   
     document.querySelector("main").classList.toggle("toggle-menu");
     if (headerNav.classList.contains("toggle-menu") && (document.querySelector(".notification-icon-section"))) {
+        document.querySelector(".body-page").style.height = "100vh";
         document.querySelector(".notification-icon-section").style.display = "none";
+        
     } else {
         if (document.querySelector(".notification-icon-section")) {
             document.querySelector(".notification-icon-section").style.display = "block";
+            document.querySelector(".body-page").style.height = "";
         }
        
     }

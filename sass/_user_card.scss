@@ -5,12 +5,17 @@
     border-radius: 16px;
     margin-top: 40px;
     flex-shrink: 0;
-    min-width: 280px;
+    min-width: 200px;
     margin-bottom: 20px;
     z-index: 0;
+    margin:  20px auto;
 
         &.toggleLockCard{
             box-shadow: 0 0 10px $lock_card-color;
+        }
+
+        @media screen and (max-width:479px) {
+            max-width: 75%;
         }
     
 }
