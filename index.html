@@ -8,6 +8,15 @@
     <title>EasyShift - Login Page</title>
 </head>
 <body style="height: 100vh;">
+
+
+    <div class="loading-mickey-container">
+        <div class="loading-cicle loading-cicle1">Loading...
+            <div class="loading-cicle loading-cicle2"></div>
+            <div class="loading-cicle loading-cicle3"></div>
+        </div>
+    </div>
+    
     <div class="body-page-login">
         <div class="login-container">
 
@@ -23,7 +32,7 @@
                     <p class="login-form-title">Registration</p>
                     <label for="name">Name has to contain minimum 5 characters, it accepts AlphaNumerics</label>
                     <input type="text" name="name" id="name" required placeholder="Name" maxlength="25">
-                    <label for="password">Password has to contain minimum 5 characters</label>
+                    <label for="password">Password has to contain minimum 6 characters</label>
                     <input type="password" name="password" id="password" required placeholder="Password" maxlength="25">
                     <input type="submit" value="CREATE ACCOUNT" class="input-submit-login">
                     <p class="text-redirect-to-login"> or <a href="loginPage.html">login</a></p>

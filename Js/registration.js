@@ -3,7 +3,7 @@ const submitBtn = document.querySelector(".input-submit-login");
 const inptName = document.querySelector("#name");
 const inptPassword = document.querySelector("#password");
 
-localStorage.clear();
+
 
 if (localStorage.length > 0) {
     location.href = "loginPage.html";
@@ -89,7 +89,7 @@ function createAccount(form,name,password) {
                    
                     document.querySelector("#name").value = "";
                     document.querySelector("#password").value = "";
-                } else if(response==="not exists"){
+                } else if(response==="success"){
                     localStorage.setItem("userName", name);
                     location.href = "home.html";
                 }

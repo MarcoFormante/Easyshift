@@ -1,3 +1,9 @@
+
+let userName = localStorage.getItem("userName");
+
+
+
+
 const formSendRequest = document.querySelector("#form-newRequest");
 
 formSendRequest.addEventListener("submit",sendRequest)

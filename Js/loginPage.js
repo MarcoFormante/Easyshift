@@ -1,3 +1,8 @@
+let userName = localStorage.getItem("userName");
+
+
+
+
 const formLogin = document.querySelector("#form-login");
 
 formLogin.addEventListener("submit", enterToHome);

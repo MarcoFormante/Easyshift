@@ -1,5 +1,10 @@
 
-const userName = localStorage.getItem("userName");
+let userName = localStorage.getItem("userName");
+
+const iconloadingMickey = document.querySelector(".loading-mickey-container");
+loadingMickeyDisplay(".body-page");
+
+
 let keyDownCode = "";
 
 
@@ -237,6 +242,8 @@ console.log(user);
     } else {
         document.querySelector("#info-text-section-noCards").style.display = "block";
     }
+
+    loadingMickeyDisplayNone(2000,".body-page");
 }
 
 
@@ -920,4 +927,21 @@ async function getActiveNotification(username) {
     } catch (error) {
         
     }
-    }
+}
+    
+
+
+//loading mickey
+
+function loadingMickeyDisplay(bodypage) {
+    iconloadingMickey.style.display = "block";
+    document.querySelector("" + bodypage).style.display = "none";
+}
+
+
+function loadingMickeyDisplayNone(time,bodypage) {
+    setTimeout(() => {
+        iconloadingMickey.style.display = "none";
+        document.querySelector("" + bodypage).style.display = "block";
+    }, time);
+}
