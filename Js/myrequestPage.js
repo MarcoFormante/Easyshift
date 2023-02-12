@@ -44,7 +44,7 @@ async function getUserData() {
 
 
 
-        const dataUsers = await (await request.text()).split("|").slice(0,-1);
+        const dataUsers = (await request.text()).split("|").slice(0,-1);
        
 
         //render data
@@ -68,7 +68,7 @@ function renderDataUser(data) {
 
     let dataLenght = 0;
     data.forEach(user => {
-
+console.log(user);
         const userDataCard = data[dataLenght].split("&&");
        
 
@@ -81,7 +81,7 @@ function renderDataUser(data) {
             request:userDataCard[4],
             isblockedBy:userDataCard[5]
         }
-
+       
         if (userInfoCard.username.toLowerCase() === userName.toLowerCase()) {
             
             const firstLetter = userInfoCard.username.slice(0, 1);
@@ -203,18 +203,23 @@ function renderDataUser(data) {
                                     </div>
     
         </li>`
+        
         }
 
      
-        dataLenght++;
-       
+        dataLenght++
+        
     });
-   
+    
+          
+       
+    
     
     requestsSection.innerHTML = renderHtml;
     showDeleteIcon();
     getComments();
     handleSendComments();
+   console.log(dataLenght);
    
     
     if (dataLenght > 0 ) {
@@ -296,7 +301,7 @@ function toggleCommentsSection() {
         const usernameCard = targetCard.getAttribute("data-user").toLowerCase();
 
         icon.addEventListener("click", () => {
-
+            targetCard.scrollIntoView(true)
             if (commentsLenght > 0) {
                 const commentSection = targetCard.querySelector(".comment-text-section");
                 commentSection.classList.toggle("toggleComments");
@@ -552,7 +557,7 @@ function renderComments(comments) {
     comments.forEach(comment => {
         const commentsArray = comment.split("&&");
         const cards = document.querySelectorAll(".request-item");
-console.log(commentsArray);
+
         const commentData = {
             id: commentsArray[0],
             name: commentsArray[1],
@@ -840,38 +845,37 @@ function  WatchNotification() {
 const closeBtnWatchNotification = document.querySelector(".button-close-watchNotification");
 
 closeBtnWatchNotification.addEventListener("click", () => {
+    loadingMyRequest(200)
     location.reload();
-   
-
 })
 
-myRequest()
+// myRequest()
 
-function myRequest() {
+// function myRequest() {
     
-    const allUsersCards = document.querySelectorAll(".request-item");
+//     const allUsersCards = document.querySelectorAll(".request-item");
    
 
     
-    loadingMyRequest();
+//     loadingMyRequest();
 
     
-    let personalCardLength = 0;
+//     let personalCardLength = 0;
 
-    const personalCards = allUsersCards.forEach(card => {
+//     const personalCards = allUsersCards.forEach(card => {
         
 
-        const isPersonalCard = card.getAttribute("data-user").toLowerCase() === userNameStorage.toLowerCase();
-        if (card.getAttribute("data-user").toLowerCase()!==userNameStorage) {
-            card.style.display = "none";
+//         const isPersonalCard = card.getAttribute("data-user").toLowerCase() === userNameStorage.toLowerCase();
+//         if (card.getAttribute("data-user").toLowerCase()!==userNameStorage) {
+//             card.style.display = "none";
             
-        } else {
-            personalCardLength++;
+//         } else {
+//             personalCardLength++;
             
-        }
-    });
-    checkPersonalCardLength(personalCardLength);
-}
+//         }
+//     });
+//     checkPersonalCardLength(personalCardLength);
+// }
 
 
 function  checkPersonalCardLength(personalCardsLenght) {

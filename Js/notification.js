@@ -27,6 +27,7 @@ function toggleNotifications() {
 
 
 closebtnNotifications.addEventListener("click", () => {
+    
     document.querySelector(".notification-section").classList.toggle("toggle-notifications");
     document.querySelector(".notification-icon-section").style.display = "flex";
 });
@@ -43,8 +44,7 @@ function removeActiveNotification(username,iconNotification) {
             url: `https://trueappwork.000webhostapp.com/easyShiftRemoveActiveNotification.php?name=${username.toLowerCase()}`,
 
             success: function (response) {
-                console.log(response);
-                console.log("fatto removenotificationactive");
+                
                 iconNotification.classList.remove("hasNotification");
             },
 
@@ -58,3 +58,7 @@ function removeActiveNotification(username,iconNotification) {
         
     }
 }
+
+
+
+

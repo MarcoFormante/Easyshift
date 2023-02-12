@@ -27,13 +27,13 @@ function sendRequest(e) {
             location.href = "home.html";
             
             if (response === "error") {
-                alert("erreur de connection , essayer plus tard :(")
+                alert("Erreur de connection , rèessayez plus tard :(")
             }
             
         },
 
         error: function (error) {
-            alert("erreur de connection , essayer plus tard :(  " + error)
+            alert("Erreur de connection , rèessayer plus tard :(  " + error)
         }
         
          })

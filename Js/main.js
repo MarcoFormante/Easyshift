@@ -1,6 +1,6 @@
 const searchBar = document.querySelector("#input-search-bar");
 const searchBtn = document.querySelector("#search-btn");
-const userName = localStorage.getItem("userName").toLowerCase();
+const userName = localStorage.getItem("userName");
 console.log(userName);
 let keyDownCode = "";
 
@@ -46,7 +46,7 @@ async function getUserData() {
 
     if (!request.ok) {
         throw Error(request.statusText);
-        alert("erreur de connection , essayer plus tard");
+        alert("erreur de connection :( , essayer plus tard");
         }
 
 
@@ -60,7 +60,7 @@ async function getUserData() {
 
     } catch (error) {
 
-        alert("erreur de connection , essayer plus tard" + " error : "+ error);
+        alert("erreur de connection :(, essayer plus tard" + " error : "+ error);
 
  }
 
@@ -125,10 +125,10 @@ function renderDataUser(data) {
 
             <footer class="card-footer">
 
-                <form action="#" class="card-form-comment">
+                <div action="#" class="card-form-comment">
                     <input type="text" name="card-input-comment" id="card-input-comment" placeholder="your comment..." maxlength="50">
                     <div class="card-input-comments-btn-send"><svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 500 500"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M16.1 260.2c-22.6 12.9-20.5 47.3 3.6 57.3L160 376V479.3c0 18.1 14.6 32.7 32.7 32.7c9.7 0 18.9-4.3 25.1-11.8l62-74.3 123.9 51.6c18.9 7.9 40.8-4.5 43.9-24.7l64-416c1.9-12.1-3.4-24.3-13.5-31.2s-23.3-7.5-34-1.4l-448 256zm52.1 25.5L409.7 90.6 190.1 336l1.2 1L68.2 285.7zM403.3 425.4L236.7 355.9 450.8 116.6 403.3 425.4z"/></svg></div>
-                </form>
+                </div>
                <p class="comment-lenght-info">max 50 characters</p>
 
                     <div class="card-comments-container">
@@ -202,7 +202,8 @@ async function sendComment(e) {
                 e.target.closest(".card-form-comment").querySelector("#card-input-comment").value = "";
               
                 renderCommentsAfter(comments);
-                sendnotificationtoAll(userName.toLowerCase(),idCard,commentsContainer.querySelectorAll(".comment-username"),"a repondu a un post"); 
+                // console.log(sendnotificationto(userName.toLowerCase(), idCard, e.target.closest(".request-item").getAttribute("data-user").toLowerCase(), "a commenté ton post"));
+                sendnotificationtoAll(userName.toLowerCase(),idCard,commentsContainer.querySelectorAll(".comment-username"),"a aussi commenté "); 
             },
 
             error: function (error) {
@@ -218,15 +219,35 @@ async function sendComment(e) {
     
 
 function sendnotificationtoAll(username,idCard,Allusercomments,bodynotif) {
-    
+    arrayUsername = [];
+    nameCommentToSend = "";
     Allusercomments.forEach(usercomment => {
-        const usernamecomment = usercomment.innerText;
-    if (usernamecomment.toLowerCase() !== userName.toLowerCase()) {
-        sendNotificationTo(username, idCard, usernamecomment, bodynotif);
-        activeNotificationForusers(usernamecomment);
-    }
-       
+        
+
+        if (!arrayUsername.includes(usercomment.innerText)) {
+            arrayUsername.push(usercomment.innerText);
+            nameCommentToSend = usercomment.innerText;
+            
+        }
+
     });
+    console.log(arrayUsername);
+    for (let i = 0; i < arrayUsername.length; i++) {
+       
+        if (arrayUsername[i].toLowerCase() !== userName.toLowerCase()) {
+            sendNotificationTo(username, idCard, arrayUsername[i], bodynotif);
+           
+            activeNotificationForusers(arrayUsername[i]);
+        }
+    }
+    
+        
+       
+    
+       
+   
+       
+    
 }
 
 function activeNotificationForusers(usercommentname) {
@@ -271,8 +292,9 @@ function toggleCommentsSection() {
 
                 const commentSection = targetCard.querySelector(".comment-text-section");
                 commentSection.classList.toggle("toggleComments");
-           
-
+            
+            
+                targetCard.scrollIntoView(true)
             let isUser = usernameCard.toLowerCase() === userName.toLowerCase();
 
             if (!isUser) {
@@ -361,19 +383,19 @@ async function setLike(idComment, idCard,userName,nameOfthecomment,bodynotif) {
             url: s+`easyShiftLike.php?commentId=${idComment}&cardId=${idCard}`,
            
             success: function(response){
-                console.log(response);
+                
                 alert(`ton choix est envoyè au Server`)
                 sendNotificationTo(userName.toLowerCase(),idc,nameOfthecomment,bodyNotification);
             },
             error: function(xhr, status, error){
-                alert("un erreur est survenu, rentez plus tard" + " error: " + error(error));
+                alert("un erreur est survenu, réessayez plus tard" + " error: " + error(error));
             }
         });
 
     
     
     } catch (error) {
-    alert(error)
+        alert("un erreur est survenu, réessayez plus tard" + " error: " + error(error));
     }
     
 }
@@ -393,14 +415,14 @@ async function sendNotificationTo(username, idCard,nameOfthecomment,bodyNotifica
                 console.log("inviato notification");                
             },
             error: function(xhr, status, error){
-                alert("un erreur est survenu, rentez plus tard" + " error: " + error(error));
+                alert("un erreur est survenu, rèessayez plus tard" + " error: " + error(error));
             }
         });
 
     
     
     } catch (error) {
-    alert(error)
+        alert("un erreur est survenu, rèessayez plus tard" + " error: " + error(error));
     }
     
 }
@@ -440,7 +462,7 @@ function searchBtnPressed(e) {
 
         })
         if (NumberofCard < 1) {
-            alert("aucune requete trouvé");
+            alert("aucune requête trouvé");
             document.querySelectorAll(".request-item").forEach(card => { 
                 loadingMyRequest(200);
                 card.style.display = "block";
@@ -491,7 +513,7 @@ function deleteCard(e) {
                 e.target.closest(".request-item").remove();
             },
             error: function (error) {
-                alert("Erreur de Connection au Database , checker votre")
+                alert("Erreur de Connection au Database , checker votre connection")
             }
         })
     }
@@ -511,7 +533,7 @@ function deletecommentsOnDB(cardid) {
         },
 
         error: function (error) {
-            alert("probleme de connection , essayer plus tard :( "+ error )
+            alert("problème de connection , réessayez plus tard :( "+ error )
         }
     })
 }
@@ -536,7 +558,7 @@ async function getComments() {
 
         } catch (error) {
 
-            alert(error);
+            alert("impossible de charger les commentaires");
 
      }
 }
@@ -776,7 +798,7 @@ async function getNotifications() {
             
 
            if (!request.ok) {
-           alert("probleme de connection :( essayez plus tard " + request.statusText)
+           alert("Problème de connection :( rèessayez plus tard " + request.statusText)
         }
         
           const data = await (await request.text()).split("|");
@@ -785,7 +807,7 @@ async function getNotifications() {
          renderNotifications(data);
         
     } catch (error) {
-         alert("probleme de connection :( essayez plus tard " + error)
+         alert("problème de connection :( rèessayez plus tard " + error)
      }
 
     
@@ -795,11 +817,11 @@ function renderNotifications(data) {
     const notificationsContainer = document.querySelector("#notification-inner");
    
     const notifications = data.slice(0, -1);
-    console.log(notifications);
+    
     let dataNotif = [];
     notifications.forEach(notification => {
         dataNotif = notification.split("&&");
-        console.log(dataNotif);
+       
         
         const notificationObject = {
             id: dataNotif[0],
@@ -858,11 +880,11 @@ function deleteNotification(notifTarget) {
                         },
     
                         error: function (error) {
-                            alert("probleme de connection , essayer plus tard :( " + error);
+                            alert("Problème de connection , essayer plus tard :( " + error);
                         }
                     })
                 } catch (error) {
-                    alert("probleme de connection , essayer plus tard :( " + error);
+                    alert("Problème de connection , essayer plus tard :( " + error);
                 }
             }
             
@@ -922,7 +944,7 @@ function  WatchNotification() {
                 document.querySelector(".button-close-watchNotification-container").style.display = "flex";
                 document.querySelector(".notification-icon-section").style.display = "flex";
             if (cardcounter < 1) {
-                alert("l'utilisateur a effacer cette requete");
+                alert("l'utilisateur a supprimè cette requete de changement de shift");
                 deleteNotification(e.target.closest(".notification-card").getAttribute("data-id"));
                 notification.nextElementSibling.remove();
                 notification.remove();
@@ -940,7 +962,7 @@ const closeBtnWatchNotification = document.querySelector(".button-close-watchNot
 
 closeBtnWatchNotification.addEventListener("click", () => {
     const cards = document.querySelectorAll(".request-item");
-
+    loadingMyRequest(300);
     cards.forEach(card => {
         card.style.display = "block";
         
@@ -960,7 +982,7 @@ try {
         const iconNotification = document.querySelector(".notification-icon");
         iconNotification.classList.add("hasNotification");
 
-        console.log("è 1");
+       
     }
 } catch (error) {
     
