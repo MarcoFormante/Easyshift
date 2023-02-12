@@ -5,22 +5,23 @@
 }
 
 html{
+   
     background-color: $first_surface;
-    background-image: url(/images/icons/pexels-bruno-thethe-1910236\ \(1\).jpg);
+    background-image: url(/images/icons/pexels-bruno-thethe-1910236\ \(1\).png);
     background-position:center center;
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
-
 }
 
 
 
-
 .body-page{
-    width: 100vw;
-    overflow-x: hidden;
-    height: 100vh;
+width: 100vw;
+height: 100vh;
+overflow-x: hidden;
+
+    
 }
 
 

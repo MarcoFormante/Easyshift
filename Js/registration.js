@@ -89,7 +89,7 @@ function createAccount(form,name,password) {
                    
                     document.querySelector("#name").value = "";
                     document.querySelector("#password").value = "";
-                } else {
+                } else if(response==="not exists"){
                     localStorage.setItem("userName", name);
                     location.href = "home.html";
                 }

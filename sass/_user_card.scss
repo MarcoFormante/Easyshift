@@ -59,9 +59,11 @@ padding: 10px;
     @include flex(row,center,center,none);
     font-size: 3em;
     cursor: pointer;
-    color:red;
-    background-clip: text;
-    
+    background-image: url(/images/icons/trash.webp);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center center;
+   
 }
 
 
@@ -109,33 +111,39 @@ text-indent: 5px;
         /* padding-right: 10px; */
         /* font-size: 1.3em; */
         width: 28px;
+        height: 28px;
         /* height: 10px; */
         margin-right: 10px;
         fill: $brand-color;
+        background-image: url(/images/icons/paper-plane-regular.svg);
+        background-repeat: no-repeat;
+        background-size: 100%;
+        background-position: center center;
 }
 
 
 .comment-lenght-info{
     padding-top: 5px;
     margin-left: 5px;
+    font-size: 12px;
 }
 
 
 
 .card-comments-container{
-    margin-top: 15px;
-    text-align: right;
+    
+   
     font-size: 1.4em;
-    display: flex;
-    justify-content: end;
+  
 }
 
 
 
 .card-icon-comments{
     cursor: pointer;
-    width: fit-content;
+   
     margin-bottom: 10px;
+    text-align: right;
 }
 
 

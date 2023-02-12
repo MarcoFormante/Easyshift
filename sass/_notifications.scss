@@ -55,15 +55,21 @@
     background-color: #1d1c1c;
     top: 0;
     width: 460px;
-    max-height:  100vh;
-    min-height: 100vh;
-    overflow-x: hidden;
     z-index: 20;
     left: 100%;
     cursor: pointer;
 
             &.toggle-notifications{
                 left: 0%;
+                height: 100vh;
+
+
+               @media screen and (max-width:768px) {
+                left: 0%;
+                height: 100vh;
+                position: absolute;
+                width: 100%;
+               }
             }
 }
 
@@ -95,12 +101,13 @@
     background-color: rgba(66, 66, 66, 0.637);
     height: fit-content;
     margin-top: 60px;
+    overflow-x: hidden;
 }
 
 
 .notification-inner{
-   
-    height: fit-content;
+    overflow-x: hidden;
+    height: 100vh;
 }
 
 figure.notification-card {
@@ -111,7 +118,7 @@ figure.notification-card {
     padding-bottom: 15px;
     padding-left: 10px;
     padding-right: 10px;
-    
+   
 }
 
 .notification-first-letter{
@@ -137,11 +144,14 @@ figcaption.notification-body{
     width: 30px;
     height: 30px;
     @include flex(row,center,center,none);
-   
     border-radius: 8px;
     font-weight: 900;
     font-style: normal;
     cursor: pointer;
+    background-image: url(/images/icons/trash.webp);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center center;
     
 }
 
