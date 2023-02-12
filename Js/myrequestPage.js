@@ -230,8 +230,7 @@ console.log(user);
         
     }
        
-   
-    
+
     if (datalenght2 > 0 ) {
         document.querySelector("#info-text-section-noCards").style.display = "none";
       

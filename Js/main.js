@@ -973,7 +973,8 @@ closeBtnWatchNotification.addEventListener("click", () => {
         
     });
     document.querySelector(".search-bar-section").style.display = "flex";
-    document.querySelector(".button-close-watchNotification-container").style.display="none";
+    document.querySelector(".button-close-watchNotification-container").style.display = "none";
+    document.querySelector("#info-text-section-noCards").style.display = "none";
 })
 
 
