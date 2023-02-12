@@ -63,10 +63,11 @@ async function getUserData() {
 
 function renderDataUser(data) {
     let renderHtml = "";
-
+    
     const requestsSection = document.querySelector(".request-list");
 
     let dataLenght = 0;
+    let datalenght2 = 0;
     data.forEach(user => {
 console.log(user);
         const userDataCard = data[dataLenght].split("&&");
@@ -81,7 +82,7 @@ console.log(user);
             request:userDataCard[4],
             isblockedBy:userDataCard[5]
         }
-       
+       console.log(userInfoCard.username.toLowerCase());
         if (userInfoCard.username.toLowerCase() === userName.toLowerCase()) {
             
             const firstLetter = userInfoCard.username.slice(0, 1);
@@ -207,7 +208,7 @@ console.log(user);
         }
 
      
-        dataLenght++
+        dataLenght++;
         
     });
     
@@ -219,10 +220,19 @@ console.log(user);
     showDeleteIcon();
     getComments();
     handleSendComments();
-   console.log(dataLenght);
+
+    for (let i = 0; i < document.querySelectorAll(".request-item").length; i++) {
+
+        if (document.querySelectorAll(".request-item")[i].style.display!=="none") {
+            datalenght2++;
+        }
+      
+        
+    }
+       
    
     
-    if (dataLenght > 0 ) {
+    if (datalenght2 > 0 ) {
         document.querySelector("#info-text-section-noCards").style.display = "none";
       
     } else {
@@ -243,6 +253,7 @@ const commentBtn = document.querySelectorAll(".card-input-comments-btn-send");
 }
 
 async function sendComment(e) {
+    console.log(e.target.closest(".card-form-comment").querySelector("#card-input-comment").value);
     const commentInput = e.target.closest(".card-form-comment").querySelector("#card-input-comment").value;
     const idCard = e.target.closest(".request-item").getAttribute("data-id");
     const s = "https://trueappwork.000webhostapp.com/";
@@ -256,15 +267,22 @@ async function sendComment(e) {
             url: s + `easyShiftSendComment.php?name=${userName}&comment=${commentInput}&idCard=${idCard}`,
 
             success: function (response) {
-               
+                
                 const comments = ["0" + "&&" + userName + "&&" + commentInput + "&&" + idCard + "&&" + ""];
                 e.target.closest(".card-form-comment").querySelector("#card-input-comment").value = "";
-                renderComments(comments);
-                sendnotificationtoAll(userName,idCard,commentsContainer.querySelectorAll(".comment-username"),"a repondu a un post"); 
+                 alert("ton commentaire a été envoyé")
+                renderCommentsAfter(comments);
+
+                if (e.target.closest(".request-item").getAttribute("data-user").toLowerCase()!== userName.toLowerCase()) {
+                    sendNotificationTo(userName, idCard, e.target.closest(".request-item").getAttribute("data-user").toLowerCase(), "a commenté ton post");
+                    console.log(userName, idCard, e.target.closest(".request-item").getAttribute("data-user").toLowerCase());
+                    activeNotificationForusers(e.target.closest(".request-item").getAttribute("data-user").toLowerCase());
+                }
+                // sendnotificationtoAll(userName.toLowerCase(),idCard,commentsContainer.querySelectorAll(".comment-username"),"a aussi commenté "); 
             },
 
             error: function (error) {
-                alert("probleme de connection , essayer plus tard :( " + error)
+                alert("Probleme de connection , essayer plus tard :( " + error)
             }
 
 
@@ -275,16 +293,16 @@ async function sendComment(e) {
 }
     
 
-function sendnotificationtoAll(username,idCard,Allusercomments,bodynotif) {
+// function sendnotificationtoAll(username,idCard,Allusercomments,bodynotif) {
     
-    Allusercomments.forEach(usercomment => {
-        const usernamecomment = usercomment.innerText;
-    if (usernamecomment.toLowerCase() !== userName.toLowerCase()) {
-        sendNotificationTo(username, idCard, usernamecomment, bodynotif);
-    }
+//     Allusercomments.forEach(usercomment => {
+//         const usernamecomment = usercomment.innerText;
+//     if (usernamecomment.toLowerCase() !== userName.toLowerCase()) {
+//         sendNotificationTo(username, idCard, usernamecomment, bodynotif);
+//     }
        
-    });
-}
+//     });
+// }
 
 
 

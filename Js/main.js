@@ -200,18 +200,19 @@ async function sendComment(e) {
                 
                 const comments = ["0" + "&&" + userName + "&&" + commentInput + "&&" + idCard + "&&" + ""];
                 e.target.closest(".card-form-comment").querySelector("#card-input-comment").value = "";
-              
+                alert("ton commentaire a été envoyé")
                 renderCommentsAfter(comments);
 
                 if (e.target.closest(".request-item").getAttribute("data-user").toLowerCase()!== userName.toLowerCase()) {
-                    sendNotificationTo(userName.toLowerCase(), idCard, e.target.closest(".request-item").getAttribute("data-user").toLowerCase(), "a commenté ton post");
-
+                    sendNotificationTo(userName, idCard, e.target.closest(".request-item").getAttribute("data-user").toLowerCase(), "a commenté ton post");
+                    console.log(userName, idCard, e.target.closest(".request-item").getAttribute("data-user").toLowerCase());
+                    activeNotificationForusers(e.target.closest(".request-item").getAttribute("data-user").toLowerCase());
                 }
-                sendnotificationtoAll(userName.toLowerCase(),idCard,commentsContainer.querySelectorAll(".comment-username"),"a aussi commenté "); 
+                // sendnotificationtoAll(userName.toLowerCase(),idCard,commentsContainer.querySelectorAll(".comment-username"),"a aussi commenté "); 
             },
 
             error: function (error) {
-                alert("probleme de connection , essayer plus tard :( " + error)
+                alert("Probleme de connection , essayer plus tard :( " + error)
             }
 
 
@@ -222,28 +223,28 @@ async function sendComment(e) {
 }
     
 
-function sendnotificationtoAll(username,idCard,Allusercomments,bodynotif) {
-    arrayUsername = [];
-    nameCommentToSend = "";
-    Allusercomments.forEach(usercomment => {
+// function sendnotificationtoAll(username,idCard,Allusercomments,bodynotif) {
+//     arrayUsername = [];
+//     nameCommentToSend = "";
+//     Allusercomments.forEach(usercomment => {
         
 
-        if (!arrayUsername.includes(usercomment.innerText)) {
-            arrayUsername.push(usercomment.innerText);
-            nameCommentToSend = usercomment.innerText;
+//         if (!arrayUsername.includes(usercomment.innerText)) {
+//             arrayUsername.push(usercomment.innerText);
+//             nameCommentToSend = usercomment.innerText;
             
-        }
+//         }
 
-    });
-    console.log(arrayUsername);
-    for (let i = 0; i < arrayUsername.length; i++) {
-       
-        if (arrayUsername[i].toLowerCase() !== userName.toLowerCase()) {
-            sendNotificationTo(username, idCard, arrayUsername[i], bodynotif);
+//     });
+//     console.log(arrayUsername);
+//     for (let i = 0; i < arrayUsername.length; i++) {
+//        console.log(arrayUsername[i]);
+//         if (arrayUsername[i].toLowerCase() !== userName.toLowerCase()) {
+//             sendNotificationTo(username, idCard, arrayUsername[i], bodynotif);
            
-            activeNotificationForusers(arrayUsername[i]);
-        }
-    }
+           
+//         }
+//     }
     
         
        
@@ -252,7 +253,7 @@ function sendnotificationtoAll(username,idCard,Allusercomments,bodynotif) {
    
        
     
-}
+// }
 
 function activeNotificationForusers(usercommentname) {
     try {
@@ -348,7 +349,7 @@ function lockCard() {
                
                 idCard = icon.closest(".request-item").getAttribute("data-id");
                 
-                setLike(idComment, idCard, userName.toLowerCase(), icon.previousElementSibling.querySelector(".comment-username").innerText, `veut ton shift`);
+                setLike(idComment, idCard, userName.toLowerCase(), icon.previousElementSibling.querySelector(".comment-username").innerText, `a choisi ton commentaire`);
                
                
 
@@ -360,7 +361,7 @@ function lockCard() {
                 idComment = 0;
                 idCard = icon.closest(".request-item").getAttribute("data-id");
 
-                setLike(idComment, idCard , userName.toLowerCase() ,icon.previousElementSibling.querySelector(".comment-username").innerText,`a delockè ton commentaire :(`);
+                setLike(idComment, idCard , userName.toLowerCase() ,icon.previousElementSibling.querySelector(".comment-username").innerText,`a changè d'avis sur sa requete:(`);
                 console.log(icon.previousElementSibling.querySelector(".comment-username").innerText);
             }
 
