@@ -202,7 +202,11 @@ async function sendComment(e) {
                 e.target.closest(".card-form-comment").querySelector("#card-input-comment").value = "";
               
                 renderCommentsAfter(comments);
-                // console.log(sendnotificationto(userName.toLowerCase(), idCard, e.target.closest(".request-item").getAttribute("data-user").toLowerCase(), "a commenté ton post"));
+
+                if (e.target.closest(".request-item").getAttribute("data-user").toLowerCase()!== userName.toLowerCase()) {
+                    sendNotificationTo(userName.toLowerCase(), idCard, e.target.closest(".request-item").getAttribute("data-user").toLowerCase(), "a commenté ton post");
+
+                }
                 sendnotificationtoAll(userName.toLowerCase(),idCard,commentsContainer.querySelectorAll(".comment-username"),"a aussi commenté "); 
             },
 
