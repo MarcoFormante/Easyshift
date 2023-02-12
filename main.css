@@ -353,7 +353,6 @@ figcaption.notification-body::first-letter {
   align-items: center;
   justify-content: center;
   gap: none;
-  background-color: rgb(172, 34, 34);
   border-radius: 8px;
   font-weight: 900;
   font-style: normal;
@@ -538,9 +537,14 @@ article.request-card-container {
 }
 
 .card-input-comments-btn-send {
+  /* background: blanchedalmond; */
   cursor: pointer;
-  padding-right: 10px;
-  font-size: 1.3em;
+  /* padding-right: 10px; */
+  /* font-size: 1.3em; */
+  width: 28px;
+  /* height: 10px; */
+  margin-right: 10px;
+  fill: rgb(7, 61, 240);
 }
 
 .comment-lenght-info {
@@ -746,6 +750,90 @@ form#form-newRequest {
   align-self: left;
 }
 
+@media screen and (max-width: 374px) {
+  .newRequest-title-container {
+    text-align: center;
+    padding-top: 15px;
+    color: aliceblue;
+    font-size: 0.8em;
+  }
+  .form-section {
+    width: 50vw;
+    height: -moz-fit-content;
+    height: fit-content;
+    padding-top: 20px;
+  }
+  .inner-form-section {
+    width: 80%;
+    height: 80%;
+    display: flex;
+    align-items: center;
+    margin: auto;
+  }
+  form#form-newRequest {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+  }
+  .inputs-container-form-newRequest {
+    width: 80%;
+    flex-wrap: wrap;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #form-submit {
+    padding: 10px;
+    border-radius: 8px;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+    outline: none;
+    border: 1px solid white;
+    background-color: #04248d;
+    color: aliceblue;
+    width: 200px;
+    margin: auto;
+    margin-top: 0px;
+    font-weight: 900;
+    cursor: pointer;
+  }
+  .form-inputs-container {
+    margin: auto;
+    width: 40%;
+    flex-wrap: wrap;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: left;
+    min-width: 300px;
+    gap: 2px;
+    margin: auto;
+    text-align: left;
+    max-width: 800px;
+  }
+  .form-inputs-container input {
+    width: 50%;
+    min-width: 280px;
+    max-width: 600px;
+    height: 35px;
+    border-radius: 8px;
+    text-indent: 10px;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+    border: none;
+    outline: none;
+    margin-bottom: 40px;
+  }
+  .form-inputs-container label {
+    width: 70%;
+    min-width: 300px;
+    max-width: 600px;
+    color: aliceblue;
+    align-self: left;
+  }
+}
 .body-page-login {
   width: 100vw;
   height: 100vh;

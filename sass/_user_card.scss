@@ -100,10 +100,18 @@ text-indent: 5px;
     }
 }
 
-.card-input-comments-btn-send{ 
-cursor: pointer;  
-padding-right: 10px;
-font-size: 1.3em;
+
+
+.card-input-comments-btn-send {
+        /* background: blanchedalmond; */
+       
+        cursor: pointer;
+        /* padding-right: 10px; */
+        /* font-size: 1.3em; */
+        width: 28px;
+        /* height: 10px; */
+        margin-right: 10px;
+        fill: $brand-color;
 }
 
 

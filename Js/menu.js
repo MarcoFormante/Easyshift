@@ -28,6 +28,7 @@ function myRequest(e) {
     });
     
     loadingMyRequest();
+    document.querySelector(".search-bar-section").style.display = "none";
 
     if (Number(window.innerWidth) < 769 ) {
         toggleMenu();
