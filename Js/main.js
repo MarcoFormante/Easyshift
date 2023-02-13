@@ -172,7 +172,10 @@ function renderDataUser(data) {
         document.querySelector(".search-bar-section").style.display = "none";
     };
 
-    loadingMickeyDisplayNone(2000,".body-page")
+    loadingMickeyDisplayNone(2000, ".body-page");
+    document.querySelector(".request-list").scrollTo(0, 0);
+    document.documentElement.scrollTo(0, 0);
+   
 }
 
      
@@ -202,7 +205,7 @@ async function sendComment(e) {
 
             success: function (response) {
                 
-                const comments = ["0" + "&&" + userName + "&&" + commentInput + "&&" + idCard + "&&" + ""];
+                const comments = ["0" + "&&" + userName + "&&" + commentInput + "&&" + idCard + "&&" + "Aujourd'hui"];
                 e.target.closest(".card-form-comment").querySelector("#card-input-comment").value = "";
                 alert("ton commentaire a été envoyé")
                 renderCommentsAfter(comments);
@@ -567,7 +570,7 @@ async function getComments() {
 
         } catch (error) {
 
-            alert("impossible de charger les commentaires");
+            alert("Impossible de charger les commentaires");
 
      }
 }
@@ -590,9 +593,10 @@ function renderCommentsAfter(comments) {
             isBlocked: "",
             time: commentsArray[4]
         }
-        const time = commentData.time.slice(0,commentData.time.indexOf(" ")).split("-").reverse().join("/");
+        const time = commentData.time;
 
-        
+
+
         
 
         cards.forEach(card => {
@@ -616,7 +620,7 @@ function renderCommentsAfter(comments) {
                             <section class="comment-body-section">
                                 <p class="comment-text">${commentData.body}</p>
                             </section>
-                            <p class="dateNotification">${time}<p>
+                            <p class="date-comment">${time}<p>
                         </li>`;
                         
                         
@@ -634,7 +638,7 @@ function renderCommentsAfter(comments) {
                             <section class="comment-body-section">
                                 <p class="comment-text">${commentData.body}</p>
                             </section>
-                            <p class="dateNotification">${time}<p>
+                            <p class="date-comment">${time}<p>
                         </li>`;
                         
 
@@ -686,7 +690,7 @@ function renderComments(comments) {
             time: commentsArray[4]
         }
         const time = commentData.time.slice(0,commentData.time.indexOf(" ")).split("-").reverse().join("/");
-
+        const hour = " " + commentData.time.slice(commentData.time.indexOf(" "), -3);
         
         
 
@@ -711,7 +715,7 @@ function renderComments(comments) {
                             <section class="comment-body-section">
                                 <p class="comment-text">${commentData.body}</p>
                             </section>
-                            <p class="dateNotification">${time}<p>
+                            <p class="date-comment">${time+hour}<p>
                         </li>`;
                         
                         
@@ -729,7 +733,7 @@ function renderComments(comments) {
                             <section class="comment-body-section">
                                 <p class="comment-text">${commentData.body}</p>
                             </section>
-                            <p class="dateNotification">${time}<p>
+                            <p class="date-comment">${time+hour}<p>
                         </li>`;
                         
 
@@ -843,6 +847,7 @@ function renderNotifications(data) {
         }
 
         const time = notificationObject.time.slice(0,notificationObject.time.indexOf(" ")).split("-").reverse().join("/");
+        const hour = " " + notificationObject.time.slice(notificationObject.time.indexOf(" "),-3);
 
        
          notificationsContainer.innerHTML += `
@@ -852,7 +857,7 @@ function renderNotifications(data) {
                                      <div class="delete-notification"></div>
                                      
                              </figure>
-                             <p class="dateNotification">${time}<p>
+                             <p class="dateNotification">${time+hour}<p>
                                      `
 
     })

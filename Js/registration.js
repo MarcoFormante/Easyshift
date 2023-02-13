@@ -3,8 +3,11 @@ const submitBtn = document.querySelector(".input-submit-login");
 const inptName = document.querySelector("#name");
 const inptPassword = document.querySelector("#password");
 
+const iconloadingMickey = document.querySelector(".loading-mickey-container");
+loadingMickeyDisplay(".body-page-login");
+loadingMickeyDisplayNone(2000, ".body-page-login", null);
 
-
+localStorage.clear();
 if (localStorage.length > 0) {
     location.href = "loginPage.html";
 }
@@ -66,11 +69,12 @@ function submit(e) {
 function verifyAccounts(form,name,password) {
     
     createAccount(form, name, password);
+    loadingMickeyDisplay(".body-page-login");
 }
 
 
 function createAccount(form,name,password) {
-
+    
     try {
         $.ajax({
             methods: "POST",
@@ -79,19 +83,31 @@ function createAccount(form,name,password) {
             success:function (response) {
                 console.log(response);
 
-                if (response==="exists") {
+                if (response === "exists") {
+                    
                     alert("ce Nom est deja utilisé, choisir un nom different :)")
+                    loadingMickeyDisplayNone(1000, ".body-page-login", "");
                     document.querySelector("#name").value = "";
                     document.querySelector("#password").value = "";
                 
-                } else if (response==="error") {
+                } else if (response === "error") {
+                    
                     alert("probleme de connection au server , essayer plus tard :( " + error);
-                   
+                    loadingMickeyDisplayNone(1000, ".body-page-login", "");
                     document.querySelector("#name").value = "";
                     document.querySelector("#password").value = "";
-                } else if(response==="success"){
-                    localStorage.setItem("userName", name);
-                    location.href = "home.html";
+
+                } else if (response === "success") {
+                   
+                    let confirm = window.confirm(` Nom = ${name} \n Mot de pass = ${password} \n confirmez-vous votre choix?`);
+
+                    if (confirm) {
+                        localStorage.setItem("userName", name);
+                        loadingMickeyDisplayNone(2000, ".body-page-login",  location.href = "home.html");
+                    }
+                   
+                   
+                   
                 }
             },
 
@@ -106,13 +122,23 @@ function createAccount(form,name,password) {
         document.querySelector("#name").value = "";
         document.querySelector("#password").value = "";
     }
-    
-    
-    
-      
+   
 }
 
 
 
 
+function loadingMickeyDisplay(bodypage) {
+    iconloadingMickey.style.display = "block";
+    document.querySelector("" + bodypage).style.display = "none";
+}
+
+
+async function loadingMickeyDisplayNone(time,bodypage,action) {
+    setTimeout(() => {
+        iconloadingMickey.style.display = "none";
+        document.querySelector("" + bodypage).style.display = "block";
+        action;
+    }, time,false);
+}
 

@@ -273,8 +273,8 @@ async function sendComment(e) {
             url: s + `easyShiftSendComment.php?name=${userName}&comment=${commentInput}&idCard=${idCard}`,
 
             success: function (response) {
-                
-                const comments = ["0" + "&&" + userName + "&&" + commentInput + "&&" + idCard + "&&" + ""];
+               
+                const comments = ["0" + "&&" + userName + "&&" + commentInput + "&&" + idCard + "&&" + "Aujourd'hui"];
                 e.target.closest(".card-form-comment").querySelector("#card-input-comment").value = "";
                  alert("ton commentaire a été envoyé")
                 renderCommentsAfter(comments);
@@ -296,6 +296,99 @@ async function sendComment(e) {
 
     }
         
+}
+
+function renderCommentsAfter(comments) {
+   
+
+
+    comments.forEach(comment => {
+        const commentsArray = comment.split("&&");
+        const cards = document.querySelectorAll(".request-item");
+
+        const commentData = {
+            id: commentsArray[0],
+            name: commentsArray[1],
+            body: commentsArray[2],
+            idCard: commentsArray[3],
+            firstLetter: commentsArray[1].slice(0,1),
+            isBlocked: "",
+            time: commentsArray[4]
+        }
+        const time = commentData.time;
+
+
+        
+
+        cards.forEach(card => {
+
+
+            if (card.getAttribute("data-id") === commentData.idCard) {
+
+                const commentsContainer = card.querySelector(".comment-text-section > .comment-list");
+                if (commentData.name.toLowerCase() !== userName.toLowerCase()) {
+
+                    commentsContainer.innerHTML += `
+                    <li class="comment-item" data-comId="${commentData.id}" data-idCard="${commentData.idCard}" data-block="${0}">
+                        <section class="comment-header-section">
+                            <div class="comment-header-left">
+                                <div class="comment-first-letter">${commentData.firstLetter}</div>
+                                <div class="comment-username">${commentData.name}</div>
+                            </div>
+                            <div class="comment-blockBtn">🔒</div>
+                            </section>
+
+                            <section class="comment-body-section">
+                                <p class="comment-text">${commentData.body}</p>
+                            </section>
+                            <p class="date-comment">${time}<p>
+                        </li>`;
+                        
+                        
+                } else {
+                    commentsContainer.innerHTML += `
+                    <li class="comment-item" data-comId="${commentData.id}" data-idCard="${commentData.idCard}" data-block="${commentData.isBlocked}">
+                        <section class="comment-header-section">
+                            <div class="comment-header-left">
+                                <div class="comment-first-letter">${commentData.firstLetter}</div>
+                                <div class="comment-username">${commentData.name}</div>
+                            </div>
+
+                            </section>
+
+                            <section class="comment-body-section">
+                                <p class="comment-text">${commentData.body}</p>
+                            </section>
+                            <p class="date-comment">${time}<p>
+                        </li>`;
+                        
+
+
+                }
+                if (userName.toLowerCase() !== card.getAttribute("data-user").toLowerCase()) {
+                    if (card.querySelector("#comment .comment-item .comment-header-section .comment-blockBtn")) {
+
+                        card.querySelector("#comment .comment-item .comment-blockBtn").style.display = "none";
+                    } else {
+                        console.log("non ce");
+                    }
+                    
+                
+                }
+
+                updateCommentsLength(card);
+                
+             }
+             
+        })
+        
+
+        
+    })
+    lockCard();
+    checkBlockedComments();
+    
+    
 }
     
 
@@ -592,7 +685,7 @@ function renderComments(comments) {
             time: commentsArray[4]
         }
         const time = commentData.time.slice(0,commentData.time.indexOf(" ")).split("-").reverse().join("/");
-
+        const hour = " " + commentData.time.slice(commentData.time.indexOf(" "), -3);
         
         
 
@@ -617,7 +710,7 @@ function renderComments(comments) {
                             <section class="comment-body-section">
                                 <p class="comment-text">${commentData.body}</p>
                             </section>
-                            <p class="dateNotification">${time}<p>
+                            <p class="dateNotification">${time+hour}<p>
                         </li>`;
                         
                         
@@ -635,7 +728,7 @@ function renderComments(comments) {
                             <section class="comment-body-section">
                                 <p class="comment-text">${commentData.body}</p>
                             </section>
-                            <p class="dateNotification">${time}<p>
+                            <p class="dateNotification">${time+hour}<p>
                         </li>`;
                         
 
@@ -742,6 +835,7 @@ function renderNotifications(data) {
         }
 
         const time = notificationObject.time.slice(0,notificationObject.time.indexOf(" ")).split("-").reverse().join("/");
+        const hour = " " +  notificationObject.time.slice( notificationObject.time.indexOf(" "), -3);
 
        
          notificationsContainer.innerHTML += `
@@ -751,7 +845,7 @@ function renderNotifications(data) {
                                      <div class="delete-notification"></div>
                                      
                              </figure>
-                             <p class="dateNotification">${time}<p>
+                             <p class="dateNotification">${time+hour}<p>
                                      `
 
     })

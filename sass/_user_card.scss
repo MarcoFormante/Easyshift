@@ -1,21 +1,21 @@
 .request-item{
-    max-width: 300px;
+    max-width: 280px;
     background-color: rgba(4, 4, 4, 0.234);
     backdrop-filter: blur(50px);
     border-radius: 16px;
-    margin-top: 40px;
+  
     flex-shrink: 0;
     min-width: 200px;
-    margin-bottom: 20px;
+    
     z-index: 0;
-    margin:  20px auto;
+    margin: 40px auto;
 
         &.toggleLockCard{
             box-shadow: 0 0 10px $lock_card-color;
         }
 
         @media screen and (max-width:479px) {
-            max-width: 75%;
+            max-width: 72%;
         }
     
 }
@@ -259,3 +259,9 @@ padding: 2px;
 
 
 
+.date-comment{
+    font-size: 12px;
+    letter-spacing: 1.2px;
+    margin-top: 4px;
+    color: dodgerblue;
+}
