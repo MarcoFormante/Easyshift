@@ -473,7 +473,7 @@ function lockCard() {
                
                 idCard = icon.closest(".request-item").getAttribute("data-id");
                 
-                setLike(idComment, idCard,userName,icon.previousElementSibling.querySelector(".comment-username").innerText,`veut ton shift`);
+                setLike(idComment, idCard,userName,icon.previousElementSibling.querySelector(".comment-username").innerText,`voudrait ton shift`);
                
 
             } else {
@@ -484,7 +484,7 @@ function lockCard() {
                 idComment = 0;
                 idCard = icon.closest(".request-item").getAttribute("data-id");
 
-                setLike(idComment, idCard , userName ,icon.previousElementSibling.querySelector(".comment-username").innerText,`a delockè ton commentaire :(`);
+                setLike(idComment, idCard , userName ,icon.previousElementSibling.querySelector(".comment-username").innerText,`a changè d'avis sur sa requete`);
                 
             }
 
@@ -710,7 +710,7 @@ function renderComments(comments) {
                             <section class="comment-body-section">
                                 <p class="comment-text">${commentData.body}</p>
                             </section>
-                            <p class="dateNotification">${time+hour}<p>
+                            <p class="date-comment">${time+hour}<p>
                         </li>`;
                         
                         
@@ -728,7 +728,7 @@ function renderComments(comments) {
                             <section class="comment-body-section">
                                 <p class="comment-text">${commentData.body}</p>
                             </section>
-                            <p class="dateNotification">${time+hour}<p>
+                            <p class="date-comment">${time+hour}<p>
                         </li>`;
                         
 

@@ -356,7 +356,7 @@ function lockCard() {
                
                 idCard = icon.closest(".request-item").getAttribute("data-id");
                 
-                setLike(idComment, idCard, userName.toLowerCase(), icon.previousElementSibling.querySelector(".comment-username").innerText, `a choisi ton commentaire`);
+                setLike(idComment, idCard, userName.toLowerCase(), icon.previousElementSibling.querySelector(".comment-username").innerText, `voudrait ton shift`);
                
                
 
@@ -368,7 +368,7 @@ function lockCard() {
                 idComment = 0;
                 idCard = icon.closest(".request-item").getAttribute("data-id");
 
-                setLike(idComment, idCard , userName.toLowerCase() ,icon.previousElementSibling.querySelector(".comment-username").innerText,`a changè d'avis sur sa requete:(`);
+                setLike(idComment, idCard , userName.toLowerCase() ,icon.previousElementSibling.querySelector(".comment-username").innerText,`a changè d'avis sur sa requete`);
                 console.log(icon.previousElementSibling.querySelector(".comment-username").innerText);
             }
 
