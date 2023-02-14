@@ -7,10 +7,12 @@ const iconloadingMickey = document.querySelector(".loading-mickey-container");
 loadingMickeyDisplay(".body-page-login");
 loadingMickeyDisplayNone(2000, ".body-page-login", null);
 
-localStorage.clear();
+
 if (localStorage.length > 0) {
     location.href = "loginPage.html";
 }
+
+window.scrollTo(0, 0);
 
 form.addEventListener("submit", submit);
 

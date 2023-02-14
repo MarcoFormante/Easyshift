@@ -15,7 +15,7 @@
         }
 
         @media screen and (max-width:479px) {
-            max-width: 72%;
+            max-width: 240px;
         }
     
 }
@@ -252,7 +252,7 @@ text-align: center;
 width: 100%;
 padding: 2px;
 @include flex(row,center,center,none);
-
+word-break: break-all;
 }
 
 

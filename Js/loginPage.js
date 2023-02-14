@@ -2,6 +2,7 @@ let userName = localStorage.getItem("userName");
 const iconloadingMickey = document.querySelector(".loading-mickey-container");
 
 
+window.scrollTo(0, 0);
 
 const formLogin = document.querySelector("#form-login");
 

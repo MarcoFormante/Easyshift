@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap");
 * {
   box-sizing: border-box;
   margin: 0;
@@ -5,12 +6,10 @@
 }
 
 html {
-  background-color: #181818;
-  background-image: url(/images/icons/pexels-bruno-thethe-1910236\ \(1\).png);
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
+  background: linear-gradient(4deg, rgb(51, 177, 246), rgb(66, 37, 75)) no-repeat fixed;
+  overflow-x: hidden;
+  font-family: Lato, Arial, "Times New Roman", Times, serif, Helvetica, sans-serif;
+  max-width: 100vw;
 }
 
 .body-page {
@@ -55,6 +54,11 @@ a {
   z-index: 100;
   transform: translate(-50%, -50%);
   display: none;
+  color: aliceblue;
+}
+
+.loading-cicle {
+  box-shadow: 0 0 10px white;
 }
 
 .loading-cicle1 {
@@ -63,7 +67,7 @@ a {
   border-radius: 50%;
   background-color: rgb(196, 1, 235);
   position: relative;
-  background: linear-gradient(rgba(196, 1, 235, 0.637), rgba(255, 0, 106, 0.712));
+  background: linear-gradient(rgba(196, 1, 235, 0.837), rgba(255, 0, 106, 0.712));
   z-index: 10;
   display: flex;
   justify-content: center;
@@ -126,14 +130,13 @@ a {
   background-color: rgba(0, 0, 0, 0.516);
   -webkit-backdrop-filter: blur(8px);
           backdrop-filter: blur(8px);
-  position: sticky;
   top: 0;
   left: 0;
   z-index: 10;
 }
 
 .brand {
-  color: rgb(7, 61, 240);
+  color: rgb(240, 7, 135);
 }
 
 .header-nav-container--flex {
@@ -147,7 +150,7 @@ a {
 }
 
 .header-nav-item--active {
-  border-bottom: 2px solid rgb(7, 61, 240);
+  border-bottom: 2px solid rgb(240, 7, 135);
   padding: 2px;
 }
 
@@ -253,7 +256,6 @@ a {
   background-color: rgba(27, 58, 231, 0.158);
   -webkit-backdrop-filter: blur(8px);
           backdrop-filter: blur(8px);
-  position: sticky;
   width: 100vw;
   height: 100%;
   top: 50px;
@@ -267,7 +269,7 @@ a {
 
 .search-bar-title {
   text-align: center;
-  color: rgb(236, 17, 170);
+  color: rgb(255, 255, 255);
   font-size: 0.9em;
 }
 
@@ -299,6 +301,11 @@ a {
   height: 40px;
   cursor: pointer;
   z-index: 100;
+}
+@media screen and (min-width: 769px) {
+  .notification-icon-section {
+    right: 30px;
+  }
 }
 
 .notification-icon {
@@ -346,8 +353,6 @@ a {
 @media screen and (max-width: 768px) {
   .notification-section.toggle-notifications {
     left: 0%;
-    height: -moz-fit-content;
-    height: fit-content;
     position: absolute;
     width: 100%;
   }
@@ -405,7 +410,7 @@ figure.notification-card {
 .notification-first-letter {
   border-radius: 50%;
   flex-shrink: 0;
-  border: 2px solid rgb(7, 61, 240);
+  border: 2px solid rgb(240, 7, 135);
   width: 30px;
   height: 30px;
   display: flex;
@@ -486,7 +491,7 @@ figcaption.notification-body::first-letter {
 }
 
 .info-Btn-noCards-NewRequestlink {
-  background-color: rgb(7, 61, 240);
+  background-color: rgb(240, 7, 135);
   padding: 10px;
   border-radius: 8px;
   -webkit-appearance: none;
@@ -531,7 +536,7 @@ main.toggle-menu {
 }
 @media screen and (max-width: 479px) {
   .request-item {
-    max-width: 72%;
+    max-width: 240px;
   }
 }
 
@@ -549,7 +554,7 @@ article.request-card-container {
 }
 
 .card-first-letter {
-  border: 2px solid rgb(7, 61, 240);
+  border: 2px solid rgb(240, 7, 135);
   width: 40px;
   height: 40px;
   display: flex;
@@ -628,7 +633,7 @@ article.request-card-container {
   height: 28px;
   /* height: 10px; */
   margin-right: 10px;
-  fill: rgb(7, 61, 240);
+  fill: rgb(240, 7, 135);
   background-image: url(/images/icons/paper-plane-regular.svg);
   background-repeat: no-repeat;
   background-size: 100%;
@@ -743,6 +748,7 @@ article.request-card-container {
   align-items: center;
   justify-content: center;
   gap: none;
+  word-break: break-all;
 }
 
 .date-comment {
@@ -796,7 +802,7 @@ form#form-newRequest {
           appearance: none;
   outline: none;
   border: 1px solid white;
-  background-color: #04248d;
+  background-color: #8d044f;
   color: aliceblue;
   width: 200px;
   margin: auto;
@@ -881,7 +887,7 @@ form#form-newRequest {
             appearance: none;
     outline: none;
     border: 1px solid white;
-    background-color: #04248d;
+    background-color: #8d044f;
     color: aliceblue;
     width: 200px;
     margin: auto;
@@ -963,14 +969,16 @@ form#form-newRequest {
   justify-content: center;
   gap: 30px;
   color: aliceblue;
+  letter-spacing: 1.25px;
 }
 
 .brand-title {
-  color: #315ff9;
+  color: #f9319f;
+  letter-spacing: 10px;
 }
 
 figcaption.brand-caption {
-  border-bottom: 2px solid rgb(7, 61, 240);
+  border-bottom: 2px solid rgb(240, 7, 135);
   padding-bottom: 10px;
 }
 
@@ -982,12 +990,13 @@ figcaption.brand-caption {
 #form-login {
   border: 1px solid white;
   padding: 20px;
-  background-color: cornflowerblue;
+  background-color: rgba(128, 7, 77, 0.342);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 10px;
+  border-radius: 18px;
 }
 #form-login input {
   min-width: 250px;
@@ -997,7 +1006,7 @@ figcaption.brand-caption {
 }
 #form-login input.input-submit-login {
   min-width: 220px;
-  background-color: rgb(7, 61, 240);
+  background-color: rgb(240, 7, 135);
   color: aliceblue;
   font-weight: 900;
 }
@@ -1009,7 +1018,7 @@ figcaption.brand-caption {
   color: aliceblue;
 }
 #form-login p.text-redirect-to-login a {
-  color: #faf763;
+  color: #ffd104;
   text-decoration: underline;
 }
 #form-login label {
@@ -1028,4 +1037,91 @@ figcaption.brand-caption {
   top: 20px;
   padding: 5px;
   border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+}
+
+.help-page-section {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  background: linear-gradient(4deg, rgb(51, 177, 246), rgb(114, 30, 86)) no-repeat fixed;
+}
+
+.help-inner {
+  width: 100vw;
+  height: 100vh;
+}
+
+.help-header {
+  padding: 15px 15px;
+}
+
+.close-help-button {
+  float: right;
+  font-size: 25px;
+  padding: 5px 10px;
+  margin-right: 5px;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  border-radius: 4px;
+  color: aliceblue;
+  background-color: rgb(240, 7, 135);
+  border: 0;
+  font-weight: 600;
+  cursor: pointer;
+}
+.close-help-button:active {
+  background-color: #580433;
+}
+
+.help-title {
+  letter-spacing: 10px;
+  font-size: 30px;
+  color: aliceblue;
+  float: left;
+  font-weight: 900;
+}
+
+.help-list-title {
+  text-align: center;
+  color: rgba(240, 248, 255, 0.568);
+  clear: both;
+  padding-top: 50px;
+}
+
+.help-list {
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  gap: 10vh;
+  align-items: center;
+  justify-content: center;
+}
+.help-list li {
+  width: 240px;
+  height: 40px;
+}
+.help-list li button {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  border-radius: 18px;
+  width: 100%;
+  height: 100%;
+  text-transform: uppercase;
+  background: linear-gradient(40deg, rgba(51, 178, 246, 0.151), rgba(161, 23, 99, 0.575)) no-repeat;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  border: 1px solid rgb(255, 255, 255);
+  cursor: pointer;
+}
+.help-list li button:active {
+  background-color: #ff048e;
+}
+
+footer.help-footer {
+  position: absolute;
+  bottom: 2px;
+  left: 10px;
 }/*# sourceMappingURL=main.css.map */

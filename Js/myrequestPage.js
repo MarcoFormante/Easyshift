@@ -14,7 +14,7 @@ getNotifications();
 getActiveNotification(userName);
 
 
-
+window.scrollTo(0, 0);
 
 
 
@@ -684,7 +684,7 @@ function renderComments(comments) {
             isBlocked: "",
             time: commentsArray[4]
         }
-        const time = commentData.time.slice(0,commentData.time.indexOf(" ")).split("-").reverse().join("/");
+        const time = commentData.time.slice(0,commentData.time.indexOf(" ")).split("-").join("/");
         const hour = " " + commentData.time.slice(commentData.time.indexOf(" "), -3);
         
         
@@ -834,7 +834,7 @@ function renderNotifications(data) {
             time: dataNotif[5]
         }
 
-        const time = notificationObject.time.slice(0,notificationObject.time.indexOf(" ")).split("-").reverse().join("/");
+        const time = notificationObject.time.slice(0,notificationObject.time.indexOf(" ")).split("-").join("/");
         const hour = " " +  notificationObject.time.slice( notificationObject.time.indexOf(" "), -3);
 
        

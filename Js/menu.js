@@ -2,6 +2,7 @@ const menuBtn = document.querySelector(".menu-container");
 const userNameStorage = localStorage.getItem("userName").toLowerCase();
 document.querySelector(".header-nav-link4").addEventListener("click", myRequest);
 
+window.scrollTo(0, 0);
 
 menuBtn.addEventListener("click", toggleMenu);
 
@@ -57,7 +58,7 @@ function myRequest(e) {
 
 function  checkPersonalCardLength(personalCardsLenght) {
     if (personalCardsLenght < 1) {
-        document.querySelector("#info-text-section-noCards").style.display="block"
+        document.querySelector("#info-text-section-noCards").style.display = "block";
     }
 }
 
@@ -78,15 +79,17 @@ function toggleMenu() {
     console.log( Number(window.outerWidth));
     
    
-    document.querySelector("main").classList.toggle("toggle-menu");
+    // document.querySelector("main").classList.toggle("toggle-menu");
     if (headerNav.classList.contains("toggle-menu") && (document.querySelector(".notification-icon-section"))) {
         document.querySelector(".body-page").style.height = "100vh";
         document.querySelector(".notification-icon-section").style.display = "none";
+        document.querySelector("main").classList.add("toggle-menu");
         
     } else {
         if (document.querySelector(".notification-icon-section")) {
             document.querySelector(".notification-icon-section").style.display = "block";
             document.querySelector(".body-page").style.height = "";
+            document.querySelector("main").classList.remove("toggle-menu");
         }
        
     }

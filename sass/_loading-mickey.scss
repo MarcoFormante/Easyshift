@@ -7,11 +7,14 @@
     z-index: 100;
     transform: translate(-50%,-50%);
     display: none;
+    color: aliceblue;
 }
 
 
    
-   
+   .loading-cicle{
+    box-shadow: 0 0 10px white;
+   }
     
 
 .loading-cicle1{
@@ -20,7 +23,7 @@
     border-radius: 50%;
     background-color: rgb(196, 1, 235);
     position: relative;
-      background: linear-gradient(rgba(196, 1, 235, 0.637),rgba(255, 0, 106, 0.712));
+      background: linear-gradient(rgba(196, 1, 235, 0.837),rgba(255, 0, 106, 0.712));
       z-index: 10;
       display: flex;
       justify-content: center;

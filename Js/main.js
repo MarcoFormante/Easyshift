@@ -33,7 +33,6 @@ getActiveNotification(userName);
 
 
 
-
 /*////////////////////////////////////////////////////////////////////////////////////////////
                                 FUNCTIONS
 /////////////////////////////////////////////////////////////////////////////////////////////*/
@@ -94,7 +93,7 @@ function renderDataUser(data) {
         }
 
         const datetext = userInfoCard.date.split("-").reverse().join("-");
-        
+       
         const firstLetter = userInfoCard.username.slice(0, 1);
 
         renderHtml += `<li class="request-item" data-id="${userInfoCard.id}"data-index="${dataLenght}" data-user="${userInfoCard.username}" data-blocked="${userInfoCard.isblockedBy}">
@@ -689,7 +688,7 @@ function renderComments(comments) {
             isBlocked: "",
             time: commentsArray[4]
         }
-        const time = commentData.time.slice(0,commentData.time.indexOf(" ")).split("-").reverse().join("/");
+        const time = commentData.time.slice(0,commentData.time.indexOf(" ")).split("-").join("/");
         const hour = " " + commentData.time.slice(commentData.time.indexOf(" "), -3);
         
         
@@ -846,7 +845,7 @@ function renderNotifications(data) {
             time: dataNotif[5]
         }
 
-        const time = notificationObject.time.slice(0,notificationObject.time.indexOf(" ")).split("-").reverse().join("/");
+        const time = notificationObject.time.slice(0,notificationObject.time.indexOf(" ")).split("-").join("/");
         const hour = " " + notificationObject.time.slice(notificationObject.time.indexOf(" "),-3);
 
        
@@ -895,11 +894,11 @@ function deleteNotification(notifTarget) {
                         },
     
                         error: function (error) {
-                            alert("Problème de connection , essayer plus tard :( " + error);
+                            alert("Problème de connection , essayer plus tard" + error);
                         }
                     })
                 } catch (error) {
-                    alert("Problème de connection , essayer plus tard :( " + error);
+                    alert("Problème de connection , essayer plus tard" + error);
                 }
             }
             
@@ -1010,11 +1009,11 @@ try {
 
 function loadingMyRequest(time) {
     
-    document.querySelector("main").style.display = "none";
+    document.querySelector(".main-page-home").style.display = "none";
    
 
     setTimeout(() => {
-        document.querySelector("main").style.display = "block";
+        document.querySelector(".main-page-home").style.display = "block";
     }, time);
 }
 

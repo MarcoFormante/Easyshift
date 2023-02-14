@@ -2,7 +2,7 @@
 let userName = localStorage.getItem("userName");
 
 
-
+window.scrollTo(0, 0);
 
 const formSendRequest = document.querySelector("#form-newRequest");
 

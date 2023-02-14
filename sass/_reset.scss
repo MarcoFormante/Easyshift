@@ -6,12 +6,16 @@
 
 html{
    
-    background-color: $first_surface;
-    background-image: url(/images/icons/pexels-bruno-thethe-1910236\ \(1\).png);
-    background-position:center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
+    // background-color: $first_surface;
+    // background-image: url(/images/icons/pexels-bruno-thethe-1910236\ \(1\).png);
+    // background-position:center center;
+    // background-repeat: no-repeat;
+    // background-size: cover;
+    // background-attachment: fixed;
+    background: linear-gradient(4deg,rgb(51, 177, 246),rgb(66, 37, 75)) no-repeat fixed;
+    overflow-x: hidden;
+    font-family: Lato, Arial, 'Times New Roman', Times, serif, Helvetica, sans-serif;
+    max-width: 100vw;
 }
 
 
@@ -20,8 +24,7 @@ html{
 width: 100vw;
 min-height: 100vh;
 overflow-x: hidden;
-
-    
+   
 }
 
 

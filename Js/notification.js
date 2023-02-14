@@ -33,6 +33,7 @@ closebtnNotifications.addEventListener("click", () => {
     
     document.querySelector(".notification-section").classList.toggle("toggle-notifications");
     document.querySelector(".notification-icon-section").style.display = "flex";
+    
 });
 
 

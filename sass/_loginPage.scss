@@ -34,6 +34,7 @@
     figure{
         @include flex(column,center,center,30px);
         color: aliceblue;
+        letter-spacing: 1.25px;
 
            
     }
@@ -45,12 +46,16 @@
 
 .brand-title{
     color: lighten($brand-color,10);
+    letter-spacing: 10px;
 }
 
 
 figcaption.brand-caption{
+        
         border-bottom: 2px solid $brand-color;
         padding-bottom: 10px;
+       
+
 }
 
 
@@ -66,8 +71,9 @@ figcaption.brand-caption{
 
     border:  1px solid white;
     padding: 20px;
-    background-color: cornflowerblue;
+    background-color: rgba(128, 7, 77, 0.342);
     @include flex(column,center,center,10px);
+    border-radius: 18px;
     
 
 
@@ -98,7 +104,7 @@ figcaption.brand-caption{
         color: aliceblue;
         
         a{
-            color:#faf763;
+            color:#ffd104;
             text-decoration: underline;
             
         }
@@ -123,4 +129,103 @@ figcaption.brand-caption{
      top: 20px;
      padding: 5px; 
      border: 1px solid rgba(255, 255, 255, 0.5);
+     border-radius: 8px;
+}
+
+
+
+.help-page-section{
+  
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    background: linear-gradient(4deg,rgb(51, 177, 246),rgb(114, 30, 86)) no-repeat fixed;
+    
+}
+
+.help-inner{
+    width: 100vw;
+    height: 100vh;
+    
+}
+
+.help-header{
+    padding: 15px 15px;
+}
+
+
+.close-help-button{
+
+    float: right;
+    font-size: 25px;
+    padding: 5px 10px;
+    margin-right: 5px;
+    appearance: none;
+    border-radius: 4px;
+    color: aliceblue;
+    background-color: $brand-color;
+    border: 0;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:active{
+        background-color: #580433;
+    }
+}
+
+
+.help-title{
+
+    letter-spacing: 10px;
+    font-size: 30px;
+    color: aliceblue;
+    float: left;
+    font-weight: 900;
+}
+
+
+.help-list-title{
+text-align: center;
+color: rgba(240, 248, 255, 0.568);
+clear: both;
+padding-top: 50px;
+}
+
+
+.help-list{
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    gap: 10vh;
+    align-items: center;
+    justify-content: center;
+
+        li{
+            width: 240px;
+            height: 40px;
+
+                button{
+                    appearance: none;
+                    border-radius: 18px;
+                    width: 100%;
+                    height: 100%;
+                    text-transform: uppercase;
+                    background: linear-gradient(40deg,rgba(51, 178, 246, 0.151),rgba(161, 23, 99, 0.575)) no-repeat;
+                    color: rgb(255, 255, 255);
+                    font-weight: bold;
+                    border: 1px solid rgb(255, 255, 255);
+                    cursor: pointer;
+
+                    &:active{
+                        background-color: #ff048e;
+                    }
+                }
+        }
+}
+
+
+footer.help-footer{
+    position: absolute;
+    bottom: 2px;
+    left: 10px;
 }
