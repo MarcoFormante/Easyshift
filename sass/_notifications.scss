@@ -61,13 +61,18 @@
     top: 0;
     width: 460px;
     z-index: 20;
-    left: 100%;
+    left: 0;
+    display: none;
     cursor: pointer;
+    @media screen and (max-width:768px){
+        width: 100vw;
+        height: 100vh;
+    }
 
             &.toggle-notifications{
                 left: 0%;
                 height: 100vh;
-
+                display: block;
 
                @media screen and (max-width:768px) {
                 left: 0%;

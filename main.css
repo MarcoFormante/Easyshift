@@ -13,6 +13,10 @@ html {
   scroll-behavior: smooth;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 .body-page {
   width: 100vw;
   min-height: 100vh;
@@ -202,13 +206,15 @@ a:not(.explication-list a) {
     height: 100vh;
     position: absolute;
     top: 0;
-    left: 100%;
+    left: 0%;
     display: flex;
     flex-direction: column;
+    display: none;
   }
   .header-nav.toggle-menu {
     left: 0;
     background-color: black;
+    display: block;
   }
   .header-nav-container--flex {
     display: flex;
@@ -344,12 +350,20 @@ a:not(.explication-list a) {
   top: 0;
   width: 460px;
   z-index: 20;
-  left: 100%;
+  left: 0;
+  display: none;
   cursor: pointer;
+}
+@media screen and (max-width: 768px) {
+  .notification-section {
+    width: 100vw;
+    height: 100vh;
+  }
 }
 .notification-section.toggle-notifications {
   left: 0%;
   height: 100vh;
+  display: block;
 }
 @media screen and (max-width: 768px) {
   .notification-section.toggle-notifications {
