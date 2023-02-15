@@ -1,0 +1,75 @@
+
+
+
+.header-how, .section-how,.explication-list{
+    padding: 10px;
+}
+
+
+.white-text{
+    color: rgb(255, 255, 255);
+}
+
+.light-grey-text{
+    color: rgba(240, 248, 255, 0.829);
+}
+
+
+.medium-text{
+    font-size: medium;
+}
+
+.warning-text{
+    color: $brand-color;
+}
+
+.padding-top{
+    padding-top: 10px;
+}
+
+.article-header{
+    padding-top: 20px;
+}
+
+
+.header-caption{
+    font-size: 90%;
+}
+
+
+.explication-list--item{
+    color: rgba(255, 255, 255, 0.753);
+
+        a{
+            color: rgb(236, 221, 12);
+            text-decoration: none;
+        }
+}
+
+
+.article-header-heading{
+    @extend .white-text;
+    text-align: justify;
+    
+}
+
+
+.close-btn-how{
+    float: right;
+    width: 30px;
+    height: 30px;
+    appearance: none;
+    border: 1px solid black;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.article-body-text{
+    @extend .light-grey-text;
+    letter-spacing: 0.8px;
+}
+
+
+.copyright-how{
+    padding-left: 10px;
+}

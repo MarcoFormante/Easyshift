@@ -72,7 +72,7 @@ figcaption.brand-caption{
     border:  1px solid white;
     padding: 20px;
     background-color: rgba(128, 7, 77, 0.342);
-    @include flex(column,center,center,10px);
+    @include flex(column,center,center,5px);
     border-radius: 18px;
     
 
@@ -122,7 +122,7 @@ figcaption.brand-caption{
     }
 }
 
-.help-login{
+.help-login-btn{
     background-color: rgba(100, 148, 237, 0.219);
     position: absolute;
      right: 20px;
@@ -130,6 +130,8 @@ figcaption.brand-caption{
      padding: 5px; 
      border: 1px solid rgba(255, 255, 255, 0.5);
      border-radius: 8px;
+     color: aliceblue;
+     cursor: pointer;
 }
 
 
@@ -140,7 +142,10 @@ figcaption.brand-caption{
     height: 100vh;
     position: absolute;
     background: linear-gradient(4deg,rgb(51, 177, 246),rgb(114, 30, 86)) no-repeat fixed;
-    
+    display: none;
+        &.toggle-visibility{
+            display: block;
+        }
 }
 
 .help-inner{

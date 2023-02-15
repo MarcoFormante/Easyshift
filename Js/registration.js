@@ -72,6 +72,7 @@ function verifyAccounts(form,name,password) {
     
     createAccount(form, name, password);
     loadingMickeyDisplay(".body-page-login");
+
 }
 
 
@@ -106,6 +107,10 @@ function createAccount(form,name,password) {
                     if (confirm) {
                         localStorage.setItem("userName", name);
                         loadingMickeyDisplayNone(2000, ".body-page-login",  location.href = "home.html");
+                    } else {
+                        document.querySelector("#name").value = "";
+                        document.querySelector("#password").value = "";
+                        loadingMickeyDisplayNone(2000, ".body-page-login", null);
                     }
                    
                    

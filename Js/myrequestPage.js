@@ -387,7 +387,7 @@ function renderCommentsAfter(comments) {
     })
     lockCard();
     checkBlockedComments();
-    
+    deleteComment();
     
 }
     
@@ -757,6 +757,7 @@ function renderComments(comments) {
     lockCard();
     checkBlockedComments();
     toggleCommentsSection();
+    deleteComment();
 }
 
 
@@ -1038,4 +1039,124 @@ function loadingMickeyDisplayNone(time,bodypage) {
         iconloadingMickey.style.display = "none";
         document.querySelector("" + bodypage).style.display = "block";
     }, time);
+}
+
+
+function deleteComment() {
+    const comments = document.querySelectorAll(".comment-item");
+    
+  
+    let timer = undefined;
+
+    comments.forEach(comment => {
+      
+       
+        if (window.innerWidth > 768) {
+            comment.addEventListener("mousedown",(e) => {
+                const commentName = e.currentTarget.querySelector(".comment-username").innerText.toLowerCase();
+                
+                const cardId = e.currentTarget.closest(".request-item").getAttribute("data-id");
+                const currentComment = e.currentTarget;
+                let currentNumberOfComments = currentComment.closest(".request-item").querySelector(".card-number-comments");
+                const commentText = currentComment.querySelector(".comment-text").innerText;
+                
+                if (commentName === userName.toLowerCase()) { 
+                    currentComment.style.border = "2px solid red";
+                }
+              
+                if (commentName === userName.toLowerCase()){
+                    timer = setTimeout(() => {
+                        
+                        const optionsDeleteComments = window.confirm("Voulez-vous supprimer ce commentaire?"+ `${commentName}:${commentText}`);
+    
+                        if (optionsDeleteComments) {
+                            console.log(currentComment);
+                        
+                            currentComment.remove();
+    
+                            deletecommentsOnDB(cardId,false);
+                            
+                            alert("Le commentaire à eté supprimé")
+                            if (currentNumberOfComments.innerText !== "0") {
+                                currentNumberOfComments.innerText = +currentNumberOfComments.innerText - 1;
+                            }
+    
+                        } else {
+                            currentComment.style.border = "";
+                        }
+                      
+                      }, 1500);
+                }
+        
+            })
+
+
+            comment.addEventListener("mouseup", () => {
+                setTimeout(() => {
+                    clearTimeout(timer)
+                    comment.style.border = "none";
+                    timer = null;
+                }, 5);
+            })
+    
+        } else {
+
+            comment.addEventListener("touchstart", (e) => {
+                const commentName = e.currentTarget.querySelector(".comment-username").innerText.toLowerCase();
+                
+                const cardId = e.currentTarget.closest(".request-item").getAttribute("data-id");
+                const currentComment = e.currentTarget;
+                let currentNumberOfComments = currentComment.closest(".request-item").querySelector(".card-number-comments");
+                const commentText = currentComment.querySelector(".comment-text").innerText;
+                
+                if (commentName === userName.toLowerCase()) { 
+                    currentComment.style.border = "2px solid red";
+                }
+              
+                if (commentName === userName.toLowerCase()){
+                    timer = setTimeout(() => {
+                        
+                        const optionsDeleteComments = window.confirm("Voulez-vous supprimer ce commentaire?"+ `\n ${commentName} : "${commentText}"`);
+    
+                        if (optionsDeleteComments) {
+                            console.log(currentComment);
+                        
+                            currentComment.remove();
+    
+                            deletecommentsOnDB(cardId,false);
+                            
+                            alert("Le commentaire à eté supprimé")
+                            if (currentNumberOfComments.innerText !== "0") {
+                                currentNumberOfComments.innerText = +currentNumberOfComments.innerText - 1;
+                            }
+    
+                        } else {
+                            currentComment.style.border = "";
+                        }
+                      
+                      }, 1500);
+                }
+            
+                
+            })
+    
+    
+            
+    
+            comment.addEventListener("touchend", () => {
+               
+                    clearTimeout(timer)
+                    comment.style.border = "none";
+                    timer = 0;
+              
+            })
+            
+        }
+
+
+        
+
+        
+     
+    })
 }

@@ -10,6 +10,7 @@ html {
   overflow-x: hidden;
   font-family: Lato, Arial, "Times New Roman", Times, serif, Helvetica, sans-serif;
   max-width: 100vw;
+  scroll-behavior: smooth;
 }
 
 .body-page {
@@ -22,7 +23,7 @@ ul {
   list-style: none;
 }
 
-a {
+a:not(.explication-list a) {
   text-decoration: none;
   color: aliceblue;
 }
@@ -618,6 +619,7 @@ article.request-card-container {
   border-color: none;
   border: 0px;
   text-indent: 5px;
+  width: 70%;
 }
 #card-input-comment:focus {
   border: none;
@@ -629,18 +631,15 @@ article.request-card-container {
 }
 
 .card-input-comments-btn-send {
-  /* background: blanchedalmond; */
   cursor: pointer;
-  /* padding-right: 10px; */
-  /* font-size: 1.3em; */
-  width: 28px;
-  height: 28px;
-  /* height: 10px; */
+  font-size: 1.3em;
+  width: 40px;
+  height: 25px;
+  min-width: 30px;
   margin-right: 10px;
   fill: rgb(240, 7, 135);
   background-image: url(/images/icons/paper-plane-regular.svg);
   background-repeat: no-repeat;
-  background-size: 100%;
   background-position: center center;
 }
 
@@ -744,7 +743,7 @@ article.request-card-container {
 .comment-body-section {
   margin: auto;
   color: rgba(219, 218, 218, 0.884);
-  text-align: center;
+  text-align: left;
   width: 100%;
   padding: 2px;
   display: flex;
@@ -752,7 +751,7 @@ article.request-card-container {
   align-items: center;
   justify-content: center;
   gap: none;
-  word-break: break-all;
+  word-break: normal;
 }
 
 .date-comment {
@@ -1034,7 +1033,7 @@ figcaption.brand-caption {
   display: block;
 }
 
-.help-login {
+.help-login-btn {
   background-color: rgba(100, 148, 237, 0.219);
   position: absolute;
   right: 20px;
@@ -1042,6 +1041,8 @@ figcaption.brand-caption {
   padding: 5px;
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 8px;
+  color: aliceblue;
+  cursor: pointer;
 }
 
 .help-page-section {
@@ -1049,6 +1050,10 @@ figcaption.brand-caption {
   height: 100vh;
   position: absolute;
   background: linear-gradient(4deg, rgb(51, 177, 246), rgb(114, 30, 86)) no-repeat fixed;
+  display: none;
+}
+.help-page-section.toggle-visibility {
+  display: block;
 }
 
 .help-inner {
@@ -1128,4 +1133,68 @@ footer.help-footer {
   position: absolute;
   bottom: 2px;
   left: 10px;
+}
+
+.header-how, .section-how, .explication-list {
+  padding: 10px;
+}
+
+.white-text, .article-header-heading {
+  color: rgb(255, 255, 255);
+}
+
+.light-grey-text, .article-body-text {
+  color: rgba(240, 248, 255, 0.829);
+}
+
+.medium-text {
+  font-size: medium;
+}
+
+.warning-text {
+  color: rgb(240, 7, 135);
+}
+
+.padding-top {
+  padding-top: 10px;
+}
+
+.article-header {
+  padding-top: 20px;
+}
+
+.header-caption {
+  font-size: 90%;
+}
+
+.explication-list--item {
+  color: rgba(255, 255, 255, 0.753);
+}
+.explication-list--item a {
+  color: rgb(236, 221, 12);
+  text-decoration: none;
+}
+
+.article-header-heading {
+  text-align: justify;
+}
+
+.close-btn-how {
+  float: right;
+  width: 30px;
+  height: 30px;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  border: 1px solid black;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.article-body-text {
+  letter-spacing: 0.8px;
+}
+
+.copyright-how {
+  padding-left: 10px;
 }/*# sourceMappingURL=main.css.map */

@@ -2,8 +2,13 @@ const searchBar = document.querySelector("#input-search-bar");
 const searchBtn = document.querySelector("#search-btn");
 let userName = localStorage.getItem("userName");
 const iconloadingMickey = document.querySelector(".loading-mickey-container");
+sessionStorage.setItem("page", "main");
 
 
+if (localStorage.length < 1) {
+    
+    location.href = "index.html";
+}
 
 let keyDownCode = "";
 
@@ -45,13 +50,11 @@ async function getUserData() {
     const s = "https://trueappwork.000webhostapp.com/"
     const url = "getdatiEasyShift.php";
     const request = await fetch(s+url);
-
+ 
     if (!request.ok) {
-        throw Error(request.statusText);
-        alert("erreur de connection :( , essayer plus tard");
+        throw Error(alert("erreur de connection :( , essayer plus tard"));
+        
         }
-
-
 
         const dataUsers = await (await request.text()).split("|").slice(0,-1);
        
@@ -172,8 +175,8 @@ function renderDataUser(data) {
     };
 
     loadingMickeyDisplayNone(2000, ".body-page");
-    document.querySelector(".request-list").scrollTo(0, 0);
-    document.documentElement.scrollTo(0, 0);
+    
+   
    
 }
 
@@ -200,11 +203,11 @@ async function sendComment(e) {
         
         await $.ajax({
             methods: "POST",
-            url: s + `easyShiftSendComment.php?name=${userName}&comment=${commentInput}&idCard=${idCard}`,
+            url: s + `easyShiftSendComment.php?name=${userName.toLowerCase()}&comment=${commentInput}&idCard=${idCard}`,
 
             success: function (response) {
                 
-                const comments = ["0" + "&&" + userName + "&&" + commentInput + "&&" + idCard + "&&" + "Aujourd'hui"];
+                const comments = ["0" + "&&" + userName.toLowerCase() + "&&" + commentInput + "&&" + idCard + "&&" + "Aujourd'hui"];
                 e.target.closest(".card-form-comment").querySelector("#card-input-comment").value = "";
                 alert("ton commentaire a été envoyé")
                 renderCommentsAfter(comments);
@@ -214,7 +217,6 @@ async function sendComment(e) {
                     console.log(userName, idCard, e.target.closest(".request-item").getAttribute("data-user").toLowerCase());
                     activeNotificationForusers(e.target.closest(".request-item").getAttribute("data-user").toLowerCase());
                 }
-                // sendnotificationtoAll(userName.toLowerCase(),idCard,commentsContainer.querySelectorAll(".comment-username"),"a aussi commenté "); 
             },
 
             error: function (error) {
@@ -305,7 +307,7 @@ function toggleCommentsSection() {
                 commentSection.classList.toggle("toggleComments");
             
             
-                targetCard.scrollIntoView(true)
+               
             let isUser = usernameCard.toLowerCase() === userName.toLowerCase();
 
             if (!isUser) {
@@ -665,7 +667,7 @@ function renderCommentsAfter(comments) {
     })
     lockCard();
     checkBlockedComments();
-    
+    deleteComment();
     
 }
 
@@ -762,6 +764,7 @@ function renderComments(comments) {
     checkBlockedComments();
     toggleCommentsSection();
     lockCard();
+    deleteComment();
     
 }
 
@@ -1030,4 +1033,124 @@ function loadingMickeyDisplayNone(time,bodypage) {
         iconloadingMickey.style.display = "none";
         document.querySelector("" + bodypage).style.display = "block";
     }, time);
+}
+
+
+function deleteComment() {
+    const comments = document.querySelectorAll(".comment-item");
+    
+  
+    let timer = undefined;
+
+    comments.forEach(comment => {
+      
+       
+        if (window.innerWidth > 768) {
+            comment.addEventListener("mousedown",(e) => {
+                const commentName = e.currentTarget.querySelector(".comment-username").innerText.toLowerCase();
+                
+                const cardId = e.currentTarget.closest(".request-item").getAttribute("data-id");
+                const currentComment = e.currentTarget;
+                let currentNumberOfComments = currentComment.closest(".request-item").querySelector(".card-number-comments");
+                const commentText = currentComment.querySelector(".comment-text").innerText;
+                
+                if (commentName === userName.toLowerCase()) { 
+                    currentComment.style.border = "2px solid red";
+                }
+              
+                if (commentName === userName.toLowerCase()){
+                    timer = setTimeout(() => {
+                        
+                        const optionsDeleteComments = window.confirm("Voulez-vous supprimer ce commentaire?"+ `\n ${commentName} : "${commentText}"`);
+    
+                        if (optionsDeleteComments) {
+                            console.log(currentComment);
+                        
+                            currentComment.remove();
+    
+                            deletecommentsOnDB(cardId,false);
+                            
+                            alert("Le commentaire à eté supprimé")
+                            if (currentNumberOfComments.innerText !== "0") {
+                                currentNumberOfComments.innerText = +currentNumberOfComments.innerText - 1;
+                            }
+    
+                        } else {
+                            currentComment.style.border = "";
+                        }
+                      
+                      }, 1500);
+                }
+        
+            })
+
+
+            comment.addEventListener("mouseup", () => {
+                setTimeout(() => {
+                    clearTimeout(timer)
+                    comment.style.border = "none";
+                    timer = null;
+                }, 5);
+            })
+    
+        } else {
+
+            comment.addEventListener("touchstart", (e) => {
+                const commentName = e.currentTarget.querySelector(".comment-username").innerText.toLowerCase();
+                
+                const cardId = e.currentTarget.closest(".request-item").getAttribute("data-id");
+                const currentComment = e.currentTarget;
+                let currentNumberOfComments = currentComment.closest(".request-item").querySelector(".card-number-comments");
+                const commentText = currentComment.querySelector(".comment-text").innerText;
+                
+                if (commentName === userName.toLowerCase()) { 
+                    currentComment.style.border = "2px solid red";
+                }
+              
+                if (commentName === userName.toLowerCase()){
+                    timer = setTimeout(() => {
+                        
+                        const optionsDeleteComments = window.confirm("Voulez-vous supprimer ce commentaire?"+ `${commentName}:${commentText}`);
+    
+                        if (optionsDeleteComments) {
+                            console.log(currentComment);
+                        
+                            currentComment.remove();
+    
+                            deletecommentsOnDB(cardId,false);
+                            
+                            alert("Le commentaire à eté supprimé")
+                            if (currentNumberOfComments.innerText !== "0") {
+                                currentNumberOfComments.innerText = +currentNumberOfComments.innerText - 1;
+                            }
+    
+                        } else {
+                            currentComment.style.border = "";
+                        }
+                      
+                      }, 1500);
+                }
+            
+                
+            })
+    
+    
+            
+    
+            comment.addEventListener("touchend", () => {
+               
+                    clearTimeout(timer)
+                    comment.style.border = "none";
+                    timer = 0;
+              
+            })
+            
+        }
+
+
+        
+
+        
+     
+    })
 }
