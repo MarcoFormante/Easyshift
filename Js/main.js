@@ -475,7 +475,7 @@ function searchBtnPressed(e) {
 
         })
         if (NumberofCard < 1) {
-            alert("aucune requête trouvé");
+            alert("Aucune requête trouvé");
             document.querySelectorAll(".request-item").forEach(card => { 
                 loadingMyRequest(200);
                 card.style.display = "block";
