@@ -961,7 +961,7 @@ function  WatchNotification() {
                 document.querySelector(".button-close-watchNotification-container").style.display = "flex";
                 document.querySelector(".notification-icon-section").style.display = "flex";
             if (cardcounter < 1) {
-                alert("l'utilisateur a supprimè cette requete de changement de shift");
+                alert("Ce Post a été supprimé");
                 deleteNotification(e.target.closest(".notification-card").getAttribute("data-id"));
                 notification.nextElementSibling.remove();
                 notification.remove();

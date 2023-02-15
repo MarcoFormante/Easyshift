@@ -77,58 +77,59 @@ function verifyAccounts(form,name,password) {
 
 
 function createAccount(form,name,password) {
-    
-    try {
-        $.ajax({
-            methods: "POST",
-            url: `https://trueappwork.000webhostapp.com/checkUsersEasyshiftLogin2.php?name=${name}&password=${password}`,
-            
-            success:function (response) {
-                console.log(response);
-
-                if (response === "exists") {
-                    
-                    alert("ce Nom est deja utilisé, choisir un nom different :)")
-                    loadingMickeyDisplayNone(1000, ".body-page-login", "");
-                    document.querySelector("#name").value = "";
-                    document.querySelector("#password").value = "";
+    let confirm = window.confirm(` Nom = ${name} \n Mot de pass = ${password} \n confirmez-vous votre choix?`);
+    if (confirm) {
+        try {
+            $.ajax({
+                methods: "POST",
+                url: `https://trueappwork.000webhostapp.com/checkUsersEasyshiftLogin2.php?name=${name}&password=${password}`,
                 
-                } else if (response === "error") {
-                    
-                    alert("probleme de connection au server , essayer plus tard :( " + error);
-                    loadingMickeyDisplayNone(1000, ".body-page-login", "");
-                    document.querySelector("#name").value = "";
-                    document.querySelector("#password").value = "";
-
-                } else if (response === "success") {
-                   
-                    let confirm = window.confirm(` Nom = ${name} \n Mot de pass = ${password} \n confirmez-vous votre choix?`);
-
-                    if (confirm) {
-                        localStorage.setItem("userName", name);
-                        loadingMickeyDisplayNone(2000, ".body-page-login",  location.href = "home.html");
-                    } else {
+                success:function (response) {
+                    console.log(response);
+    
+                    if (response === "exists") {
+                        
+                        alert("ce Nom est deja utilisé, choisir un nom different :)")
+                        loadingMickeyDisplayNone(1000, ".body-page-login", "");
                         document.querySelector("#name").value = "";
                         document.querySelector("#password").value = "";
-                        loadingMickeyDisplayNone(2000, ".body-page-login", null);
+                    
+                    } else if (response === "error") {
+                        
+                        alert("probleme de connection au server , essayer plus tard :( " + error);
+                        loadingMickeyDisplayNone(1000, ".body-page-login", "");
+                        document.querySelector("#name").value = "";
+                        document.querySelector("#password").value = "";
+    
+                    } else if (response === "success") {
+                       
+                        
+                            localStorage.setItem("userName", name);
+                            loadingMickeyDisplayNone(2000, ".body-page-login",  location.href = "home.html");
+                    
+                
+                       
                     }
-                   
-                   
-                   
+                },
+    
+                error:function (error) {
+                    alert("probleme de connection au server , essayer plus tard :( " + error);
+                    document.querySelector("#name").value = "";
+                        document.querySelector("#password").value = "";
                 }
-            },
-
-            error:function (error) {
-                alert("probleme de connection au server , essayer plus tard :( " + error);
-                document.querySelector("#name").value = "";
-                    document.querySelector("#password").value = "";
-            }
-        })
-    } catch (error) {
-        alert("probleme de connection au server , essayer plus tard :( " + error)
+            })
+        } catch (error) {
+            alert("probleme de connection au server , essayer plus tard :( " + error)
+            document.querySelector("#name").value = "";
+            document.querySelector("#password").value = "";
+        }
+       
+    } else {
         document.querySelector("#name").value = "";
         document.querySelector("#password").value = "";
+        loadingMickeyDisplayNone(2000, ".body-page-login", null);
     }
+
    
 }
 
