@@ -83,6 +83,7 @@ flex-direction: column;
             border: none;
             outline: none;
             margin-bottom: 40px;
+            
         }
 
 
@@ -93,6 +94,11 @@ flex-direction: column;
             color: aliceblue;
             align-self: left;
         } 
+
+
+        #username-inpt{
+            text-transform: capitalize;
+        }
             
            
 

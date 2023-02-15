@@ -849,6 +849,9 @@ form#form-newRequest {
   color: aliceblue;
   align-self: left;
 }
+.form-inputs-container #username-inpt {
+  text-transform: capitalize;
+}
 
 @media screen and (max-width: 374px) {
   .newRequest-title-container {
@@ -998,7 +1001,7 @@ figcaption.brand-caption {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 5px;
   border-radius: 18px;
 }
 #form-login input {

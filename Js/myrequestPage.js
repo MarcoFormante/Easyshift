@@ -123,10 +123,10 @@ console.log(user);
     
                 <footer class="card-footer">
     
-                    <form action="#" class="card-form-comment">
+                    <div class="card-form-comment">
                         <input type="text" name="card-input-comment" id="card-input-comment" placeholder="your comment..." maxlength="50">
                         <div class="card-input-comments-btn-send"></div>
-                    </form>
+                    </div>
                    <p class="comment-lenght-info">max 50 characters</p>
     
                         <div class="card-comments-container">
