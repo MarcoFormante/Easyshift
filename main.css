@@ -400,6 +400,11 @@ a:not(.explication-list a) {
   margin-top: 60px;
   overflow-x: hidden;
 }
+@media screen and (min-width: 769px) {
+  .notification-container {
+    height: 93vh;
+  }
+}
 
 .notification-inner {
   overflow-x: hidden;
