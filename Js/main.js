@@ -170,9 +170,6 @@ function renderDataUser(data) {
 
     loadingMickeyDisplayNone(2000, ".body-page");
 
-
-    
-   
   
 }
 
@@ -206,7 +203,7 @@ async function sendComment(e) {
                 const comments = ["0" + "&&" + userName.toLowerCase() + "&&" + commentInput + "&&" + idCard + "&&" + "Aujourd'hui"];
                 e.target.closest(".card-form-comment").querySelector("#card-input-comment").value = "";
                 alert("ton commentaire a été envoyé")
-                renderCommentsAfter(comments);
+                
 
                 if (e.target.closest(".request-item").getAttribute("data-user").toLowerCase()!== userName.toLowerCase()) {
                     sendNotificationTo(userName, idCard, e.target.closest(".request-item").getAttribute("data-user").toLowerCase(), "a commenté ton post");
@@ -394,7 +391,8 @@ async function setLike(idComment, idCard,userName,nameOfthecomment,bodynotif) {
             success: function(response){
                 
                 alert(`ton choix est envoyè au Server`)
-                sendNotificationTo(userName.toLowerCase(),idc,nameOfthecomment,bodyNotification);
+                sendNotificationTo(userName.toLowerCase(), idc, nameOfthecomment, bodyNotification);
+                activeNotificationForusers(nameOfthecomment.toLowerCase());
             },
             error: function(xhr, status, error){
                 alert("un erreur est survenu, réessayez plus tard" + " error: " + error(error));
