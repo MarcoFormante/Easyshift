@@ -275,7 +275,7 @@ function activeNotificationForusers(usercommentname) {
             
         })        
     } catch (error) {
-        
+        console.log(error);
     }
 }
 
