@@ -31,13 +31,6 @@ getActiveNotification(userName);
 
 
 
-
-
-
-
-
-
-
 /*////////////////////////////////////////////////////////////////////////////////////////////
                                 FUNCTIONS
 /////////////////////////////////////////////////////////////////////////////////////////////*/
@@ -80,7 +73,7 @@ function renderDataUser(data) {
     const requestsSection = document.querySelector(".request-list");
 
     let dataLenght = 0;
-    data.forEach(user => {
+    data.forEach((user,index) => {
 
         const userDataCard = data[dataLenght].split("&&");
        
@@ -158,6 +151,7 @@ function renderDataUser(data) {
     </li>`
 
         dataLenght++;
+        
       
     });
 
@@ -175,9 +169,11 @@ function renderDataUser(data) {
     };
 
     loadingMickeyDisplayNone(2000, ".body-page");
+
+
     
    
-   
+  
 }
 
      
@@ -791,12 +787,17 @@ function checkBlockedComments() {
 
            
             const parentCard = comment.closest(".request-item");
+           
             
-            
-            if ( comment.querySelector(".comment-blockBtn")) {
-              
-                comment.querySelector(".comment-blockBtn").classList.add("toggleLockBtn");
+            if (comment.classList.contains("comment-blocked")) {
+                
+                comment.classList.add("toggleLockBtn");
                 parentCard.classList.add("toggleLockCard");
+               
+            }
+
+            if (comment.querySelector(".comment-blockBtn")) {
+                comment.querySelector(".comment-blockBtn").classList.add("toggleLockBtn");
             }
            
              
