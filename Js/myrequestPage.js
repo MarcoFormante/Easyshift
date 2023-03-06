@@ -263,6 +263,13 @@ async function sendComment(e) {
     const commentInput = e.target.closest(".card-form-comment").querySelector("#card-input-comment").value;
     const idCard = e.target.closest(".request-item").getAttribute("data-id");
     const s = "https://trueappwork.000webhostapp.com/";
+    let randomIDcommentArray = ["m", 2, "d", "o", "j", "g", "r", "l", 5, "v", "8", "x", "7", "z", "bn", "yhj", "i7", "bgj"];
+    let IDrandom = "";
+    for (let i = 0; i <= 10; i++) {
+        IDrandom += randomIDcommentArray[Math.floor(Math.random()* 18)];
+        console.log(IDrandom);
+        
+    }
 
     const commentsContainer = e.target.closest(".request-item").querySelector(".comment-text-section > .comment-list");
     
@@ -270,21 +277,24 @@ async function sendComment(e) {
         
         await $.ajax({
             methods: "POST",
-            url: s + `easyShiftSendComment.php?name=${userName}&comment=${commentInput}&idCard=${idCard}`,
+            url: s + `easyShiftSendComment.php?comid=${IDrandom}&name=${userName.toLowerCase()}&comment=${commentInput}&idCard=${idCard}`,
 
             success: function (response) {
-               
-                const comments = ["0" + "&&" + userName + "&&" + commentInput + "&&" + idCard + "&&" + "Aujourd'hui"];
+              
+                
+                const comments = [IDrandom + "&&" + userName.toLowerCase() + "&&" + commentInput + "&&" + idCard + "&&" + "Aujourd'hui"];
                 e.target.closest(".card-form-comment").querySelector("#card-input-comment").value = "";
-                 alert("ton commentaire a été envoyé")
+                alert("ton commentaire a été envoyé");
+
+               
                 renderCommentsAfter(comments);
+                
 
                 if (e.target.closest(".request-item").getAttribute("data-user").toLowerCase()!== userName.toLowerCase()) {
                     sendNotificationTo(userName, idCard, e.target.closest(".request-item").getAttribute("data-user").toLowerCase(), "a commenté ton post");
                     console.log(userName, idCard, e.target.closest(".request-item").getAttribute("data-user").toLowerCase());
                     activeNotificationForusers(e.target.closest(".request-item").getAttribute("data-user").toLowerCase());
                 }
-                // sendnotificationtoAll(userName.toLowerCase(),idCard,commentsContainer.querySelectorAll(".comment-username"),"a aussi commenté "); 
             },
 
             error: function (error) {
@@ -1049,13 +1059,13 @@ function deleteComment() {
     let timer = undefined;
 
     comments.forEach(comment => {
-      
-       
-        if (window.innerWidth > 768) {
+ 
+    
+        if (window.innerWidth > 769) {
             comment.addEventListener("mousedown",(e) => {
                 const commentName = e.currentTarget.querySelector(".comment-username").innerText.toLowerCase();
-                
-                const cardId = e.currentTarget.closest(".request-item").getAttribute("data-id");
+               
+                const commentId = e.currentTarget.getAttribute("data-comid");
                 const currentComment = e.currentTarget;
                 let currentNumberOfComments = currentComment.closest(".request-item").querySelector(".card-number-comments");
                 const commentText = currentComment.querySelector(".comment-text").innerText;
@@ -1067,14 +1077,15 @@ function deleteComment() {
                 if (commentName === userName.toLowerCase()){
                     timer = setTimeout(() => {
                         
-                        const optionsDeleteComments = window.confirm("Voulez-vous supprimer ce commentaire?"+ `${commentName}:${commentText}`);
+                        const optionsDeleteComments = window.confirm("Voulez-vous supprimer ce commentaire?"+ `\n ${commentName} : "${commentText}"`);
     
                         if (optionsDeleteComments) {
                             console.log(currentComment);
                         
                             currentComment.remove();
     
-                            deletecommentsOnDB(cardId,false);
+                            deletecommentsONLYOnDB(commentId);
+                            console.log(commentId);
                             
                             alert("Le commentaire à eté supprimé")
                             if (currentNumberOfComments.innerText !== "0") {
@@ -1104,7 +1115,7 @@ function deleteComment() {
             comment.addEventListener("touchstart", (e) => {
                 const commentName = e.currentTarget.querySelector(".comment-username").innerText.toLowerCase();
                 
-                const cardId = e.currentTarget.closest(".request-item").getAttribute("data-id");
+                const commentId = e.currentTarget.getAttribute("data-comid");
                 const currentComment = e.currentTarget;
                 let currentNumberOfComments = currentComment.closest(".request-item").querySelector(".card-number-comments");
                 const commentText = currentComment.querySelector(".comment-text").innerText;
@@ -1116,14 +1127,15 @@ function deleteComment() {
                 if (commentName === userName.toLowerCase()){
                     timer = setTimeout(() => {
                         
-                        const optionsDeleteComments = window.confirm("Voulez-vous supprimer ce commentaire?"+ `\n ${commentName} : "${commentText}"`);
+                        const optionsDeleteComments = window.confirm("Voulez-vous supprimer ce commentaire?"+ `${commentName}:${commentText}`);
     
                         if (optionsDeleteComments) {
                             console.log(currentComment);
                         
                             currentComment.remove();
     
-                            deletecommentsOnDB(cardId,false);
+                            deletecommentsONLYOnDB(commentId);
+                            console.log(commentId);
                             
                             alert("Le commentaire à eté supprimé")
                             if (currentNumberOfComments.innerText !== "0") {
@@ -1151,12 +1163,25 @@ function deleteComment() {
               
             })
             
-        }
-
-
-        
-
+            } 
         
      
+    })
+}
+
+
+function deletecommentsONLYOnDB(commentId) {
+    
+    $.ajax({
+        methods: "POST",
+        url: `https://trueappwork.000webhostapp.com/easyShiftDeleteOnlyComments.php?comid=${commentId}`,
+        
+        success:function(response) {
+            console.log(response);
+        },
+
+        error: function (error) {
+            alert("problème de connection , réessayez plus tard :( "+ error )
+        }
     })
 }
