@@ -1087,7 +1087,7 @@ function deleteComment() {
                             deletecommentsONLYOnDB(commentId);
                             console.log(commentId);
                             
-                            alert("Le commentaire à eté supprimé")
+                          
                             if (currentNumberOfComments.innerText !== "0") {
                                 currentNumberOfComments.innerText = +currentNumberOfComments.innerText - 1;
                             }
@@ -1137,7 +1137,7 @@ function deleteComment() {
                             deletecommentsONLYOnDB(commentId);
                             console.log(commentId);
                             
-                            alert("Le commentaire à eté supprimé")
+                          
                             if (currentNumberOfComments.innerText !== "0") {
                                 currentNumberOfComments.innerText = +currentNumberOfComments.innerText - 1;
                             }
@@ -1177,7 +1177,7 @@ function deletecommentsONLYOnDB(commentId) {
         url: `https://trueappwork.000webhostapp.com/easyShiftDeleteOnlyComments.php?comid=${commentId}`,
         
         success:function(response) {
-            console.log(response);
+            alert("Le commentaire à eté supprimé")
         },
 
         error: function (error) {
